@@ -1,0 +1,7 @@
+<odoo>
+	<template id="css_new" name="css new" inherit_id="point_of_sale.assets">
+        <xpath expr="//link[@href='/point_of_sale/static/src/css/pos.css']" position="replace">
+			<link rel="stylesheet" href="/pti_pos_pricelist_discount/static/src/css/pos_custom.css" id="pos-stylesheet"/>
+        </xpath>
+    </template>
+</odoo>

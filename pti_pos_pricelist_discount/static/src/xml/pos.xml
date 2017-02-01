@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="my_template" inherit_id="point_of_sale.template">
+	<!--PosTicket Receipt-->
+    <t t-extend="PosTicket">
+		<t t-jquery="div.pos-sale-ticket" t-operation="replace">
+<!--			<script type="text/javascript" src="/pti_pos_pricelist_discount/static/src/js/jquery-barcode.js"/>-->
+<!--			<script type="text/javascript" src="/pti_pos_pricelist_discount/static/src/js/jquery-barcode.min.js"/>-->
+			<script type="text/javascript" src="/pti_pos_pricelist_discount/static/src/js/jquery-ean13.min.js"/>
+			<div class="pos-sale-ticket"> 
+				<div style='text-align:center'>
+                    <t t-esc="receipt.pos_name" />
+                    <br/>
+                    <t t-esc="receipt.brand"/>
+                </div>
+				<br/>
+				<table> 
+	            	<td style = "width:30%">Receipt :</td>
+	            	<td style = "width:70%"> 
+	            		<t t-esc="order.name"/> 
+	            	</td>
+	            </table>
+	            <table> 
+	            	<td style = "width:30%">Date :</td>
+	            	<td style = "width:70%"> 
+	            		<t t-esc="moment().format('L LT')"/>
+	            	</td>
+	            </table>
+	            <table> 
+	            	<td style = "width:30%">Terminal :</td>
+	            	<td style = "width:70%"> 
+	            		<t t-esc="receipt.identify_code"/><br/>
+	            	</td>
+	            </table>
+	            <table> 
+	            	<td style = "width:30%">Served by:</td>
+	            	<td style = "width:70%"> 
+	            		<t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/>
+	            	</td>
+	            </table>
+	            <table class="sku">
+	            <!-- if shop in shop / shop in shop mds should have a Shop Identifier-->
+				<t t-set="flag" t-value="0"/>
+				<!--sku period promo-->
+				<t t-set="sku_pp" t-value="0"/>	
+									
+				<t t-foreach="orderlines" t-as="orderline">
+						<!--Perintah ini untuk mendapatkan index dari Orderline-->
+						<!--<span t-esc="orderline_index"/>HMM-->
+						<!--		Orderline-Index-ke-0			-->
+						<t t-if="orderline_index == 0">					
+							<!--nilai sku produk period promo (mengambil nilai dari kelas orderline)-->
+							<t t-set="sku_pp" t-value="orderline.get_sk_prod(orderline.get_product().id)" />
+							<!--<t t-esc="sku_pp" />OPO-->
+						</t>	
+						
+						<!--		Orderline-Index-ke-0			-->
+						<t t-if="orderline_index == 0">
+							<!--	Shop Identifier Period (Product Promo)					-->
+							<t t-if="orderline.get_status_prod(orderline.get_product().id) == 1">
+								<t t-if="order.pos_order_shop_identifier_period and orderline.discount_base &gt; 0">
+									<!--	Definition Flag=0 is promo		-->
+									<t t-set="flag" t-value="0"/>
+								</t>
+								
+							</t>
+						</t>
+						<!--		Orderline-Index-ke-0			-->
+						<t t-if="orderline_index == 0">
+							<!--	Shop Identifier Origin (Product not promo)		-->
+							<t t-if="orderline.get_status_prod(orderline.get_product().id) == 2">
+								<t t-if="order.pos_order_shop_identifier_origin">
+									<!--	Definition Flag=1 is not promo		-->
+									<t t-set="flag" t-value="1" />
+								</t>
+							</t>
+						</t>	
+				</t>
+				<!--   if flag == 0 then not yet expired (promo)-->
+				<t t-if="order.pos_config_category_shop == 'shop_in_shop_mds'">
+    				<t t-if="flag == 0">
+						<table class="sku_pp">
+							<td style = "width:30%">SKU:</td>
+							<td><t t-esc="sku_pp" /></td>
+						</table>
+					</t>
+    			</t>
+    			<!--   if flag == 1 bukan promo karena sudah expired-->
+				<t t-if="order.pos_config_category_shop == 'shop_in_shop_mds'">
+    				<t t-if="flag == 1">
+						<table class="sku_origin">
+							<td style = "width:30%">SKU:</td>
+							<td><t t-esc="receipt.sku_origin" /></td>
+						</table>
+    				</t>
+    			</t>
+    			<!--   if flag == 1 then is expired (origin)-->
+				<t t-if="order.pos_config_category_shop == 'shop_in_shop'">
+					<tr>
+						<table class="sku_shop_in_shop">
+							<td style = "width:30%">SKU:</td>
+							<td><t t-esc="receipt.sku_origin" /></td>
+						</table>
+						</tr>
+    			</t>
+    			</table>
+    			<br/>
+				<!--   Name of Membership 		-->
+				<t t-jquery="table.receipt-orderlines" t-operation="before">
+	    			<t t-if="order.get_client()">
+	            		<h3><t t-esc="order.get_client().name"/></h3>
+	            	</t>
+				</t>
+				<!--    receipt orderlines		-->
+				<table> 
+	            	<td style="width:15%">Item</td> 
+	            	<td style="width:35%" class="pos-right-align">Price</td> 
+	            	<td style="width:15%" class="pos-right-align">Qty</td> 
+	            	<td style="width:35%" class="pos-right-align">Value</td> 
+	            </table>
+				<hr style="border: dashed black 1px;"/>
+				<t t-set="total_qty" t-value="0"/>
+				<t t-set="sale_ok" t-value=""/>			
+				<table class='receipt-orderlines'>
+	                <tr t-foreach="orderlines" t-as="orderline">
+	                	<t t-if="!orderline.product.voucher">
+			            	<table>
+			                    <tr>
+			                        <t t-esc="orderline.get_product().display_name"/> 
+			                        <t t-if="orderline.fixed_price !== 0">
+			                    	(special price)
+			                    	</t>
+			                    	<br/>
+			                    </tr>
+			                    <table>
+				                    <td style = "width:15%"></td>
+				                    <t t-if="orderline.fixed_price !== 0">
+				                    	<td style = "width:35%" class="pos-right-align"> 
+					                    	<t t-esc="widget.format_currency_no_symbol(orderline.fixed_price)"/>
+					                    </td>
+				                    </t>
+				                    <t t-if="orderline.fixed_price == 0">		                    
+					                    <td style = "width:35%" class="pos-right-align"> 
+					                    	<t t-esc="widget.format_currency_no_symbol(orderline.get_unit_price_taxed())"/>
+	<!--										<t t-esc="widget.format_currency_no_symbol(orderline.get_product().list_price)"/-->
+					                    </td>
+				                    </t>
+				                    <td style = "width:15%" class="pos-right-align">
+				                        <t t-esc="orderline.get_quantity()"/>
+				                    </td>
+				                    <td style = "width:35%" class="pos-right-align">
+				                        <t t-esc="widget.format_currency_no_symbol(orderline.get_price_line_tot())"/>
+				                    </td>
+			                    </table>
+			                </table>
+			                <t t-if="orderline.get_discount() &gt; 0 and orderline.discount_base !== 0">
+			                <table>
+			                    <tr>
+			                        <td style = "width:65%">(Discount)</td>
+				                    <td style = "width:35%" class="pos-right-align">
+				                        (<t t-esc="widget.format_currency_no_symbol(orderline.get_price_disc()*-1)"/>)
+				                    </td>
+			                    </tr>
+			                </table>
+		                	</t>
+		                	<t t-if="orderline.get_discount() &gt; 0 and orderline.discount_base == 0">
+			                <table>
+			                    <tr>
+			                        <td style = "width:65%">(Discount)</td>
+				                    <td style = "width:35%" class="pos-right-align">
+				                        (<t t-esc="widget.format_currency_no_symbol(orderline.get_price_disc()*-1)"/>)
+				                    </td>
+			                    </tr>
+			                </table>
+		                	</t>
+		                	<t t-if="orderline.get_discount() == 0 and orderline.discount_base !== 0">
+			                <table>
+			                    <tr>		                    	
+			                        <td style = "width:65%">(Discount)</td>
+				                    <td style = "width:35%" class="pos-right-align">
+				                        (<t t-esc="widget.format_currency_no_symbol(orderline.get_price_disc()*-1)"/>)
+				                    </td>
+			                    </tr>
+			                </table>
+		                	</t>
+		                	<t t-if="orderline.get_category() == 'Free Products' and !orderline.get_discount()">
+		                		<table>
+		                			<tr>
+		                				<td style="width:65%">(Discount)</td>
+		                				<td style="width:35%" class="pos-right-align">(<t t-esc="widget.format_currency_no_symbol(orderline.get_price_line_tot())"/>)</td>
+		                			</tr>
+		                		</table>
+		                	</t>
+		                	<t t-set="total_qty" t-value="total_qty+orderline.get_quantity()"/>
+	                	</t>
+	                </tr>
+	            </table>
+	            <hr style="border: dashed black 1px;"/>
+	            <table class='receipt-total'> 
+	            	<tr> 
+	            		<td>Items Count: <t t-esc="total_qty"/></td>
+	            	</tr>
+	                <tr>
+	                    <td>Subtotal</td>
+	                    <td class="pos-right-align">
+	                        <t t-esc="widget.format_currency_no_symbol(order.get_total_with_tax())"/>
+	                    </td>
+	                </tr>
+	                <t t-if="order.get_membership_disc()">
+	                <tr>
+	                	<td>Member Discount <t t-esc="order.get_membership_disc()"/>%</td>
+	                	<td class="pos-right-align">
+	                		(<t t-esc="widget.format_currency_no_symbol(order.get_member_disc_value())"/>)
+	                	</td>
+	                </tr>
+	                </t>
+	            </table>
+	            <hr style="border: dashed black 1px;"/>
+	            <table class="total">
+	            	<tr class="voucher" t-if="order.has_voucher()">
+	            		<td>Voucher</td>
+	            		<td class="pos-right-align"><t t-esc="order.get_voucher_price()"/></td>
+	            	</tr>
+	            	<tr class="discount_coupon" t-if="order.has_discount()">
+	            		<td>Special Discount</td>
+	            		<td class="pos-right-align"><t t-esc="widget.format_currency_no_symbol(order.get_discount_from_reward())"/></td>
+	            	</tr>
+	                <tr class="emph">
+	                    <td>Total:</td>
+	                    <td class="pos-right-align">
+	                        <t t-esc="widget.format_currency_no_symbol(order.get_grand_total())"/>
+	                    </td>
+	                </tr>
+	            </table>
+	            <table class='receipt-paymentlines'>
+	                <t t-foreach="paymentlines" t-as="line">
+<!--	                  <tr>
+	                      <td>
+	                          <t t-esc="line.name"/>
+	                      </td>
+	                      <td></td>
+	                	  <td></td>
+	                      <td></td>
+	                  </tr> -->
+	                  <tr>
+		            	  <td>Payment:</td>
+		            	  <td></td>
+		            	  <td></td>
+		            	  <td class="pos-right-align"><t t-esc="widget.format_currency_no_symbol(line.get_amount())"/></td>
+	                  </tr>
+	                </t>
+	            </table>
+	            <table class='receipt-change'>
+	                <tr><td>Change1:</td><td class="pos-right-align">
+	                    <t t-esc="widget.format_currency_no_symbol(order.get_change())"/>
+	                    </td></tr>
+	            </table>
+	            <br/>
+                <t t-foreach="order.get_tax_details()" t-as="taxdetail">
+                    <tr>
+                        <td>
+                            DPP = <t t-esc="widget.format_currency_no_symbol(order.get_subtotal() - order.get_free_products_saleable_price())"/>
+                        </td>
+                        <br/>
+                        <td>
+                            <t t-esc="taxdetail.name"/> = <t t-esc="widget.format_currency_no_symbol(taxdetail.amount)"/>
+                        </td>
+                    </tr>
+                </t>
+                <br/><br/>
+				<t t-foreach="orderlines" t-as="orderline"><t t-set="sale_ok" t-value='orderline.product.sale_ok || ""'/></t>                
+                <div id="free_product_non_saleable_line" t-if="!sale_ok">
+					<hr style="border: dashed black 1px;"/>                
+		            <table class='receipt-orderlines'>
+		                <tr t-foreach="orderlines" t-as="orderline">
+		                	<t t-if="orderline.get_category() == 'Free Products' and !orderline.product.sale_ok">
+				            	<table>
+				                    <tr>
+						            	<td style="width:50%"><t t-esc="orderline.get_product().display_name"/></td> 
+						            	<td style="width:15%" class="pos-right-align"><t t-esc="orderline.get_quantity()"/></td> 
+						            	<td style="width:35%" class="pos-right-align"></td>		                        
+				                    </tr>
+				                </table>	
+		                	</t>
+		                </tr>
+		            </table>
+		            <hr style="border: dashed black 1px;"/>
+                </div>               
+            	<t t-if="receipt.footer">
+	                <br />
+	                <div style='text-align:center'>
+	                    <t t-foreach="receipt.footer" t-as="footer">
+	                		<t t-esc="footer"/><br/>
+	                	</t>
+	                	<t t-esc="ads" />
+	                	<br/>
+	                	<t t-esc="text" />
+	                </div>
+	            </t>
+	            <br />
+<!--                <div style='text-align:center'-->
+<!--                    Terima Kasih Atas Kunjungan Anda­-->
+<!--                	<br/-->
+<!--                	untuk info lebih lanjut hubungi-->
+<!--                	<br/-->
+<!--					marketing@wardahbeauty.co-->
+<!--                </div-->
+			</div>
+
+                
+				
+		</t>		
+    </t>
+    	
+    	
+    <!--Client Details Edit-->
+    <t t-extend="ClientDetailsEdit">
+    		<t t-jquery="div.client-details-right" t-operation="inner">
+    			<div class='client-detail'>
+                        <span class='label'>Member Type</span>
+                        <select class='detail client-address-country' name='discount_member_id'>
+                            <option value=''>None</option>
+                            <t t-foreach='widget.pos.memberstypes' t-as='member'>
+                                <option t-att-value='member.id' t-att-selected="partner.discount_member_id ? ((member.id === partner.discount_member_id[0]) ? true : undefined) : undefined"> 
+                                    <t t-esc='member.name'/>
+                                </option>
+                            </t>                  
+                        </select>  
+                  
+                        <div class='client-detail'>
+                        	<span class='label'>Email</span>
+                        	<input class='detail client-email'  name='email'    type='email'    t-att-value='partner.email || ""'></input>
+                   		</div>
+                    	<div class='client-detail'>
+                        	<span class='label'>Phone</span>
+                        	<input class='detail client-phone'  name='phone'    type='tel'      t-att-value='partner.phone || ""'></input>
+                    	</div>
+                    	<div class='client-detail'>
+                    		<span class='label'>ID Card Number</span>
+                        	<input class='detail client-id-card-number'  name='ID_card_number'    type='idcard'      t-att-value='partner.ID_card_number || ""'></input>
+                    	</div>
+                    	
+    					<div class='client-detail'>
+                    		<span class='label'>University</span>
+                        	<input class='detail client-university'  name='university'    type='univ'      t-att-value='partner.university || ""'></input>
+                    	</div>
+                    	<div class='client-detail'>
+                    		<span class='label'>Community</span>
+                        	<input class='detail client-community'  name='community'    type='comm'      t-att-value='partner.community || ""'></input>
+                    	</div>
+                    	<div class='client-detail'>
+                        	<span class='label'>Barcode</span>
+                        	<input class='detail barcode'       name='barcode'    t-att-value='partner.barcode || ""'></input>
+                    	</div>
+                    	<div class='client-detail'>
+                        	<span class='label'>Tax ID</span>
+                        	<input class='detail vat'           name='vat'     t-att-value='partner.vat || ""'></input>
+                    	</div>
+                 
+                      
+                </div>
+    		</t>
+    		
+
+    </t>
+    <!--Client Details-->
+    <t t-extend="ClientDetails">
+    		<t t-jquery="div.client-details-right" t-operation="prepend">
+    			<div class='client-detail'>
+                        <span class='label'>Member Type</span>
+                        <t t-if='partner.discount_member_id'>
+                            <span class='detail client-id'><t t-esc='partner.discount_member_id[1]'/></span>
+                        </t>
+                        <t t-if='!partner.discount_member_id'>
+                            <span class='detail client-id empty'>N/A</span>
+                        </t>
+                </div>
+    		</t>
+    		
+    		<t t-jquery="div.client-details-left" t-operation="append">
+    			<t t-jquery="class.detail client-phone" t-operation="after">
+    				<div class='client-detail'>
+	    				 <span class='label'>ID Card Number</span>
+	                     <span class='detail client-id-card-number'><t t-esc='partner.ID_card_number' /></span>                        
+	                </div>
+	                <div class='client-detail'>
+	    				 <span class='label'>University</span>
+	                     <span class='detail client-university'><t t-esc='partner.university' /></span>                        
+	                </div>
+	    			<div class='client-detail'>
+	    				 <span class='label'>Community</span>
+	                     <span class='detail client-community'><t t-esc='partner.community' /></span>                        
+	                </div>
+                </t> 
+    		</t>
+    </t>
+	<!--   -->
+	<t t-extend="OrderSelectorWidget">
+		<t t-jquery="div.order-selector" t-operation="inner">
+        	<span class="order-button square neworder-button">
+                <i class='fa fa-plus' />
+            </span>
+            <span class="order-button square deleteorder-button">
+                <i class='fa fa-minus' />
+            </span>
+            <span class="orders touch-scrollable">
+
+                <t t-foreach="widget.pos.get_order_list()" t-as="order">
+                    <t t-if='order === widget.pos.get_order()'>
+                        <span class="order-button select-order selected" t-att-data-uid="order.uid">
+                            <span class='order-sequence'>
+                                <t t-esc='order.seq_name' />
+                            </span>
+                            <t t-esc='order.name' />
+                            <t t-esc="moment(order.creation_date).format('hh:mm')"/>
+                        </span>
+                    </t>
+                    <t t-if='order !== widget.pos.get_order()'>
+                        <span class="order-button select-order" t-att-data-uid="order.uid">
+                            <span class='order-sequence'>
+                                <t t-esc='order.seq_name' />
+                            </span>
+                        </span>
+                    </t>
+                </t>
+            </span>
+        </t>
+    </t>
+	
+    <!--   -->
+	<t t-extend="PaymentScreenWidget">
+		<t t-jquery="div.top-content" t-operation="inner">
+			<span class='button back'>
+				<i class='fa fa-angle-double-left'></i>
+				Back
+			</span>
+			<h1>Payment:
+				<t t-if="widget.receipt_ref">
+					  <t t-esc="widget.receipt_ref"/>
+				</t>
+			</h1>
+		
+            <span class='button next'>
+                Validate
+                <i class='fa fa-angle-double-right'></i>
+            </span>
+		</t>
+	</t>	
+	
+	<!-- Moved Next Order button to avoid accidentally clicked after Validate Order-->
+	<t t-extend="ReceiptScreenWidget">
+		<t t-jquery="div.screen-content" t-operation="inner">
+			<div class='top-content'>
+                <h1>Change2: <span class='change-value'>0.00</span></h1>
+            </div>
+            <div class="centered-content">
+                <div class="button print">
+                    <i class='fa fa-print'></i> Print Receipt
+                </div>
+                <div class='button next'>
+                    Next Order
+                    <i class='fa fa-angle-double-right'></i>
+                </div>
+                <div class="pos-receipt-container">
+                </div>
+            </div>
+		</t>
+	</t>	
+	
+	<!--PaymentScreen-Numpad-->
+    <t t-extend="PaymentScreen-Numpad">
+    		<t t-jquery="div.numpad" t-operation="inner">
+            <t t-if="category_shop == 'stand_alone'">	
+		            <button class="input-button number-char" data-action='1'>1</button>
+		            <button class="input-button number-char" data-action='2'>2</button>
+		            <button class="input-button number-char" data-action='3'>3</button>
+		            <button class="mode-button" data-action='+20000'>+20K</button>
+		            <br />
+		            <button class="input-button number-char" data-action='4'>4</button>
+		            <button class="input-button number-char" data-action='5'>5</button>
+		            <button class="input-button number-char" data-action='6'>6</button>
+		            <button class="mode-button" data-action='+50000'>+50K</button>
+		            <br />
+		            <button class="input-button number-char" data-action='7'>7</button>
+		            <button class="input-button number-char" data-action='8'>8</button>
+		            <button class="input-button number-char" data-action='9'>9</button>
+		            <button class="mode-button" data-action='+100000'>+100K</button>
+		            <br />
+		            <button class="mode-button" data-action='+1000'>+1K</button>
+		            <button class="mode-button" data-action='+2000'>+2K</button>
+		            <button class="mode-button" data-action='+5000'>+5K</button>
+		            <button class="mode-button" data-action='+10000'>+10K</button>
+		            <br />
+		            <button class="mode-button" data-action='+100'>+C100</button>
+		            <button class="mode-button" data-action='+200'>+C200</button>
+		            <button class="mode-button" data-action='+500'>+C500</button>
+		            <button class="mode-button" data-action='+1000'>+C1k</button>
+		            <br />
+		            <button class="input-button numpad-char" data-action='CLEAR' >C</button>
+		            <button class="input-button number-char" data-action='0'>0</button>
+		            <button class="input-button number-char" t-att-data-action='widget.decimal_point'><t t-esc='widget.decimal_point'/></button>
+		            <button class="input-button numpad-backspace" data-action='BACKSPACE' >
+		                <img src="/point_of_sale/static/src/img/backspace.png" width="24" height="21" />
+		            </button>
+	            </t>
+    		</t>
+    </t>
+
+    <!-- Moved Next Order button to avoid accidentally clicked after Validate Order-->
+	<t t-extend="ReceiptScreenWidget">
+		<t t-jquery="div.screen-content" t-operation="inner">
+			<div class='top-content'>
+                <h1>Change3: <span class='change-value'>0.00</span></h1>
+            </div>
+            <div class="centered-content">
+                <div class="button print">
+                    <i class='fa fa-print'></i> Print Receipt
+                </div>
+                <div class='button next'>
+                    Next Order
+                    <i class='fa fa-angle-double-right'></i>
+                </div>
+                <div class="pos-receipt-container">
+                </div>
+            </div>
+		</t>
+	</t>	
+        
+    <!--PaymentScreenWidge-->
+	<t t-extend="PaymentScreenWidget">
+        <t t-jquery="div.payment-buttons" t-operation="inner">         	                  
+                <t t-if='widget.pos.config.iface_invoicing'>
+                    <t t-if='widget.pos.get_order()'>
+                        <div t-attf-class='button js_invoice #{ widget.pos.get_order().is_to_invoice() ? "highlight" : ""} '>
+                            <i class='fa fa-file-text-o' /> Invoice
+                        </div>
+                    </t>
+                </t>
+                <t t-if='widget.pos.config.tip_product_id'>
+                    <div class='button js_tip'>
+                        <i class='fa fa-heart' /> Tip 
+                    </div>
+                </t>
+                <t t-if='widget.pos.config.iface_cashdrawer'>
+                    <div class='button js_cashdrawer'>
+                        <i class='fa fa-archive' /> Open Cashbox
+                    </div>
+                </t>                                                                        
+         </t>
+     </t>
+     
+</templates>

@@ -1,0 +1,42 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="independent_store_report_lap_penj_per_kategori_wizard_view">
+            <field name="name">independent.store.report.lap.penj.per.kategori.wizard.view</field>
+            <field name="model">lap.penj.per.kategori.idep.store.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Lap Penj Per Kategori" version="9.0">
+                	<group>
+                		<field name="store" required="1"/>
+						<field name="date_from" required="1"/>
+						<field name="date_to" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel_lap_penj_per_kategori" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+    	<record id="action_independent_store_report_lap_penj_per_kategori_wizard" model="ir.actions.act_window">
+            <field name="name">Lap Penj Per Kategori</field>
+            <field name="res_model">lap.penj.per.kategori.idep.store.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem
+            id="menu_46_lap_penj_per_kategori_report" name="Lap. Penj. Per kategori"  
+    		action="action_independent_store_report_lap_penj_per_kategori_wizard" 
+            parent="pti_pos_independent_store_report.menu_independent_store_config" sequence="8"/> 
+    	
+    </data>
+</openerp>

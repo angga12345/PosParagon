@@ -1,0 +1,13 @@
+import settings
+import automatic_warehouse
+import batch_number
+import pos_order_extend
+import journal_by_shop
+import sesi
+import attribute_value_price
+import product_stock
+import res_partner
+import product_pricelist_item
+import pos_config
+import account_bank_statement_line
+# import pos_order_acc_inherit

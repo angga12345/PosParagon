@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!--tags product.template-->
+    	<record id="custom_product_template_store_view" model="ir.ui.view">
+            <field name="name">custom.product.template.store</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">          	
+				<field name="default_code" position="after">
+                   	<!--<field name="store"/>-->
+                </field>
+            </field>
+        </record>
+        <!--tags product.product-->
+    	<record id="custom_product_product_store_view" model="ir.ui.view">
+            <field name="name">custom.product.product.store</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">          	
+				<field name="default_code" position="after">
+                   	<field name="tags" widget="many2many_tags"/>
+					<!--<field name="store"/>-->
+                </field>
+            </field>
+        </record>
+    	<!-- Menu item for category shop -->
+    	<record id="category_shop_view_pos_config" model="ir.actions.act_window">
+        	<field name="name">Category Shop</field>
+            <field name="res_model">category.shop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+                    Category Shop
+                </p> 
+            </field>
+        </record>
+        <menuitem 
+       		action="category_shop_view_pos_config"
+			id="menu_category_shop_view_pos_config" 
+			parent="point_of_sale.menu_point_config_product" sequence="16"
+       	/>
+        
+		<!-- Menu item for category -->
+    	<record id="category_view_pos_config" model="ir.actions.act_window">
+        	<field name="name">Category Shop</field>
+            <field name="res_model">category.shop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+                    Category
+                </p> 
+            </field>
+        </record>      
+        <menuitem 
+       		action="category_view_pos_config"
+			id="menu_category_shop_view_pos_config" 
+			parent="point_of_sale.menu_point_config_product" sequence="17"
+       	/>  
+       		
+        <!-- Tree view Category Shop -->
+        <record id="view_category_shop_view_pos_config_tree" model="ir.ui.view">
+            <field name="name">view.category.shop.view.pos.config.tree</field>
+            <field name="model">category.shop</field>
+            <field name="arch" type="xml">
+                <tree string="Categoy Shop">
+                		<field name="name"/>
+			        	<field name="status"/>
+			        	<field name="Ads"/> 
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form view category shop -->
+        <record id="view_category_shop_view_pos_config_form" model="ir.ui.view">
+            <field name="name">view.category.shop.view.pos.config.form</field>
+            <field name="model">category.shop</field>
+            <field name="arch" type="xml">
+                <form string="Categoy Shop">
+                	<sheet>
+                		<group>
+	                		<group>	
+			        			<field name="status"/>
+			        			<field name="Ads"/>
+		                	</group>
+		                	<group>
+		                		<field name="name"/>
+		                	</group>
+		                </group>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

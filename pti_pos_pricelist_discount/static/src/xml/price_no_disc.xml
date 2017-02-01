@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="price_no_disc" inherit_id="point_of_sale.template">
+
+
+        <t t-extend="Product">
+        	<t t-jquery="div.product-img" t-operation="replace">
+        			<div class="product-img">
+                <img t-att-src='image_url' /> 
+                <t t-if="!product.to_weight">
+                    <span class="price-tag">
+                        <t t-esc="widget.format_currency(product.list_price,'Product Price')"/>
+                    </span>
+                </t>
+                <t t-if="product.to_weight">
+                    <span class="price-tag">
+                        <t t-esc="widget.format_currency(product.list_price,'Product Price')+'/Kg'"/>
+                    </span>
+                </t>
+            </div>
+        		</t>
+        </t>	
+        <t t-extend="Orderline">
+        	<t t-jquery="span.price" t-operation="replace">
+        	<span class="price">
+        		<t t-if="line.check_special_price()">
+                    <t t-esc="widget.format_currency(line.get_display_price())" />*
+                    <t t-esc="line.index_special_" />
+                </t>
+                <t t-if="!line.check_special_price()">	
+					<t t-esc="widget.format_currency(line.get_display_price())" />
+
+				</t>	
+        	</span>	
+        	</t>
+        	<t t-jquery="ul.info-list" t-operation="replace">
+        		<ul class="info-list">
+                <t t-if="line.get_quantity_str() !== '1' || line.selected ">
+                    <li class="info">
+                        <em>
+                            <t t-esc="line.get_quantity_str()" />
+                        </em>
+                        <t t-esc="line.get_unit().name" />
+                        at
+                      
+                        <t t-esc="widget.format_currency(line.product.list_price)"/>
+                      	
+                        /
+                        <t t-esc="line.get_unit().name" />
+                    </li>
+                </t>
+                <t t-if="line.get_discount_str() !== '0' ">
+                    <li class="info">
+                    	 <t t-if="!line.fixed_price">   
+                    	 	<t t-set="disc" t-value="widget.format_currency(line.get_discount_str()/100*line.get_unit_display_price())"/>
+                    	 	With a 
+                    	 	
+	                        <em>
+	                        	
+	                            <t t-esc="line.get_discount_str()" /> % 
+	                        </em>
+	                        discount 
+	                        <em>
+	                        ( -<t t-esc="disc" /> )
+	                        </em>
+                      	 </t>
+                      	 <t t-if="line.fixed_price">
+                      	 	Fixed price <t t-esc="widget.format_currency(line.fixed_price)" />
+                      	 </t>
+
+                    </li>
+                </t>
+                
+                
+            </ul>
+        		</t>
+        </t>
+         <t t-extend="OrderWidget">
+        	<t t-jquery="div.line" t-operation="replace">
+    			<div class="line">
+                    <div class='entry total'>
+						<div class="subentry">
+							Taxes <span class="taxes">0.00 €</span>
+						</div>
+						<div class="subentry">
+							Subtotal <span class="subtotal">0.00 €</span>
+						</div>
+						<div class="subentry">
+							*Secial Price <span class="special_price">0.00 €</span>
+						</div>
+						<div t-if="order.has_voucher()" class="subentry">
+							Voucher <span class="voucher">0.00 €</span>
+						</div>
+                        <span style="text-align:left;" class="label">Total</span>  <span style="text-align:right;" class="value">0.00 €</span>
+                        <t t-if="widget.pos.get_client()">
+                        	 <t t-if="widget.pos.get_client().disc_percentage">
+                        		<div class='subentry'>Membership Disc: <t t-esc="widget.pos.get_client().disc_percentage"/>%</div>
+                        	 </t>
+                        </t>
+                    </div>
+            	</div>
+        	</t>
+        </t>	
+        
+	
+    
+    
+</templates>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <report 
+            id="pti_current_stock_menu"
+            string="current stock Report"
+            model="stock.quant" 
+            report_type="qweb-pdf"
+            file="pti_pos_stock.current_stock_report_view" 
+            name="pti_pos_stock.current_stock_report_view"
+        	menu="0"
+            paperformat="point_of_sale.paperformat_posreceipt"        
+        />
+	</data>
+</openerp>

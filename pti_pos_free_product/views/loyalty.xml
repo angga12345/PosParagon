@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="loyalty_apply_target_view_form" model="ir.ui.view">
+    		<field name="name">loyalty.apply.target.view.form</field>
+    		<field name="model">loyalty.rule</field>
+            <field name="inherit_id" ref="pos_loyalty.view_loyalty_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                	<field name="applied" widget="radio" attrs="{'invisible': [('type', '=', 'all')]}"/>
+                </xpath>
+            </field>
+    	</record>
+	</data>
+</openerp>

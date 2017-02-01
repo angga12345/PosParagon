@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+    	<record id="kateg_shop_form" model="ir.ui.view">
+        	<field name="name">kateg.shop.form</field>
+        	<field name="model">account.bank.statement</field>
+        	<field name="inherit_id" ref="account.view_bank_statement_form"/>
+        	<field name="arch" type="xml">
+        		<field name="balance_end_real" position="after">
+                	<field name="kategori_shop" invisible="1"/>
+                </field>
+        	</field>
+        </record>
+    </data>
+</openerp>

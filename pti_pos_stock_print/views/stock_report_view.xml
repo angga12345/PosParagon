@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	<template id="report_pos_stock_doc">
+		<div class="page">
+			<div class="container">
+            <t t-foreach="docs" t-as="o">
+				<h3>
+	                Stock Report<br/>
+	            </h3>
+            	<t t-set="store_name" t-value="o.run_sql_store_name()"/>
+                <tr t-foreach="store_name" t-as="store"> 
+    				<t t-esc="store"/>
+        		</tr>
+	            <hr/>
+            	<t t-set="list_product" t-value="o.run_sql()"/>
+            	<tr t-foreach="list_product" t-as="prod">
+        			<t t-esc="prod"/>
+            		<hr/>
+            	</tr>
+		    </t>
+	        </div>
+		</div>
+	</template>
+	<template id="pti_pos_stock_print.store_stock_report_view">
+		    <t t-call="report.html_container">
+		       <t t-call="pti_pos_stock_print.report_pos_stock_doc"/>
+		    </t>
+		</template>
+</data>
+</openerp>

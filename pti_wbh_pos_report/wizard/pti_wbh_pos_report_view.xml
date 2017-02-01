@@ -1,0 +1,117 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="wbh_pos_report_wizard_view">
+            <field name="name">wbh.pos.report.wizard.view</field>
+            <field name="model">wbh.pos.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Current Bussiness Report" version="9.0">
+                	<group>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>	 
+						<field name="store" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':'1'}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel_wbh_pos" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="wbh_pos_nasional_report_wizard_view">
+            <field name="name">wbh.pos.nasional.report.wizard.view</field>
+            <field name="model">wbh.pos.nasional.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Current Bussiness Report" version="9.0">
+                	<group>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':'1'}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel_wbh_pos_nasional" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="sales_each_transaction_report_wizard_view">
+            <field name="name">sales.each.transaction.report.wizard.view</field>
+            <field name="model">sales.each.transaction.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Current Bussiness Report" version="9.0">
+                	<group>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>
+						<field name="store" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':'1'}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel_sales_ach_transaction_report" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+        <record id="action_wbh_pos_report_wizard" model="ir.actions.act_window">
+            <field name="name">Rekapitulasi Penjualan Jasa Perawatan WBH</field>
+            <field name="res_model">wbh.pos.report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    	
+		 <record id="action_wbh_pos_nasional_report_wizard" model="ir.actions.act_window">
+            <field name="name">Rekapitulasi Penjualan Jasa Perawatan WBH(Nasional)</field>
+            <field name="res_model">wbh.pos.nasional.report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+		 <record id="action_sales_each_transaction_report_wizard" model="ir.actions.act_window">
+            <field name="name">Laporan Penjualan Per Transaksi</field>
+            <field name="res_model">sales.each.transaction.report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem
+            id="menu_wbh_pos" name="Rekap Penj. Jasa Per. WBH"
+    		action="action_wbh_pos_report_wizard"
+            parent="pti_pos_sale_reporting.menu_wbh_per_store_config" sequence="10"/>  
+        
+    	<menuitem
+            id="menu_wbh_pos_nasional" name="Rekap Penj. Jasa Per. WBH Nasional"
+    		action="action_wbh_pos_nasional_report_wizard"
+            parent="pti_pos_sale_reporting.menu_wbh_nasional_config" sequence="11"/>    
+		
+		<menuitem
+            id="menu_sales_each_transaction" name="Laporan Penjualan Per Transaksi"
+    		action="action_sales_each_transaction_report_wizard" 
+            parent="pti_pos_sale_reporting.menu_wbh_per_store_config" sequence="12"/>    
+            	
+    </data>
+</openerp>

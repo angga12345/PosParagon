@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <report
+		    id="report_pos_stock"
+		    string="Product Stock"
+		    model="store.qoh" 
+		    report_type="qweb-pdf"
+		    file="pti_pos_stock_print.store_stock_report_view"
+		    name="pti_pos_stock_print.store_stock_report_view"
+		/> 
+       
+		<record id="paper_roll_paper" model="report.paperformat">
+		    <field name="name">PTI Roll Paper</field>
+		    <field name="default" eval="True" />
+		    <field name="format">custom</field>
+		    <field name="page_height">297</field>
+		    <field name="page_width">76</field>
+		    <field name="orientation">Portrait</field>
+		    <field name="margin_top">10</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">6</field>
+		    <field name="margin_right">6</field>
+		    <field name="header_line" eval="False" />
+		    <field name="header_spacing">35</field>
+		    <field name="dpi">90</field>
+		</record>
+			
+		<record id="pti_pos_stock_print.report_pos_stock" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="point_of_sale.paperformat_posreceipt" />
+		</record>
+    </data>
+</openerp>

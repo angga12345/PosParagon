@@ -1,0 +1,41 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="independent_nasional_store_report_rekap_voucher_wizard_view">
+            <field name="name">independent.nasional.store.report.rekap.voucher.wizard.view</field>
+            <field name="model">rekap.voucher.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Rekap Voucher" version="9.0">
+                	<group>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel_rekap_voucher" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+    	<record id="action_independent_nasional_store_report_rekap_voucher_wizard" model="ir.actions.act_window">
+            <field name="name">Rekap Voucher</field>
+            <field name="res_model">rekap.voucher.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem
+            id="menu_50_rekap_voucher_report" name="Rekap Voucher" 
+    		action="action_independent_nasional_store_report_rekap_voucher_wizard" 
+            parent="pti_pos_independent_nasional_report.menu_independent_store_nasional_config" sequence="4"/> 
+    	
+    </data>
+</openerp>

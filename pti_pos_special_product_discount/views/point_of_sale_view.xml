@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+        
+		<record model="ir.ui.view" id="view_pos_config_form">
+			<field name="name">view.pos.config.form</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+			<field name="arch" type="xml">
+<!--				<xpath expr="//field[@name='fiscal_position_ids']" position="after">-->
+<!--					<field name="loyalty_program_ids" widget="many2many_tags" domain="[('is_all', '=', False)]"/>					-->
+<!--				</xpath>-->
+<!--				<xpath expr="//field[@name='loyalty_id']" position="attributes">-->
+<!--					<attribute name="domain">[('is_all', '=', False)]</attribute>					-->
+<!--				</xpath>-->
+				<xpath expr="//form/sheet/group/group[2]/field[@name='cash_control']" position="after">	
+						<field name="show_discount"/>
+            	</xpath>			
+			</field>
+		</record>
+
+		
+	</data>
+</openerp>

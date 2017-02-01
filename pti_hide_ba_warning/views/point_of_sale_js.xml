@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets" name="point_of_sale assets_ba_warning_js" inherit_id="point_of_sale.assets">
+        	<xpath expr="." position="inside">
+	            <script type="text/javascript" src="/pti_hide_ba_warning/static/src/js/gui.js"></script>
+	        </xpath>
+        </template>
+    </data>
+</openerp>

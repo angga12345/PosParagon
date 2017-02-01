@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <template id="ba_view_all_report_body">            
+        <t t-call="report.html_container">                            
+                <t t-set="o"/>
+                <div class="header">                      
+					<img class="img img-responsive" src="/pti_ba_report/static/src/img/paragon.png" style="width:200px;height:80px;"/>
+                </div>                
+             <div class="page">
+             	  <p class="text-right"><span t-esc="data['date_order']" t-field-options='{"format": "dd-MM-YYYY"}'/></p>                                        
+             	  <div class="table-responsive">          
+                  <table class="table table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center"><strong>Name BA</strong></th>
+                                <th class="text-center"><strong>Total Price</strong></th>          
+                            </tr>
+                        </thead>
+                        <tbody>
+	                    <t t-set="number" t-value="1"/>
+	                    <tr t-foreach="get_lines(data['date_order'])" t-as="lines">
+                    	<td class="text-center"><span t-esc="number"/></td>
+	                    	<td class="text-center"><span t-esc="lines['Salesman']"/></td>
+ 	                    	<td class="text-center"><span t-esc="lines['Total']"/></td>
+	                    	<t t-set="number" t-value="number+1"/>
+	                    </tr>                         
+                        </tbody>
+                    </table> 
+                    </div>
+                </div>                              
+         </t>
+    </template>
+
+    <template id="ba_view_all_report">
+        <t t-foreach="docs" t-as="o">          
+            <t t-call="pti_ba_all_report.ba_view_all_report_body"/>          
+        </t>
+    </template>
+
+</openerp>

@@ -1,0 +1,41 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="mds_laporan_penjualan_per_transaksi_view">
+            <field name="name">mds.laporan.penjualan.per.transaksi.view</field>
+            <field name="model">mds.laporan.penjualan.per.transaksi</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Penjualan Per Transaksi MDS Per Store" version="9.0">
+                	<group>
+                		<field name="store" required="1"/>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel_mds" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+        <record id="action_mds_laporan_penjualan_per_transaksi" model="ir.actions.act_window">
+            <field name="name">Laporan Penjualan Per Transaksi MDS Per Store</field>
+            <field name="res_model">mds.laporan.penjualan.per.transaksi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+    	<menuitem
+            id="menu_inventory_report" name="Lap. Penj. Per Transaksi"
+    		action="action_mds_laporan_penjualan_per_transaksi"
+            parent="pti_pos_sale_reporting.menu_mds_per_store_config" sequence="3"/>
+    </data>
+</openerp>

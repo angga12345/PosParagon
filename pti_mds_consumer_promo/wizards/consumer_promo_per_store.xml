@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    	<record id="consumer_promo_mds_store_view" model="ir.ui.view">
+            <field name="name">consumer.promo.mds.nasional</field>
+            <field name="model">consumer.promo.store.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Consumer Promo MDS Per Store" version="9.0">
+                    <group>
+                        <field name="Date" required="1"/>  
+                        <field name="store" required="1"/>                
+                    </group>
+                    <field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+                    <footer>
+                        <button string="Generate" name="generate_excel_consumer_store" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp> 

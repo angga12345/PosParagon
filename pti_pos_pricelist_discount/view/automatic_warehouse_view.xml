@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<!-- allow edit price, menu setting > tabs point of sale under pos security pin in res.users -->
+		<record id="custom_allow_edit_price_res_users" model="ir.ui.view">
+    		<field name="name">custom_allow_edit_price_res_users</field>
+    		<field name="model">res.users</field>
+            <field name="inherit_id" ref="point_of_sale.res_users_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pos_security_pin']" position="after">
+                	<field name="allow_edit_price"  />
+                </xpath>
+                
+            </field>
+    	</record>
+    	
+    	<!-- allow edit price, pos.session > user_id > under fax  in res.users -->
+		<record id="custom_allow_disable_price_res_users" model="ir.ui.view">
+    		<field name="name">custom_allow_disable_price_res_users</field>
+    		<field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fax']" position="after">
+                	<field name="allow_edit_price"  />
+                </xpath>
+                
+            </field>
+    	</record>
+    	
+    	<!-- Add password temporer in res.users -->
+		<record id="custom_password_temporer_res_users" model="ir.ui.view">
+    		<field name="name">custom.password_temporer_res_users</field>
+    		<field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                	<field name="password_temporer" invisible="True" />
+                </xpath>
+            </field>
+    	</record>
+    	
+    	<!-- Add dc id in product.pricelist -->
+		<record id="custom_product_pricelist_dc_id" model="ir.ui.view">
+    		<field name="name">custom.product.pricelist.dc.id</field>
+    		<field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                	<field name="dc_id" domain="[('is_dc','=',True)]"/>
+                </xpath>
+                
+            </field>
+    	</record>
+    	
+    	<!-- Add membership pricelist in product.pricelist.item -->
+		<record id="membership_pricelist_item_view_form" model="ir.ui.view">
+    		<field name="name">membership.pricelist.item.view.form</field>
+    		<field name="model">product.pricelist.item</field>
+    		<field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_tmpl_id']" position="after">
+                	<field name="is_pos"/>
+                	<field name="membership_pricelists" widget="many2many_tags" 
+                		attrs="{'invisible': [('is_pos', '=', False)]}"/>
+                	<field name="product_global" widget="many2many_tags" invisible="1"/>
+                	<field name="shop_identifier_promo_period" 
+                		attrs="{'invisible': [('is_pos', '=', False)]}"/>
+                	<field name="sku_number_period"
+                		attrs="{'invisible': [('is_pos', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//form/group/group/field[@name = 'categ_id']" position="attributes">
+            		<attribute name="invisible">[('is_pos', '=', True)]</attribute>
+				</xpath>
+            </field>
+    	</record>
+    	
+    	<!-- Add dc id in loyalty.program -->
+		<record id="custom_loyalty_program_dc_id" model="ir.ui.view">
+    		<field name="name">custom.loyalty.program.dc.id</field>
+    		<field name="model">loyalty.program</field>
+            <field name="inherit_id" ref="pos_loyalty.view_loyalty_program_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                	<field name="dc_id" domain="[('is_dc','=',True)]"/>
+                </xpath>
+            </field>
+    	</record>
+    	
+    	<!-- Add shop identifier in pos.session -->
+		<record id="custom_pos_session_shop_identifier" model="ir.ui.view">
+    		<field name="name">custom.pos.session.shop.identifier</field>
+    		<field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='config_id']" position="after">
+                	<field name="shop_identifier_origin" invisible="False"/>
+                	<field name="shop_identifier_period" invisible="False"/>
+                	<field name="categ_shop" invisible="1"/>
+                </xpath>
+            </field>
+    	</record>
+    	
+    	<!-- Add shop identifier in pos.order -->
+		<record id="custom_pos_order_shop_identifier" model="ir.ui.view">
+    		<field name="name">custom.pos.order.shop.identifier</field>
+    		<field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                	<field name="shop_identifier_origin" readonly="True"/>
+                	<field name="shop_identifier_period" readonly="True"/>
+                	<field name="flag" invisible="1"/>
+                	<field name="rel_cat_shop" invisible="1"/>
+                	<field name="amount_total_rel" invisible="1"/>
+                </xpath>
+                <!--Add fields Discount By PTI and Discount by MDS start - Nurul Anisa -->
+                <xpath expr="//form/sheet/notebook/page[1]/field/tree/field[@name='discount']" position="before">
+                	<field name="diskon_pti"/>
+					<field name="diskon_mds"/>             
+                </xpath>
+                <!--Add fields Discount By PTI and Discount by MDS end - Nurul Anisa -->
+            </field>
+    	</record>
+    	
+    	<record id="loyalty_reward_pos_order_view_form" model="ir.ui.view">
+    		<field name="name">loyalty.reward.pos.order.view.form</field>
+    		<field name="model">pos.order</field>
+            <field name="inherit_id" ref="pos_loyalty.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='loyalty_points']" position="after">
+                	<field name="loyalty_reward_id"/>
+                </xpath>
+            </field>
+    	</record>
+    	
+    	<!-- CUSTOM in pos.config -->
+		<record id="new_custom_pos_config" model="ir.ui.view">
+    		<field name="name">new.custom.pos.config</field>
+    		<field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence_id']" position="before">
+                	<field name="tags"/>
+                	<field name="category_shop"/>
+                	<field name="text"/>
+                	<field name="stand_alone_categ" attrs="{'invisible': [('category_shop','!=','stand_alone')]}"/>
+                	<field name="ads"/>
+                	<field name="shop_identifier_promo_period" attrs="{'readonly': [('category_shop','!=','shop_in_shop'),('category_shop','!=','shop_in_shop_mds')]}"/>
+					<field name="sku_number_period"/>                	
+                	<field name="shop_identifier_origin" attrs="{'readonly': [('category_shop','!=','shop_in_shop'),('category_shop','!=','shop_in_shop_mds')]}"/>
+                	<field name="sku_number_origin"/>
+                	<field name="cat_store_text" invisible="1"/>
+                </xpath>
+                
+                <xpath expr="//form/sheet/group/field[@name='stock_location_id']" position="replace">
+
+                </xpath>
+                <xpath expr="//field[@name='cat_store_text']" position="after">
+                	<field name="partner_id"/>
+					<field name="stock_location_id" onchange="0" groups="stock.group_locations"/>                            		
+                </xpath>
+                
+                
+            </field>
+    	</record>
+    	
+    	<!-- CUSTOM  in res partner -->
+		<record id="custom_res_partner" model="ir.ui.view">
+    		<field name="name">custom.res.partner</field>
+    		<field name="model">res.partner</field>
+            <field name="inherit_id" ref="pti_pos_membership.custom_res_partner_discount_member"/>
+            <field name="arch" type="xml">
+				<xpath expr="//form/sheet/notebook/page[@name='point_of_sale']/group" position="inside">
+					<group>
+						<field name="is_shop" attrs="{'invisible': [('is_dc','!=',False)]}"/>
+	                  	<field name="category_shop" attrs="{'invisible': [('is_dc','!=',False)]}"/>
+						<field name="ba_code"/>
+						<field name="store_code" attrs="{'readonly': [('category_shop','!=','shop_in_shop'),('category_shop','!=','shop_in_shop_mds')], 'invisible': [('is_dc','!=',False)]}"/>                  	                  	
+	                   	<field name="shop_identifier_origin" attrs="{'readonly': [('category_shop','!=','shop_in_shop'),('category_shop','!=','shop_in_shop_mds')], 'invisible': [('is_dc','!=',False)]}"/>
+					</group>
+				</xpath>
+            </field>
+    	</record>
+    	
+    	<!-- CUSTOM  in Location -->
+		<record id="custom_location" model="ir.ui.view">
+    		<field name="name">custom.location</field>
+    		<field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+				<field name="partner_id" position="after">
+                   	<field name="shop_id" domain="[('is_shop','=',True)]" widget="selection"/>
+                </field>
+            </field>
+    	</record>
+    	
+    	<!-- CUSTOM  in Warehouse -->
+		<record id="custom_warehouse" model="ir.ui.view">
+    		<field name="name">custom.warehouse</field>
+    		<field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+				<field name="code" position="after">
+                   	<field name="shop_id" domain="[('is_shop','=',True)]" widget="selection"/>
+                </field>
+            </field>
+    	</record>
+
+    	</data>
+</openerp>

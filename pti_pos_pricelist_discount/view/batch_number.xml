@@ -1,0 +1,38 @@
+<openerp>
+    <data>
+    	<record id="batch_number_statement_line_form" model="ir.ui.view">
+        	<field name="name">batch.number.statement.line.form</field>
+        	<field name="model">account.bank.statement.line</field>
+        	<field name="inherit_id" ref="account.view_bank_statement_line_form"/>
+        	<field name="arch" type="xml">
+        		<field name="amount" position="after">
+                	<field name="batch_number"/>
+                </field>
+        	</field>
+        </record>
+        <record id="batch_number_statement_form" model="ir.ui.view">
+        	<field name="name">batch.number.statement.form</field>
+        	<field name="model">account.bank.statement</field>
+        	<field name="inherit_id" ref="account.view_bank_statement_form"/>
+        	<field name="arch" type="xml">
+        		<xpath expr="//form/sheet/notebook/page/field/tree/field[@name='amount']" position="after">
+                	<field name="batch_number"/>
+                </xpath>
+        	</field>
+        </record>
+
+        <record id="batch_number_make_payment_form" model="ir.ui.view">
+        	<field name="name">batch.number.make.payment</field>
+        	<field name="model">pos.make.payment</field>
+        	<field name="inherit_id" ref="point_of_sale.view_pos_payment"/>
+        	<field name="arch" type="xml">
+        		<field name="journal_id" position="replace">
+        			<field name="journal_id" />
+                    <field name="is_bank" invisible="1"/>
+                	<field name="batchno" attrs="{'invisible': [('is_bank', '=', False)]}" />
+                    
+                </field>
+        	</field>
+        </record>
+</data>
+</openerp>

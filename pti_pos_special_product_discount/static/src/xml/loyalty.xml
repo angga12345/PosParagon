@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve" inherit_id="pos_loyalty.template">
+    <t t-name="LoyaltySecondOrderButton">
+        <div class='control-button'>
+            <i class='fa fa-star' /> 2nd Purchase
+        </div>
+    </t>
+</templates>

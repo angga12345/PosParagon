@@ -1,0 +1,4 @@
+id,code,name,percentage,expired_date
+__export__.member_types_1,2,Gold,10,
+__export__.member_types_2,1,Silver,5,
+__export__.member_types_3,3,Platinum,15,

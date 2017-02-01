@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- allow edit price,  in product.template-->
+		<record id="custom_allow_edit_price_product_template" model="ir.ui.view">
+    		<field name="name">custom_allow_edit_price_product_template</field>
+    		<field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="groups_id" eval="[(6,0, [ref('pti_pos_pricelist_discount.BA_group')])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                	<attribute name="attrs">{'readonly':1}</attribute>
+                </xpath>
+            </field>
+    	</record>
+    	
+    	<!-- invisible quantity on hand groups BA product.template-->
+		<record id="custom_access_qoh_product_template" model="ir.ui.view">
+    		<field name="name">custom_access_qoh_product_template</field>
+    		<field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="groups_id" eval="[(6,0, [ref('pti_pos_pricelist_discount.BA_group')])]" />
+            <field name="arch" type="xml">
+                	<xpath expr="//button[@name='%(stock.action_view_change_product_quantity)d']" position="attributes">
+                		<attribute name="invisible">1</attribute>
+                	</xpath>
+            </field>
+    	</record>
+    	</data>
+</openerp>

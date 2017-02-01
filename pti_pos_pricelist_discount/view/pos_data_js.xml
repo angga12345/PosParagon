@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="pos assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pti_pos_pricelist_discount/static/src/js/account_bank_statement_line.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

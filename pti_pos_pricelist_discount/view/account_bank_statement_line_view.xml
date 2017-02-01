@@ -1,0 +1,26 @@
+<openerp>
+    <data>
+    	<record id="account_bank_statement_line_form" model="ir.ui.view">
+        	<field name="name">account.bank.statement.line.form</field>
+        	<field name="model">account.bank.statement.line</field>
+        	<field name="inherit_id" ref="pti_pos_pricelist_discount.batch_number_statement_line_form"/>
+        	<field name="arch" type="xml">
+        		<field name="batch_number" position="after">
+                	<field name="trace_no"/>
+                	<field name="appr_code"/>
+                </field>
+        	</field>
+        </record>
+        <record id="custom_make_payment_form" model="ir.ui.view">
+        	<field name="name">custom.make.payment</field>
+        	<field name="model">pos.make.payment</field>
+        	<field name="inherit_id" ref="pti_pos_pricelist_discount.batch_number_make_payment_form"/>
+        	<field name="arch" type="xml">
+        		<field name="batchno" position="after">
+                	<field name="traceno" attrs="{'invisible': [('is_bank', '=', False)]}" />
+                    <field name="apprcode" attrs="{'invisible': [('is_bank', '=', False)]}" />
+                </field>
+        	</field>
+        </record>
+    </data>
+</openerp>

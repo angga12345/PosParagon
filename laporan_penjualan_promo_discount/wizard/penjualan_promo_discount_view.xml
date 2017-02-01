@@ -1,0 +1,40 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="laporan_promo_discount_report_wizard_view">
+            <field name="name">laporan.promo.discount.report.wizard.view</field>
+            <field name="model">laporan.promo.discount.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Penjualan Promo Discount" version="9.0">
+                	<group>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form> 	
+            </field>
+        </record>
+        
+        <record id="action_laporan_promo_discount_report_wizard" model="ir.actions.act_window">
+            <field name="name">Laporan Penjualan Promo Discount</field>
+            <field name="res_model">laporan.promo.discount.report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    	<menuitem
+            id="menu_laporan_promo_report" name="Lap. Penj. Promo Discount Nasional"
+    		action="action_laporan_promo_discount_report_wizard"
+            parent="pti_pos_sale_reporting.menu_wbh_nasional_config" sequence="21"/>
+    </data>
+</openerp>

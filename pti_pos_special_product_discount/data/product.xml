@@ -1,0 +1,13 @@
+<openerp>
+	<data>
+		<record id="product_discount_coupon" model="product.template">
+            <field name="name">Discount Coupon</field>
+            <field name="type">product</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+			<field name="uom_po_id" ref="product.product_uom_unit"/>
+			<field name="categ_id" ref="product.product_category_all"/>
+<!--			<field name="tags" ref="pti_additional_models.product_brand_wardah"/>		-->
+			<field name="list_price">0</field>	
+        </record>
+	</data>
+</openerp>

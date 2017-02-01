@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" inherit_id="point_of_sale.template">
+	<t t-extend="OrderWidget">
+		<t t-jquery="span.label" t-operation="before">
+			<div t-if="order.has_discount()" class="subentry">
+				Discount <span id="discount" class="discount">0.00 €</span>
+			</div>
+		</t>
+	</t>
+	<t t-extend="PaymentScreen-Paymentlines">
+		<t t-jquery="div.total" t-operation="replace">
+			<div class='total'>
+				<t t-esc="widget.format_currency(order.get_grand_total())"/>
+			</div>			
+		</t>
+	</t>
+</templates>

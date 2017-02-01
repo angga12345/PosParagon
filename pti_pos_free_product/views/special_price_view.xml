@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_loyalty_reward_form_tes1">
+            <field name="name">loyalty.reward.form.view</field>
+            <field name="model">loyalty.reward</field>
+            <field name="inherit_id" ref="pti_pos_special_product_discount.view_loyalty_reward_form"/>
+            <field name="arch" type="xml">
+            	<field name="is_cheapest_product" position="after">
+            		<field name="special_price" attrs="{'invisible': [('type', '!=', 'special_price')]}"/>
+            	</field>	
+            	<field name="point_cost" position="before">
+            		<field name="max_reward" />
+            		<field name="max_reward_value" />
+            	</field>
+            </field>
+        </record>
+       	<record model="ir.ui.view" id="pos_order_form_view">
+            <field name="name">pos.order.form.view</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='membership_global_disc']" position="after">
+            		<field name="special_price"/>
+            	</xpath>
+            	<xpath expr="//tree/field[@name='price_unit']" position="after">
+            		<field name="is_special_price" readonly="1"/>
+            	</xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

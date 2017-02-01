@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>     
+		<record model="ir.ui.view" id="view_loyalty_program_form">
+			<field name="name">view.loyalty.program.form</field>
+			<field name="model">loyalty.program</field>
+			<field name="inherit_id" ref="pos_loyalty.view_loyalty_program_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='pp_currency']" position="before">
+					<field name="start_date"/>
+					<field name="end_date"/>					
+				</xpath>
+				<xpath expr="//separator[1]" position="before">
+					<group>
+					<field name="term_condition_text"/>
+					</group>
+					<separator string="Applied On" colspan="4"/>
+					<group colspan="4" col="2">
+						<field name="is_all"/>
+						<field name="applied_on" attrs="{'invisible': [('is_all', '=', False)], 'required': [('is_all', '=', True)]}"/>
+					</group>					
+				</xpath>
+				<xpath expr="//field[@name='reward_ids']" position="attributes">
+					<attribute name="context">{'loyalty_program_id': active_id}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_loyalty_rule_form">
+			<field name="name">loyalty.rule.form.view</field>
+			<field name="model">loyalty.rule</field>
+			<field name="inherit_id" ref="pos_loyalty.view_loyalty_rule_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//form/group[1]" position="before">
+                    <group col="2">
+                    	<field name="is_different_product" attrs="{'invisible': [('type','!=','product')]}"/>
+                    	<field name="for_all_products" />
+                    	<field name="shop_identifier_promo_period" style="width: 20%%"/>
+            			<field name="sku_number_period" style="width: 20%%"/>
+                    </group>
+				</xpath>
+				<xpath expr="//field[@name='category_id']" position="replace">
+					<field name="category_ids" attrs="{'invisible': [('type', '!=', 'category')], 'required':[('type', '==', 'category')]}"
+					widget="many2many_tags"/>
+				</xpath>
+				<xpath expr="//field[@name='product_id']" position="replace">
+					<field name="product_ids" attrs="{'invisible': [('type', '!=', 'product')], 'required': [('type'. '==', 'product')]}"
+					widget="many2many_tags"/>					
+				</xpath>
+				<xpath expr="//field[@name='product_ids']" position="attributes">
+					<attribute name="attrs">{'invisible':[('type','!=','product')]}</attribute>
+				</xpath>
+				<field name="pp_product" position="before">
+					<field name="qty_rule"/>
+					<field name="price_rule"/>			
+				</field>
+				<field name="product_ids" position="before">
+					<field name="produk_pwp_ids" invisible="True" widget="many2many_tags"/>		
+				</field>
+<!--				<xpath expr="//form/group[@col='6']" position="after">-->
+<!--					<notebook attrs="{'invisible':['|', ('type','!=','product'), ('is_different_product', '=', False)]}">-->
+<!--						<page string="Gift Products Item">-->
+<!--							<field name="target_product_line">-->
+<!--								<tree editable="bottom" string='Target Product Line'>-->
+<!--									<field name="product_id"/>-->
+<!--								</tree>-->
+<!--							</field>-->
+<!--						</page>-->
+<!--					</notebook>-->
+<!--				</xpath>-->
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="view_loyalty_reward_form">
+            <field name="name">loyalty.reward.form.view</field>
+            <field name="model">loyalty.reward</field>
+            <field name="inherit_id" ref="pos_loyalty.view_loyalty_reward_form"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                	<field name="rule_id" domain="[('loyalty_program_id', '=', loyalty_program_id)]"/>
+                	<field name="discount_desc" attrs="{'invisible': ['|', ('type', '!=', 'next_purchase')]}"/>
+					<field name="flag" invisible="1"/>
+                    <field name="is_cheapest_product"/>
+                	<field name="is_multilevel_discount" attrs="{'invisible': ['|', ('type', '!=', 'discount'), ('is_for_all', '=', True)]}"/>
+                	<field name="is_for_all" attrs="{'invisible': ['|', ('type', '!=', 'discount'), ('is_multilevel_discount', '=', True)]}"/>
+                	<field name="discount_pti" attrs="{'invisible': ['|', ('type', '!=', 'discount'), 
+                										('is_multilevel_discount', '=', True)]}"/>
+                	<field name="discount_mds" attrs="{'invisible': ['|', ('type', '!=', 'discount'),
+                										('is_multilevel_discount', '=', True)]}"/>           	
+                </field>
+                <xpath expr="//field[@name='discount']" position="attributes">
+                	<attribute name="attrs">{'invisible':['|', ('type','!=','discount'), ('is_multilevel_discount', '=', True)], 'required': [('type','=','discount'), ('is_multilevel_discount','=', False)]}</attribute>
+                	<attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='discount_product_id']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/group[3]" position="before">
+                	<group col="4" attrs="{'invisible': ['|', ('type','not in',['discount', 'special_price']), 
+                							('is_multilevel_discount', '=', True)]}">
+                		<group col="2">
+	                		<field name="discount_target_type"
+	                			attrs="{'invisible': ['|', ('is_for_all', '=', True)]}"/>
+	                	</group>
+	                	<group col="2">
+		                	<field name="discount_category_ids" widget="many2many_tags"
+		                		attrs="{'invisible': ['|', ('discount_target_type', '=', 'products'),
+		                				('is_for_all', '=', True)]}"/>
+		                	<field name="discount_product_id" widget="many2many_tags"
+		                		attrs="{'invisible': ['|', ('discount_target_type', '=', 'categories'),
+		                				('is_for_all', '=', True)]}"/>
+	                	</group>
+                	</group>
+                </xpath>
+                <field name="discount_product_id" position="after">
+ 					<separator string="Multilevel Discount" colspan="4" attrs="{'invisible': [('is_multilevel_discount', '!=', True)]}"/>
+                	<field name="discount_multilevel_id" colspan="4" attrs="{'invisible': [('is_multilevel_discount', '!=', True)]}" nolabel="1">
+ 						<tree editable="bottom">
+ 							<field name="name"/>
+							<field name="quantity"/>
+						 	<field name="discount"/>
+						 	<field name="discount_product_ids" widget="many2many_tags"/>
+						 	<field name="discount_category_ids" widget="many2many_tags"/>			
+ 						</tree>
+ 					</field>
+                </field>
+                
+                <xpath expr="//field[@name='minimum_points']" position="after">
+                	<field name="display_term"/>
+                	<field name="discount_text"/>
+                </xpath>
+                
+				<xpath expr="//field[@name='rule_id']" position="after">
+					<field name="select_manual"/>
+				</xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

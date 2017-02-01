@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+		<!--  Action Report Delivery Note  -->
+        <report 
+            id="action_ba_report"
+            string="BA report"         
+            model="pos.order"
+            report_type="qweb-pdf"
+        	file="pti_ba_report.ba_view_report" 
+            name="pti_ba_report.ba_view_report"
+         	menu="0"
+        />
+    </data>
+</openerp>

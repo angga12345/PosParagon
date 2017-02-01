@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!--voucher, start date, end date, product.template-->
+    	<record id="custom_product_template_voucher_view" model="ir.ui.view">
+            <field name="name">custom.product.template.voucher</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+            <field name="arch" type="xml">          	
+				<field name="to_weight" position="after">
+                   	<field name="voucher"/>
+                   	<field name="start_date"/>
+                   	<field name="end_date"/>
+                </field>
+            </field>
+        </record>
+        <!--voucher, start date, end date, product.product-->
+<!--    	<record id="custom_product_product_voucher_view" model="ir.ui.view">-->
+<!--            <field name="name">custom.product.product.voucher</field>-->
+<!--            <field name="model">product.product</field>-->
+<!--            <field name="inherit_id" ref="product.product_normal_form_view"/>-->
+<!--            <field name="arch" type="xml">          	-->
+<!--				<field name="default_code" position="after">-->
+<!--                   	<field name="voucher" />-->
+<!--					<field name="start_date"/>-->
+<!--					<field name="end_date"/>-->
+<!--                </field>-->
+<!--            </field>-->
+<!--        </record>-->
+        
+		<!--  View Voucher and menu Voucher     -->
+		<!-- Form Tree view Voucher  -->
+    	<!--<record id="custom_tree_view_voucher_product_template" model="ir.ui.view">
+    		<field name="name">custom.tree.view.voucher.product.template</field>
+    		<field name="model">product.template</field>
+            <field name="arch" type="xml">
+				<tree string="Voucher">
+                    <field name="name"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+    	</record>-->
+        <!-- Menu Voucher -->
+    	<record model='ir.actions.act_window' id='pti_pos_voucher'>
+            <field name="name">Voucher</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product.product_template_tree_view"/>
+            <field name="domain">[('voucher','=',True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Voucher
+                </p>    
+            </field>
+        </record>
+		<!--   Menu Voucher    -->
+		<menuitem action="pti_pos_voucher" id="pti_pos_voucher_menu" parent="base.menu_sales" sequence="107"/>
+    </data>
+</openerp>

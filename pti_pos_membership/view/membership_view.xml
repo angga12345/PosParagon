@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Add membership global discount in pos.order -->
+		<record id="custom_pos_order_membership_global_discount" model="ir.ui.view">
+    		<field name="name">custom.pos.order.membership.global.discount</field>
+    		<field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_tax']" position="after">
+                	<field name="membership_global_disc" />
+                	<!--<field name="membership_disc" />-->
+                </xpath>
+            </field>
+    	</record>
+    	
+    	<!-- Add reward id in pos.order.line -->
+		<record id="custom_pos_order_line_reward_id" model="ir.ui.view">
+    		<field name="name">custom.pos.order.line.reward.id</field>
+    		<field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[1]/field/tree/field[@name='discount']" position="after">
+					<field name="reward_id" invisible="1"/>             
+                </xpath>
+            </field>
+    	</record>
+
+    	<!-- Add Discount member  in res partner -->
+		<record id="custom_res_partner_discount_member" model="ir.ui.view">
+    		<field name="name">custom.res.partner.discount.member</field>
+    		<field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@name='accounting']" position="after">
+                	<page name="point_of_sale" string="Point Of Sale">
+                		<group colspan="2">
+                			<group>
+                				<field name="is_pos_membership"/>
+								<field name="discount_member_id"/>
+								<field name="disc_percentage"/>
+								<field name="ID_card_number" placeholder="ID Card Number Student or Employee" />
+								<field name="university" placeholder="University"/>
+								<field name="community" placeholder="Community"/>
+							</group>
+						</group>
+					</page>
+            	</xpath>
+            </field>
+    	</record>
+
+    	<!-- View type member in member.types -->
+		<record id="custom_member_types" model="ir.ui.view">
+    		<field name="name">custom.member.types</field>
+    		<field name="model">member.types</field>
+            <field name="arch" type="xml">
+            	<form string="Membership Discount">
+            		<group>
+            			<field name="code"/>
+            			<field name="name"/>
+            			<field name="percentage"/>
+            			<field name="expired_date"/>
+            		</group>
+                	
+                </form>
+            </field>
+    	</record>
+    	
+    	<!-- Form Tree type member in member.types  -->
+    	<record id="custom_tree_member_types" model="ir.ui.view">
+    		<field name="name">custom.tree.member.types</field>
+    		<field name="model">member.types</field>
+            <field name="arch" type="xml">
+				<tree string="Membership Discount">
+					<field name="code"/>
+					<field name="name"/>
+					<field name="percentage"/>
+            		<field name="expired_date"/>
+                </tree>
+            </field>
+    	</record>
+    	
+    	<!-- Menu  Member Types -->
+    	<record model='ir.actions.act_window' id='pti_pos_member_types'>
+            <field name="name">Membership Discount</field>
+            <field name="res_model">member.types</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Member Types
+                </p>    
+            </field>
+        </record>
+        
+        
+    	<menuitem 
+    		action="pti_pos_member_types" 
+    		id="pti_pos_member_types_menu" 
+    		parent="point_of_sale.menu_point_config_product" 
+    		sequence="35"/>
+		<menuitem 
+			action="pti_pos_member_types"
+			id="menu_membership_discount"
+			parent="pti_additional_models.pti_customer_clasification_menu"
+			sequence="109"/>    	
+    </data>
+</openerp>

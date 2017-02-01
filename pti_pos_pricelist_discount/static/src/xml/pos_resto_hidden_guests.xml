@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="my_template" inherit_id="pos_restaurant.template">    
+      <t t-extend="TableGuestsButton">
+        <t t-jquery="div.control-button" t-operation="replace">     
+        </t>
+      </t>
+</templates>

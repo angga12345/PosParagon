@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="pos_order_max_reward_view_form">
+            <field name="name">pos.order.max.reward.view_form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='amount_tax']" position="after">              
+					<field name="max_reward_value" widget="monetary"/>
+				</xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

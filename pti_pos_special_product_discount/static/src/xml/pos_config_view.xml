@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="my_template2" inherit_id="pti_pos_pricelist_discount.my_template">
+	<!--PosTicket Receipt-->
+    <t t-extend="PosTicket">
+    	<t t-jquery="table.receipt-orderlines" t-operation="replace">
+    		<tr t-foreach="orderlines" t-as="orderline">
+	                	<t t-if="!orderline.product.voucher">
+			            	<table class="receipt-orderlines">
+			                    <tr>
+			                        <t t-esc="orderline.get_product().display_name"/> 
+			                        <t t-if="orderline.fixed_price !== 0">
+				                        <t t-if="receipt.receipt_show_discount == false">	
+				                    		(special price)
+				                        </t>	
+			                    	</t>
+			                    	<br/>
+			                    </tr>
+			                    <table>
+				                    <td style = "width:15%"></td>
+				                    <t t-if="orderline.fixed_price !== 0">
+				                    	<td style = "width:35%" class="pos-right-align">
+				                    		<t t-if="receipt.receipt_show_discount == false"> 
+					                    		<t t-esc="widget.format_currency_no_symbol(orderline.fixed_price)"/>
+					                    	</t>
+					                    </td>
+				                    </t>
+				                    <t t-if="orderline.fixed_price == 0">
+					                    <td style = "width:35%" class="pos-right-align"> 
+					                    	<!--         -->
+					                    	<t t-if="receipt.receipt_show_discount == false">
+					                    		<t t-esc="widget.format_currency_no_symbol(orderline.get_unit_price_taxed())"/>
+					                    	</t>
+					                    	<!--         -->
+					                    	<t t-if="receipt.receipt_show_discount == true">
+						                    	<t t-esc="widget.format_currency_no_symbol(orderline.get_unit_price_taxed())"/>
+						                    </t>
+					                    </td>
+				                    </t>
+				                    <td style = "width:15%" class="pos-right-align">
+				                        <t t-esc="orderline.get_quantity()"/>
+				                    </td>
+				                    <td style = "width:35%" class="pos-right-align">
+				                    	<t t-if="receipt.receipt_show_discount == false">
+				                        	<t t-esc="widget.format_currency_no_symbol(orderline.get_price_line_tot())"/>
+				                        	<t t-if="orderline.check_special_price()">*</t>
+				                        </t>
+				                        <t t-if="receipt.receipt_show_discount == true">
+				                        	<t t-esc="widget.format_currency_no_symbol(orderline.get_price_line_tot_askoko())"/>
+				                        </t>
+				                    </td>
+			                    </table>
+			                </table>
+			                <t t-if="orderline.get_discount() &gt; 0 and orderline.discount_base !== 0">
+			                <table class="receipt-orderlines-discount">
+			                    <tr>
+			                    	<t t-if="receipt.receipt_show_discount == false">
+			                        <td style = "width:65%">(Discount)</td>
+				                    <td style = "width:35%" class="pos-right-align">
+			                        	(<t t-esc="widget.format_currency_no_symbol(orderline.get_price_disc()*-1)"/>)
+				                    </td>
+				                    </t>
+			                    </tr>
+			                </table>
+		                	</t>
+		                	<t t-if="orderline.get_discount() &gt; 0 and orderline.discount_base == 0">
+			                <table class="receipt-orderlines-discount">
+			                    <tr>
+			                    	<t t-if="receipt.receipt_show_discount == false">
+			                        <td style = "width:65%">(Discount)</td>
+				                    <td style = "width:35%" class="pos-right-align">
+				                        (<t t-esc="widget.format_currency_no_symbol(orderline.get_price_disc()*-1)"/>)
+				                    </td>
+				                    </t>
+			                    </tr>
+			                </table>
+		                	</t>
+		                	<t t-if="orderline.get_discount() == 0 and orderline.discount_base !== 0">
+			                <table class="receipt-orderlines-discount">
+			                    <tr>
+			                    	<t t-if="receipt.receipt_show_discount == false">		                    	
+			                        <td style = "width:65%">(Discount)</td>
+				                    <td style = "width:35%" class="pos-right-align">
+				                        (<t t-esc="widget.format_currency_no_symbol(orderline.get_price_disc()*-1)"/>)
+				                    </td>
+				                    </t>
+			                    </tr>
+			                </table>
+		                	</t>
+		                	<!--Total-->
+		                	<t t-if="orderline.get_category() == 'Free Products' and !orderline.get_discount()">
+		                		<table class="receipt-orderlines-discount">
+		                			<tr>
+		                				<t t-if="receipt.receipt_show_discount == false">
+		                				<td style="width:65%">(Discount)</td>
+		                				<td style="width:35%" class="pos-right-align">
+		                					(<t t-esc="widget.format_currency_no_symbol(orderline.get_price_line_tot())"/>)
+		                				</td>
+		                				</t>
+		                			</tr>
+		                		</table>
+		                	</t>
+		                	<t t-set="total_qty" t-value="total_qty+orderline.get_quantity()"/>
+	                	</t>
+	                </tr>
+    	</t>
+		<t t-jquery="table.receipt-total" t-operation="replace">
+			<table>
+			<tr t-if="order.get_special_price() &gt; 0"> 
+        		<td>(Discount Special Price)</td>
+        		<td class="pos-right-align">
+        			<t t-esc="widget.format_currency_no_symbol(order.get_total_with_tax_special_price() - order.get_total_with_tax())"/></td>
+        	</tr>	
+			<tr> 
+        		<td>Items Count: <t t-esc="total_qty"/></td>
+        	</tr>
+            <tr>
+                <td>Subtotal</td>
+                <t t-if="receipt.receipt_show_discount == false">
+					<td class="pos-right-align">
+	                    <t t-if="order.get_special_price() &gt; 0" t-esc="widget.format_currency_no_symbol(order.get_total_with_tax_special_price())"/>
+	                    <t t-if="order.get_special_price() == 0" t-esc="widget.format_currency_no_symbol(order.get_total_with_tax())"/>
+	                </td>
+				</t>
+				<t t-if="receipt.receipt_show_discount == true">
+					<td class="pos-right-align">
+	                    <t t-esc="widget.format_currency_no_symbol(order.get_total_askoko())"/>
+	                </td>
+				</t>
+            </tr>
+            <t t-if="order.get_membership_disc()">
+            <tr>
+            	<td>Member Discount <t t-esc="order.get_membership_disc()"/>%</td>
+            	<td class="pos-right-align">
+            		(<t t-esc="widget.format_currency_no_symbol(order.get_member_disc_value())"/>)
+            	</td>
+            </tr>
+            </t>
+            <t t-if="order.get_special_price() &gt; 0">
+            <tr>
+            	<td>*Special Price</td>
+            	<td class="pos-right-align">
+            		(<t t-esc="widget.format_currency_no_symbol(order.get_special_price())"/>)
+            	</td>
+            </tr>
+            </t>
+            <t t-if="order.max_reward_value &gt; 0">
+            <tr>
+            	<td>*Special Discount</td>
+            	<td class="pos-right-align">
+            		(<t t-esc="widget.format_currency_no_symbol(order.max_reward_value)"/>)
+            	</td>
+            </tr>
+            <tr>
+            	<td>(<t t-esc="order.discount_max_reward"/>% from Maximum Reward <t t-esc="widget.format_currency_no_symbol(order.maximum_reward)"/>)</td>
+            </tr>
+            </t>
+			</table>
+			
+		</t>
+		<t t-jquery="table.total" t-operation="replace">
+			<table>
+			<tr class="voucher" t-if="order.has_voucher()">
+        		<td>Voucher</td>
+        		<td class="pos-right-align"><t t-esc="order.get_voucher_price()"/></td>
+        	</tr>
+        	<tr class="discount_coupon" t-if="order.has_discount()">
+        		<td>Special Discount</td>
+        		<td class="pos-right-align"><t t-esc="widget.format_currency_no_symbol(order.get_discount_from_reward())"/></td>
+        	</tr>
+            <tr class="emph">
+                <td>Total:</td>
+                <td class="pos-right-align">
+                	<t t-if="receipt.receipt_show_discount == false">
+                    	<t t-esc="widget.format_currency_no_symbol(order.get_grand_total())"/>
+                    </t>
+                    <t t-if="receipt.receipt_show_discount == true">
+                		<t t-esc="widget.format_currency_no_symbol(order.get_grand_total_askoko())"/>
+                	</t>
+                </td>
+            </tr>
+            </table>
+		</t>
+		<t t-jquery="t[t-foreach='order.get_tax_details()'][t-as='taxdetail']" t-operation="replace">
+			<t t-foreach="order.get_tax_details()" t-as="taxdetail">
+            	<t t-if="receipt.receipt_show_discount == false">
+	                <tr>
+	                    <td>
+	                        DPP = <t t-esc="widget.format_currency_no_symbol(order.get_subtotal() - order.get_free_products_saleable_price())"/>
+	                    </td>
+	                    <br/>
+	                    <td>
+	                        <t t-esc="taxdetail.name"/> = <t t-if="order.get_special_price() == 0 and !order.max_reward_value" t-esc="widget.format_currency_no_symbol(taxdetail.amount)"/>
+	                    	<t t-if="order.get_special_price() > 0" t-esc="widget.format_currency_no_symbol((0.1) * order.get_subtotal())"/>
+	                    	<t t-if="order.max_reward_value" t-esc="widget.format_currency_no_symbol((0.1) * order.get_subtotal())"/>
+<!--	                    	<t t-if="!order.max_reward_value" t-esc="widget.format_currency_no_symbol((0.1) * order.get_subtotal())"/-->
+	                    </td>
+	                </tr>
+                </t>
+            </t>
+            <br/><br/>
+            <tr>
+            	<td>
+            		<div style='text-align:center'>
+            			<t t-if="receipt.display_term">
+            				<t t-esc="receipt.term_condition_text"/>
+            			</t>
+            		</div>
+            	</td>
+            </tr>
+		</t>
+		<t t-jquery="table.receipt-paymentlines" t-operation="before">
+			<br/>
+            <div>
+            	<!--Discount Text-->
+                <t t-if="receipt.receipt_show_discount == true">
+            		<t t-esc="receipt.custom_discount_text"/>
+            	</t>
+            </div>
+		</t>
+		<t t-jquery="table.receipt-paymentlines" t-operation="replace">
+			<t t-if="receipt.receipt_show_discount == false">
+				<t t-foreach="paymentlines" t-as="line">
+	              <tr>
+	            	  <td>Payment:</td>
+	            	  <td></td>
+	            	  <td></td>
+	            	  <td class="pos-right-align">
+						<!-- Receipt Askoko-->
+	            	  	<t t-if="receipt.receipt_show_discount == true">
+	            	  		<t class="pos-right-align" t-esc="widget.format_currency(order.get_grand_total_askoko())"/>
+	            	  	</t>
+	            	  	<!-- Receipt Biasa-->
+	            	  	<t t-if="receipt.receipt_show_discount == false">
+	                		<t class="pos-right-align" t-esc="widget.format_currency(order.get_grand_total())"/>
+	                	</t>
+	            	  </td>
+	              </tr>
+	            </t>
+            </t>
+		</t>
+		<t t-jquery="table.receipt-paymentlines" t-operation="replace">
+			<t t-if="receipt.receipt_show_discount == false">
+				<table class='receipt-change'>
+					<tr><td>Change:</td><td class="pos-right-align">
+						<t t-esc="widget.format_currency_no_symbol(order.get_change())"/>
+					</td></tr>
+				</table>
+			</t>
+		</t>
+		
+	 </t>
+</templates>

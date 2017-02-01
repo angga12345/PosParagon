@@ -1,0 +1,6 @@
+id,menu_access/id
+pti_pos_pricelist_discount.supervisor_group,stock.menu_warehouse_report
+pti_pos_pricelist_discount.BA_group,point_of_sale.menu_point_rep
+stock.group_stock_user,"stock.all_picking,stock.menu_stock_root,stock.menu_warehouse_report"
+pti_pos_pricelist_discount.marketing_group,point_of_sale.menu_point_rep
+base.group_erp_manager,point_of_sale.menu_point_root

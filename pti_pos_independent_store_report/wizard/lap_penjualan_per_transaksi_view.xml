@@ -1,0 +1,79 @@
+<openerp>
+    <data>
+    
+    	<record id="laporan_penjualan_per_transaksi_report_wizard_view" model="ir.ui.view">
+            <field name="name">laporan.penjualan.per.transaksi.report.wizard.view</field>
+            <field name="model">laporan.penjualan.per.transaksi.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Current Bussiness Report" version="9.0">
+                	<group>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>	 
+						<field name="store" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':'1'}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+    	<!-- <record id="laporan_penjualan_per_transaksi_report_wizard_view" model="ir.ui.view">
+            <field name="name">laporan.penjualan.per.transaksi.report.wizard.view</field>
+            <field name="model">laporan.penjualan.per.transaksi.report.wizard</field>
+            <field name="arch" type="xml">
+               <form string="Laporan Total Penjualan Per Independent Store">
+               		<sheet>
+               			<label string=""/> 
+               			<group col="1">
+	            			<group col="2">
+	            				<group >
+								   <field name="store" required="1"/>
+								   <field name="start_period" required="1"/>
+								   <field name="end_period" required="1" />		
+								</group>                	
+		                    </group>
+	                    </group>
+	                    <group>
+	                    	<field name="name" invisible="1"/>
+	                    </group>              
+	                    <field invisible="1" name="state_x"/>
+	                    <newline/>    
+	                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+	                        <separator colspan="4" string="Generate to Excel is done. Download by click link below." attrs="{'invisible':[('state_x','=','choose')]}"/>
+	                        <field name="name" invisible="1" width="100" attrs="{'invisible':[('state_x','=','choose')]}"/>
+	                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}" 
+	                        style="text-align:left;"/>
+	                    </group>
+	                    <footer attrs="{'invisible':[('state_x','=','get')]}">
+	                        <button name="wbh_store_category_report" string="Generate XLS" type="object" class="oe_highlight"/>
+	                        or
+	                        <button string="Cancel" class="oe_link" special="cancel" />
+	                    </footer>
+               		</sheet>
+                </form>
+            </field>
+        </record>      -->  
+        
+        <record id="action_laporan_penjualan_per_transaksi_report_wizard" model="ir.actions.act_window">
+            <field name="name">Laporan Total Penjualan Per Independent Store</field>
+            <field name="res_model">laporan.penjualan.per.transaksi.report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem    
+            id="menu_laporan_penjualan_report" name="Lap. Penj Per Transaksi" 
+    		action="action_laporan_penjualan_per_transaksi_report_wizard" 
+            parent="menu_independent_store_config" sequence="3"/>             		
+    </data>
+</openerp>

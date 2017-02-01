@@ -1,0 +1,41 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="laporan_total_penjualan_report_wizard_view">
+            <field name="name">laporan.total.penjualan.report.wizard.view</field>
+            <field name="model">laporan.total.penjualan.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="WBH Laporan Total Penjualan Per Store" version="9.0">
+                	<group>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>	 					
+						<field name="store_name" required="1"/>
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form> 	
+            </field>
+        </record>
+        
+        <record id="action_laporan_total_penjualan_report_wizard" model="ir.actions.act_window">
+            <field name="name">WBH Laporan Total Penjualan Per Store</field>
+            <field name="res_model">laporan.total.penjualan.report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    	<menuitem
+            id="menu_laporan_promo_report" name="Lap. Total Penj. Per Store"
+    		action="action_laporan_total_penjualan_report_wizard"
+            parent="pti_pos_sale_reporting.menu_wbh_per_store_config" sequence="1"/>
+    </data>
+</openerp>

@@ -1,0 +1,47 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="lap_retur_wizard_view">
+            <field name="name">lap.retur.wizard.view</field>
+            <field name="model">lap.retur</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Retur" version="9.0">
+                    <group>
+                    	<field name="store" required="1"/>
+                        <field name="start_period" required="1"/>
+                        <field name="end_period" required="1"/>  
+                        <field name="report_type" required="1"/> 	                   
+                    </group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+<!--                        <button string="Generate" name="generate_finance_report" type="object" class="oe_highlight"/-->
+                        <button string="Print" name="generate_lap_retur" type="object" class="oe_highlight" attrs="{'invisible':['|',('report_type','!=','LT'),('state_x','!=','choose')]}"/>                        
+                        <button string="Print" name="generate_lap_penjualan" type="object" class="oe_highlight" attrs="{'invisible':['|',('report_type','!=','LP'),('state_x','!=','choose')]}"/>
+						<button string="Print" name="generate_lap_data_stock" type="object" class="oe_highlight" attrs="{'invisible':['|',('report_type','!=','LDS'),('state_x','!=','choose')]}"/>                        
+						<button string="Print" name="generate_lap_sel_persediaan" type="object" class="oe_highlight" attrs="{'invisible':['|',('report_type','!=','LSP'),('state_x','!=','choose')]}"/>                        	
+                        <button string="Cancel" class="btn-default" special="cancel" attrs="{'invisible':[('state_x','!=','choose')]}"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+        <record id="action_lap_retur_wizard" model="ir.actions.act_window">
+            <field name="name">Laporan Retur</field>
+            <field name="res_model">lap.retur</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+                
+    	<menuitem
+            id="menu_lap_retur" name="Lap Retur"
+    		action="action_lap_retur_wizard"
+            parent="point_of_sale.menu_point_rep" sequence="8"/>
+    </data>
+</openerp>

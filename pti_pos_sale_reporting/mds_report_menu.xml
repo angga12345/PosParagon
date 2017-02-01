@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<menuitem id="menu_mds_nasional_config" name="MDS Nasional" parent="point_of_sale.menu_point_rep" sequence="1" groups="base.group_erp_manager,pti_pos_pricelist_discount.marketing_group,point_of_sale.group_pos_manager"/>
+    	<menuitem id="menu_mds_per_store_config" name="MDS Per Store" parent="point_of_sale.menu_point_rep" sequence="2" groups="base.group_erp_manager,pti_pos_pricelist_discount.BA_group,point_of_sale.group_pos_manager"/>
+    	<menuitem id="menu_wbh_nasional_config" name="WBH Nasional" parent="point_of_sale.menu_point_rep" sequence="3" groups="base.group_erp_manager,pti_pos_pricelist_discount.marketing_group,point_of_sale.group_pos_manager"/>
+    	<menuitem id="menu_wbh_per_store_config" name="WBH Per Store" parent="point_of_sale.menu_point_rep" sequence="4" groups="base.group_erp_manager,pti_pos_pricelist_discount.BA_group,point_of_sale.group_pos_manager"/>
+    	<menuitem id="menu_finance_config" name="Finance" parent="point_of_sale.menu_point_rep" sequence="5"/>
+    </data>
+</openerp>

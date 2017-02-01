@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.menu" id="point_of_sale.menu_product_pos_category">
+			<field name="name">Pos Categories</field>
+		</record>
+	</data>
+</openerp>

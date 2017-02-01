@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    	 <record id="tag_pos_" model="account.account.tag">
+            <field name="name">Point of Sale</field>
+        </record>
+    </data>
+</openerp>

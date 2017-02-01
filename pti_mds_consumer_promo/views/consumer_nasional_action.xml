@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="consumer_promo_mds_nasional_action" model="ir.actions.act_window">
+            <field name="name">Laporan Consumer Promo MDS Nasional</field>
+            <field name="res_model">consumer.promo.nasional.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    	<menuitem
+            id="consumer_promo_mds_nasional_menu" 
+            name="Lap. Consumer Promo MDS Nasional"
+    		action="consumer_promo_mds_nasional_action"
+            parent="pti_pos_sale_reporting.menu_mds_nasional_config" 
+            sequence="20"/>
+
+    </data>
+</openerp> 

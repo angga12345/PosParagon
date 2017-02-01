@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+      
+         <template id="assets_backend" name="pos assets" inherit_id="point_of_sale.assets">
+             <xpath expr="./script[5]" position="replace">
+                
+                <script type="text/javascript" src="/pti_pos_pricelist_discount/static/src/js/models.js"></script> 
+                            
+            </xpath>
+            <xpath expr="./script[12]" position="replace">
+                
+                <script type="text/javascript" src="/pti_pos_pricelist_discount/static/src/js/screens.js"></script> 
+                            
+            </xpath>
+            <xpath expr="./script[4]" position="replace">
+                
+                <script type="text/javascript" src="/pti_pos_pricelist_discount/static/src/js/db.js"></script> 
+                            
+            </xpath>
+             <xpath expr="." position="inside">
+
+                <link rel="stylesheet" href="/pti_pos_pricelist_discount/static/src/css/batch_number_input.css"/>
+            </xpath>
+            <xpath expr="." position="inside">
+                
+                <script type="text/javascript" src="/pti_pos_pricelist_discount/static/src/js/gui_extend.js"></script>
+                            
+            </xpath>
+         </template>
+     </data>
+</openerp>

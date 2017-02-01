@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    	<record id="consumer_promo_mds_nasional_view" model="ir.ui.view">
+            <field name="name">consumer.promo.mds.nasional</field>
+            <field name="model">consumer.promo.nasional.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Consumer Promo MDS Nasional" version="9.0">
+                    <group>
+	                    <field name="Date" required="1"/>
+<!--                    <field name="month_id" required="1"/> -->
+                    	<field name="filter" required="True"/>
+               			<field name="brand_id" attrs="{'invisible':[('filter','in',('1',False))], 'required':[('filter','=','2')]}"/>
+                    </group>
+                    <field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+                    <footer>
+                        <button string="Generate" name="generate_excel_consumer_nasional" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel" attrs="{'invisible':[('state_x','=','get')]}"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp> 

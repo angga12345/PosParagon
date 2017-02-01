@@ -1,0 +1,43 @@
+<openerp>
+    <data>
+    	<record id="lap_pengiriman_barang_view_wizard" model="ir.ui.view">
+            <field name="name">lap.pengiriman.barang.view.wizard</field>
+            <field name="model">lap.pengiriman.barang</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Pengiriman Barang" version="9.0">
+                    <group>
+                        <field name="store" required="1"/>                        
+                        <field name="start_period" required="1"/>
+                        <field name="end_period" required="1"/>                     
+                    </group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+                        <button string="Print" name="generate_pengiriman_barang" type="object" class="oe_highlight"
+                            attrs="{'invisible':[('state_x','!=','choose')]}"/>                        
+                        <button string="Cancel" class="btn-default" special="cancel" attrs="{'invisible':[('state_x','!=','choose')]}"/>                        
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+        <record id="action_menu_lap_pengiriman_barang_wizard" model="ir.actions.act_window">
+            <field name="name">Laporan Pengiriman Barang</field>
+            <field name="res_model">lap.pengiriman.barang</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+                
+    	<menuitem
+            id="menu_lap_pengiriman_barang" name="Lap Pengiriman Barang"
+    		action="action_menu_lap_pengiriman_barang_wizard"
+            parent="point_of_sale.menu_point_rep" sequence="7"/>
+    </data>
+</openerp>

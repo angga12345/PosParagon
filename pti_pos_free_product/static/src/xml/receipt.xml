@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="my_template3" inherit_id="pti_pos_special_product_discount.my_template2">
+	<!--PosTicket Receipt-->
+    <t t-extend="PosTicket">
+    	<t t-jquery="table.receipt-orderlines" t-operation="replace">
+	                	<t t-if="!orderline.product.voucher">
+	                		<t t-if="!orderline.get_product().is_dummy_product">
+			            	<table class="receipt-orderlines">
+			                    <tr>
+									<!--Change condition from false to true-->
+			                        <t t-esc="orderline.get_product().display_name"/>
+			                        <!-- <t t-if="orderline.fixed_price !== 0">
+				                        <t t-if="receipt.receipt_show_discount == true">	
+				                    		(special price)
+				                        </t>	
+			                    	</t> -->
+			                    	<!-- <br/> -->
+			                    </tr>
+			                    <table>
+				                    <td style = "width:15%"></td>
+				                    <t t-if="orderline.fixed_price !== 0">
+				                    	<td style = "width:35%" class="pos-right-align">
+				                    		<t t-if="receipt.receipt_show_discount == false"> 
+					                    		<t t-esc="widget.format_currency_no_symbol(orderline.fixed_price)"/>
+					                    	</t>
+					                    </td>
+				                    </t>
+				                    <t t-if="orderline.fixed_price == 0">
+					                    <td style = "width:35%" class="pos-right-align"> 
+					                    	<!--         -->
+					                    	<t t-if="receipt.receipt_show_discount == false">
+					                    		<t t-esc="widget.format_currency_no_symbol(orderline.get_unit_price_taxed())"/>
+					                    	</t>
+					                    	<!--         -->
+					                    	<t t-if="receipt.receipt_show_discount == true">
+						                    	<t t-esc="widget.format_currency_no_symbol(orderline.get_unit_price_taxed())"/>
+						                    </t>
+					                    </td>
+				                    </t>
+				                    <td style = "width:15%" class="pos-right-align">
+				                        <t t-esc="orderline.get_quantity()"/>
+				                    </td>
+				                    <td style = "width:35%" class="pos-right-align">
+				                    	<t t-if="receipt.receipt_show_discount == false">
+				                        	<t t-esc="widget.format_currency_no_symbol(orderline.get_price_line_tot())"/>
+				                        	<t t-if="orderline.check_special_price()">*</t>
+				                        </t>
+				                        <t t-if="receipt.receipt_show_discount == true">
+				                        	<t t-esc="widget.format_currency_no_symbol(orderline.get_price_line_tot_askoko())"/>
+				                        </t>
+				                    </td>
+			                    </table>
+			                </table>
+		                	</t>
+	                	</t>
+    	</t>
+    	<t t-jquery="table.receipt-orderlines-discount" t-operation="replace">
+			<table class="receipt-orderlines-discount">
+				<tr>
+					<!--Create new condition to search get_discount on all product-->
+					<t t-if="!orderline.get_product().is_dummy_product">
+						<t t-if="orderline.get_discount() &gt; 0 or orderline.discount_base &gt; 0">
+							<td style="width:65%">(Discount)</td>
+							<td style="width:35%" class="pos-right-align">
+							(<t t-esc="widget.format_currency_no_symbol(orderline.get_price_disc()*-1)"/>)
+							</td>
+						</t>
+					</t>
+				</tr>
+			</table>
+    	</t>
+    	<t t-jquery="table.sku" t-operation="replace">
+    		<t t-if="order.SKU">
+				<t t-if="order.pos_config_category_shop == 'shop_in_shop_mds'">
+					<table class="sku_origin">
+						<td style = "width:30%">SKU:</td>
+						<td><t t-esc="order.SKU"/></td>
+					</table>
+				</t>
+			</t>
+			<t t-if="order.SKU == ''">
+				<!-- if shop in shop / shop in shop mds should have a Shop Identifier-->
+				<t t-set="flag" t-value="0"/>
+				<!--sku period promo-->
+				<t t-set="sku_pp" t-value="0"/>	
+				
+				<t t-foreach="orderlines" t-as="orderline">
+					<!--Perintah ini untuk mendapatkan index dari Orderline-->
+					<!--<span t-esc="orderline_index"/>HMM-->
+					<!--		Orderline-Index-ke-0			-->
+					<t t-if="orderline_index == 0">					
+						<!--nilai sku produk period promo (mengambil nilai dari kelas orderline)-->
+						<t t-set="sku_pp" t-value="orderline.get_sk_prod(orderline.get_product().id)" />
+						<!--<t t-esc="sku_pp" />OPO-->
+					</t>	
+					
+					<!--		Orderline-Index-ke-0			-->
+					<t t-if="orderline_index == 0">
+						<!--	Shop Identifier Period (Product Promo)					-->
+						<t t-if="orderline.get_status_prod(orderline.get_product().id) == 1">
+							<t t-if="order.pos_order_shop_identifier_period and orderline.discount_base &gt; 0">
+							<!--	Definition Flag=0 is promo		-->
+								<t t-set="flag" t-value="0"/>
+							</t>
+					
+						</t>
+					</t>
+					<!--		Orderline-Index-ke-0			-->
+					<t t-if="orderline_index == 0">
+						<!--	Shop Identifier Origin (Product not promo)		-->
+						<t t-if="orderline.get_status_prod(orderline.get_product().id) == 2">
+							<t t-if="order.pos_order_shop_identifier_origin">
+								<!--	Definition Flag=1 is not promo		-->
+								<t t-set="flag" t-value="1" />
+							</t>
+						</t>
+					</t>	
+				</t>
+				<!--   if flag == 0 then not yet expired (promo)-->
+				<t t-if="order.pos_config_category_shop == 'shop_in_shop_mds'">
+					<t t-if="flag == 0">
+						<table class="sku_pp">
+							<td style = "width:30%">SKU:</td>
+							<td><t t-esc="sku_pp" /></td>
+						</table>
+					</t>
+				</t>
+				<!--   if flag == 1 bukan promo karena sudah expired-->
+				<t t-if="order.pos_config_category_shop == 'shop_in_shop_mds'">
+					<t t-if="flag == 1">
+						<table class="sku_origin">
+							<td style = "width:30%">SKU:</td>
+							<td><t t-esc="receipt.sku_origin" /></td>
+						</table>
+					</t>
+				</t>
+				<!--   if flag == 1 then is expired (origin)-->
+				<t t-if="order.pos_config_category_shop == 'shop_in_shop'">
+					<tr>
+						<table class="sku_shop_in_shop">
+							<td style = "width:30%">SKU:</td>
+							<td><t t-esc="receipt.sku_origin" /></td>
+						</table>
+					</tr>
+				</t>
+			</t>
+		</t>
+     </t>
+</templates>

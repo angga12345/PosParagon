@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="pos assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty_multilevel_discount.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty_target_rules.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty_maximum_amount.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty_special_price.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty_target_rewards_cheapest.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/dummy_product.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty_next_purchase.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty_target_rewards.js"></script>
+                <script type="text/javascript" src="/pti_pos_free_product/static/src/js/loyalty_program_sku.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

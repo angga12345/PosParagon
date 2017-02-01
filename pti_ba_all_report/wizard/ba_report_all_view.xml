@@ -1,0 +1,32 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="current_bussiness_report_wizard_view">
+            <field name="name">current.bussiness.report.wizard.view</field>
+            <field name="model">current.bussiness.all.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Current Bussiness Report" version="9.0">
+                	<group>
+						<field name="date" required="1"/>	 					
+					</group>
+					<footer>
+                        <button string="Print" name="do_print" type="object" class="oe_highlight"/>                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+        <record id="action_current_bussiness_report_wizard" model="ir.actions.act_window">
+            <field name="name">Current Bussiness Report</field>
+            <field name="res_model">current.bussiness.all.report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    	<menuitem
+            id="menu_inventory_report" name="All BA Report"
+    		action="action_current_bussiness_report_wizard"
+            parent="point_of_sale.menu_point_rep" sequence="2"/>
+    </data>
+</openerp>

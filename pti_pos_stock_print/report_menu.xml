@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="pos_store_stock_report_view" model="ir.ui.view">
+            <field name="name">Store Stock Report</field>
+            <field name="model">store.qoh</field>
+            <field name="arch" type="xml">
+               <form string="Store Stock Report" version="9.0">
+               		<group>
+               			<label string="Print the current stock in the store."/>
+               		</group>
+                    <footer>
+                        <button name="do_print" string="Print" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="store_stock_report_action" model="ir.actions.act_window">
+             <field name="res_model">store.qoh</field>
+             <field name="name">Store Stock Report</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="pos_store_stock_report_view"/>
+             <field name="target">new</field>
+        </record>
+        
+    	<menuitem
+            id="menu_store_stock_report" name="Store Stock Report" 
+    		action="store_stock_report_action"
+            parent="point_of_sale.menu_point_rep" sequence="1"/>
+	</data>
+</openerp> 

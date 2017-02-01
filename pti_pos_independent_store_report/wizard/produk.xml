@@ -1,0 +1,43 @@
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="independent_store_report_produk_wizard_view">
+            <field name="name">independent.store.report.produk.wizard.view</field>
+            <field name="model">independent.store.report.produk.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Produk" version="9.0">
+                	<group>
+                		<field name="store" required="1"/>
+						<field name="start_period" required="1"/>
+						<field name="end_period" required="1"/>	 					
+					</group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+                        <button string="Generate" name="generate_excel_produk" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+    	<record id="action_independent_store_report_produk_wizard" model="ir.actions.act_window">
+            <field name="name">Produk</field>
+            <field name="res_model">independent.store.report.produk.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    	<menuitem id="menu_independent_store_config" name="Independent Store" parent="point_of_sale.menu_point_rep" sequence="7" groups="base.group_erp_manager,pti_pos_pricelist_discount.marketing_group"/>
+        <menuitem
+            id="menu_38_produk_report" name="Produk"  
+    		action="action_independent_store_report_produk_wizard"
+            parent="pti_pos_independent_store_report.menu_independent_store_config" sequence="1"/>
+    	
+    </data>
+</openerp>

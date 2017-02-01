@@ -1,0 +1,43 @@
+<openerp>
+    <data>
+    	<record id="lap_selisih_persediaan_view_wizard" model="ir.ui.view">
+            <field name="name">lap.selisih.persediaan.view.wizard</field>
+            <field name="model">lap.selisih.persediaan</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Selisih Persediaan" version="9.0">
+                    <group>
+                        <field name="store" required="1"/>                        
+                        <field name="start_period" required="1"/>
+                        <field name="end_period" required="1"/>                     
+                    </group>
+					<field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+					<footer>
+                        <button string="Print" name="generate_lap_sel_persediaan" type="object" class="oe_highlight"
+                            attrs="{'invisible':[('state_x','!=','choose')]}"/>                        
+                        <button string="Cancel" class="btn-default" special="cancel" attrs="{'invisible':[('state_x','!=','choose')]}"/>                        
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+        <record id="action_menu_lap_selisih_persediaan_wizard" model="ir.actions.act_window">
+            <field name="name">Laporan Selisih Persediaan</field>
+            <field name="res_model">lap.selisih.persediaan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+                
+    	<menuitem
+            id="menu_lap_selisih_persediaan" name="Lap Selisih Persediaan"
+    		action="action_menu_lap_selisih_persediaan_wizard"
+            parent="point_of_sale.menu_point_rep" sequence="8"/>
+    </data>
+</openerp>

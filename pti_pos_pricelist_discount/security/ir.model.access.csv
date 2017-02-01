@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+point_of_sale.access_pos_config,pos.config.user,point_of_sale.model_pos_config,point_of_sale.group_pos_user,1,1,1,1
+point_of_sale.access_pos_order,pos.order,point_of_sale.model_pos_order,point_of_sale.group_pos_user,1,1,1,0
+access_product_brand,product.brand,pti_additional_models.model_product_brand,BA_group,1,1,1,1
+access_member_types,member.types,pti_pos_membership.model_member_types,BA_group,1,1,1,1
+access_product_template_supervisor,product.temp.supervisor,product.model_product_template,supervisor_group,1,1,1,0
+access_pos_config_supervisor,pos.config.supervisor,point_of_sale.model_pos_config,supervisor_group,1,0,0,0
+access_product_brand_supervisor,prod.brand.supervisor,pti_additional_models.model_product_brand,supervisor_group,1,0,0,0
+access_product_brand_marketing,product.brand.marketing,pti_additional_models.model_product_brand,marketing_group,1,1,1,1
+access_product_template_marketing,product.temp.marketing,product.model_product_template,marketing_group,1,1,1,1
+access_pos_config_marketing,pos.config.marketing,point_of_sale.model_pos_config,marketing_group,1,1,1,1

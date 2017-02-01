@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+        
+		<record model="ir.ui.view" id="costum_product_pricelist_view">
+			<field name="name">costum.product.pricelist.item.view</field>
+			<field name="model">product.pricelist.item</field>
+			<field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//form/group[2]/group/div/div[2]/field[@name='percent_price']" position="replace">	
+						<field name="percent_price" attrs="{'invisible':[('compute_price', '!=', 'percentage')], 'readonly' : 'True'}" nolabel="1" class="oe_inline"/>%%
+            	</xpath>
+				<xpath expr="//form/group[2]/group">
+						<field name = "discount_pti" attrs="{'invisible':[('compute_price', '!=', 'percentage')]}"/>
+				    	<field name = "discount_mds" attrs="{'invisible':[('compute_price', '!=', 'percentage')]}"/>
+            	</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="ir_cron_scheduler_automatic_inactive_product_expired_action" model="ir.cron">
+            <field name="name">Inactive Product Expired scheduler</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'product.template'" name="model"/>
+            <field eval="'inactive_product_expired'" name="function"/>
+        </record>
+   </data>
+</openerp>

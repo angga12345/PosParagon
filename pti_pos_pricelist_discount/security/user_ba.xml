@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- =============================MENU ACCESS=============================== -->	
+    	<!-- here -->
+		<!-- =============================RECORD RULES=============================== -->
+		
+		<!-- POS Config -->
+<!--        <record id="user_ba_pos_config_rule" model="ir.rule">-->
+<!--	        <field name="name">POS Config (POS)</field>-->
+<!--	        <field ref="point_of_sale.model_pos_config" name="model_id"/>-->
+<!--	        <field name="domain_force">[('stock_location_id.partner_id.dc_id.id','=',user.partner_id.dc_id.id)]</field>-->
+<!--	        <field name="groups" eval="[(4, ref('pti_pos_pricelist_discount.BA_group'))]"/>-->
+<!--	    </record>-->
+		
+	    <!-- Stock Warehouse -->
+	    <record id="user_ba_stock_warehouse_rule" model="ir.rule">
+	        <field name="name">Stock Warehouse (POS)</field>
+	        <field ref="stock.model_stock_warehouse" name="model_id"/>
+	        <field name="domain_force">['|',('dc_id.id','=',user.partner_id.dc_id.id),('partner_id.dc_id.id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_pos_pricelist_discount.BA_group'))]"/>
+	    </record>
+	    
+	    <!-- Stock Picking Type -->
+	    <record id="user_ba_stock_picking_type_rule" model="ir.rule">
+	        <field name="name">Stock Picking Type (POS)</field>
+	        <field ref="stock.model_stock_picking_type" name="model_id"/>
+	        <field name="domain_force">[('default_location_src_id.partner_id.dc_id.id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_pos_pricelist_discount.BA_group'))]"/>
+	    </record>
+	    
+	    
+	    <!-- Stock Picking -->
+	    <record id="user_ba_stock_picking_rule" model="ir.rule">
+	        <field name="name">Stock Picking (POS)</field>
+	        <field ref="stock.model_stock_picking" name="model_id"/>
+	        <field name="domain_force">['|',('location_id.partner_id.dc_id.id','=',user.partner_id.dc_id.id),('location_dest_id.partner_id.dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_pos_pricelist_discount.BA_group'))]"/>
+	    </record>
+	    
+	    <!-- Stock quants  -->
+	    <record id="user_ba_stock_quants_rule" model="ir.rule">
+	        <field name="name">Stock Quants (POS)</field>
+	        <field ref="stock.model_stock_quant" name="model_id"/>
+	        <field name="domain_force">[('location_id.partner_id.dc_id.id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_pos_pricelist_discount.BA_group'))]"/>
+	    </record>
+    </data>
+</openerp>
