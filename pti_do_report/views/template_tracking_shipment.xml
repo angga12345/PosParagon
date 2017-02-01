@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+   <data>
+
+      <template id="report_tracking_shipment">
+         <t t-foreach="docs" t-as="o">
+            <div class="row">
+               <t t-call="pti_do_report.report_tracking_shipment_body"/>
+            </div>
+         </t>
+      </template>
+
+      <template id="report_tracking_shipment_body">
+         <t t-call="report.html_container">
+            <div class="page">
+                  <div class="container" position="fixed">
+                  	
+                     <div class="col-xs-6">
+                     <p style="font-weight: bold; font-size: 24px;">
+                        Shipment Report <span t-field="o.name"/>
+                     </p> <br/>
+                     
+                     <p style="font-weight: bold;">
+                        Truck : <span t-field="o.truck_id"/>
+                     </p> 
+                     <p style="font-weight: bold;">
+                        Driver : <span t-field="o.partner_id"/>
+                     </p> 
+                     <p style="font-weight: bold;">
+                        User : <span t-field="o.user_id"/>
+                     </p> 
+                     </div> 
+                     	
+                     <table class="table table-bordered" style="border-color: #004269;">
+                        <thead>
+                           <tr>
+                           	<td style="width : 10%;"> No</td>
+							<td style="width: 20%;  ">Name</td>
+							<td style="width: 30%">Partner</td>
+							<td style="width: 40%; ">Address</td>
+                           </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                		 <t t-set="i" t-value="1"/>
+                           <tr t-foreach="o.picking_ids" t-as="picking">
+                              	 <td> <span t-esc="i"/></td>
+                                 <td> <span t-field="picking.name"/> </td>
+                                 <td> <span t-field="picking.partner_id"/> </td>
+                                 <td> <span t-field="picking.partner_id.street"/> <span t-field="picking.partner_id.street2"/>, <span t-field="picking.partner_id.city"/>, <span t-field="picking.partner_id.zip"/>
+                                 </td>
+                                 <t t-set="i" t-value="i+1"/>
+                           </tr>
+                        </tbody>
+                     </table>
+
+
+                  </div>
+            </div>
+				<!--footer number-->            
+			<div class="footer">
+		    	<div style="margin-top:30px;" class="row">
+		        	<div class="col-xs-5">
+		            		<small style="margin-top:20px;">
+								<span>Page <span class="page"/> of <span class="topage"/></span>
+							</small>
+		        	</div>
+		    	</div>
+			</div>
+         </t>
+      </template>
+   </data>
+</openerp>

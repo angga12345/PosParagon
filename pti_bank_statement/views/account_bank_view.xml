@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+	<data>
+		<!-- Adds all assets in Odoo -->
+        <template id="assets_backend" name="bank_statement_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+ 				<!-- All links to CSS and JS files should be added in here. -->
+				<link rel="stylesheet" href="/pti_bank_statement/static/src/css/static_resources_template.css"/>
+			</xpath>
+		 </template>
+
+		<record id="view_bank_statement_form" model="ir.ui.view">
+			<field name="name">account.bank.statement.form.inherited</field>
+			<field name="model">account.bank.statement</field>
+			<field name="inherit_id" ref="account.view_bank_statement_form"/>
+			<field name="arch" type="xml">
+				<xpath expr='//notebook/page/field/tree/field[@name="amount"]' position="after">
+					<field name="balance" invisible="1"/>
+				</xpath>
+				<xpath expr='//notebook/page/field/tree/field[@name="amount"]' position="before">
+		        	<field name="debit" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
+		        	<field name="credit" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
+				</xpath>
+				<xpath expr='//notebook/page/field/tree/field[@name="amount"]' position="attributes">
+					<attribute name="invisible">0</attribute> <!-- if credit and debit field implemented hide amount field -->
+				</xpath>
+				<xpath expr='//form/sheet/group/group/field[@name="journal_id"]' position="after">
+					<field name="start_date"/>
+				</xpath>
+				<xpath expr='//form/sheet/group/group/field[@name="date"]' position="attributes">
+					<attribute name="string">Ending Date</attribute>
+				</xpath>
+				<field name="balance_start" position="attributes">
+					<attribute name="attrs">{'readonly' : [('access_group','=',False)]}</attribute>
+				</field>
+				<field name="balance_end_real" position="attributes">
+					<attribute name="attrs">{'readonly' : [('access_group','=',False)]}</attribute>
+				</field>
+				<field name="balance_start" position="after">
+                    <field name="access_group" invisible="1"/>
+		        </field>
+				<xpath expr='//form/header/field[@name="all_lines_reconciled"]' position="after">
+					<button name="open_internal_transfer" type="object" string="Internal Transfer" class="oe_highlight"/>
+					<button name="open_prev_bank_statement" type="object" string="Previous Bank Statement" class="oe_highlight"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.ui.menu" id="account.menu_action_account_payments_receivable">
+			<field name="name">Payments</field>
+			<field name="groups_id" eval="[(6,0,[ref('group_payments')])]"/>
+		</record>
+		
+		<record model="ir.ui.menu" id="account.menu_action_account_payments_payable">
+			<field name="name">Payments</field>
+			<field name="groups_id" eval="[(6,0,[ref('group_payments')])]"/>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	
+        <record model="ir.ui.view" id="view_done_shipment">
+            <field name="name">view.done.shipment</field>
+            <field name="model">truck.picking.shipment</field>
+            <field name="arch" type="xml">
+                <form>
+                	<p>Please Fill Date to Fill date shipment for Delivery Order</p>
+                	<field name="date_shipment"/>
+                    <footer>
+                    	<button name="done_tracking2" type="object"
+                    			string="Done" class="oe_highlight"/>
+                    	or
+                    	<button special="cancel" string="cancel"/>                  	
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+        <record id="view_picking_shipment_form" model="ir.ui.view">
+            <field name="name">picking.shipment.form</field>
+            <field name="model">truck.picking.shipment</field>
+            <field name="arch" type="xml">
+                <form string="Stock Picking Shipments">
+                <header>
+                    <button name="confirm_tracking" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ('draft'))]}"/>
+                    <button name="done_tracking" string="Done" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ('in_progress'))]}"/>
+                    <button name="cancel_tracking" string="Cancel" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ('in_progress'))]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done" statusbar_colors='{"proforma":"blue","proforma2":"blue"}'/>
+                </header>
+                
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="print_picking" string="Print all pickings" type="object"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                        	<group>
+	                        	<field name="truck_id" required="1"/>
+	                        	<field name="partner_id" domain="[('is_driver','=',True)]"/>
+	                        </group>
+	                        <group>
+                        		<field name="user_id" readonly="1"/>
+	                        </group>
+                        </group>
+                        
+                        <separator string="Pickings"/>
+                    	<button name="set_all_done" string="Set All Done" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ('in_progress'))]}"/>
+                        <field name="picking_ids" widget="many2many">
+                            <tree editable="top">
+                                <field name="name"/>
+                                <field name="date_shipment_picking" attrs="{'invisible': [('state', 'not in', ('done'))]}" readonly="True" />
+<!--                                <field name="date"/>-->
+<!--                                <field name="min_date"/>-->
+                                <field name="state" invisible="1"/>
+                                <field name="state_shipment"/>
+                                <button name="set_state_shipment_pending" string="Set to Pending" type="object" icon="gtk-go-forward" attrs="{'invisible': [('state_shipment', 'not in', ('in_progress'))]}"/>
+                                <button name="set_state_shipment_done" string="Set to Done" type="object" icon="gtk-apply" attrs="{'invisible': [('state_shipment', 'not in', ('in_progress'))]}"/>
+                                <button name="set_state_shipment_cancel" string="Set to Cancel" icon="gtk-cancel" type="object" />
+                                <button name="set_state_shipment_cancel" string="Set to Cancel" type="object" 
+                                		groups="base.group_system"/>
+                                <button name="set_state_shipment" string="Set to Pending" type="object" 
+                                		groups="base.group_system"/>
+                                 <button name="set_state_shipment_dones" string="Set to Done" type="object" 
+                                		groups="base.group_system"/>
+								<button name="delete_only_one_line" string="Delete" type="object" attrs="{'invisible': [('state_shipment', '=', False)]}"
+                                		groups="base.group_system"/>
+                            </tree>
+                        </field>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_picking_shipment_tree" model="ir.ui.view">
+            <field name="name">picking.shipment.tree</field>
+            <field name="model">truck.picking.shipment</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Picking Shipments">
+					<field name="name" string="Shipment Name"/>
+					<field name="state" string="State Truck"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_picking_shipment_filter" model="ir.ui.view">
+            <field name="name">picking.shipment.filter</field>
+            <field name="model">truck.picking.shipment</field>
+            <field name="arch" type="xml">
+                <search string="Search Picking Shipments">
+
+               </search>
+            </field>
+        </record>
+
+        <record id="action_picking_shipment" model="ir.actions.act_window">
+            <field name="name">Picking Shipments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">truck.picking.shipment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_in_progress" : True,}</field>
+            <field name="search_view_id" ref="view_picking_shipment_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Picking shipment.
+              </p><p>
+                The Goal of the picking shipments is to group operations that may 
+                (needs to) be done together in order to increase their efficiency.
+                It may also be useful to assign jobs (one person = one shipment) or
+                help the timing management of operations (tasks to be done at 1pm).
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_picking_shipment" id="menu_action_picking_shipment" parent="stock.menu_stock_warehouse_mgmt" sequence="30"/>
+
+        <record model="ir.ui.view" id="view_stock_picking_shipment_inherit">
+        <field name="name">stock.picking.shipment.inherit.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_type_id']" position="after">
+                <field name="state_shipment" />
+            </xpath>
+        </field>
+        </record>
+        <record model="ir.ui.view" id="view_stock_picking_shipment_tree_inherit">
+        <field name="name">stock.picking.shipment.inherit.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_type_id']" position="after">
+                <field name="state_shipment" />
+            </xpath>
+        </field>
+        </record>
+        <record model="ir.ui.view" id="view_stock_picking_shipment_search_inherit">
+        <field name="name">stock.picking.shipment.inherit.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='picking_type']" position="after">
+                <filter string="Shipment" domain="[]" context="{'group_by':'tracking_id'}"/>
+            </xpath>
+        </field>      	
+        </record>
+        
+        <record model="ir.ui.view" id="view_truck_pti">
+        <field name="name">truck.pti.view</field>
+        <field name="model">truck.pti</field>
+        <field name="arch" type="xml">
+        	<form>
+        		<group>
+                <label for="name" />
+        		<field name="name"/>
+                </group>
+        	</form>
+        </field>      	
+        </record>
+        
+        <!--  Truck action menu-->
+        <record model="ir.actions.act_window" id="truck_pti_act">
+            <field name="name">Add Truck</field>
+            <field name="res_model">truck.pti</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_truck_pti"/>
+            <field name="target">new</field>
+        </record>
+        
+        <record id="view_partner_form_driver" model="ir.ui.view">
+            <field name="name">res.partner.form.driver</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            	<field name="email" position="after">
+            		<field name="is_driver"/>
+            	</field>
+            </field>
+        </record>
+    </data>
+</openerp>

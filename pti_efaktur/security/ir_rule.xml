@@ -1,0 +1,12 @@
+<openerp>
+	<data>
+        <record id="dirjen_tax_code_rule" model="ir.rule">
+	        <field name="name">dirjen.tax.code</field>
+	        <field ref="model_dirjen_tax_code" name="model_id"/>
+	        <field name="domain_force">
+	        	['|',('invoice_id.dc_id','=',user.partner_id.dc_id.id),('invoice_id','=',False)]
+			</field>
+			<field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_sales_admin_invoice'))]"/>
+	    </record>
+	</data>
+</openerp>

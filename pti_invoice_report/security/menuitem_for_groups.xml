@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+		<record id="account.menu_finance_legal_statement" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(3,ref('account.group_account_user')),(3,ref('pti_branch.group_pti_branch_sales_admin_invoice')),(4,ref('account.group_account_manager')),(4,ref('pti_branch.group_pti_branch_finance_admin')),(4,ref('pti_branch.pti_audit_group'))]"/>
+		</record>
+		
+		<record id="pti_invoice_report.menu_go_live_report_dailies" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(3,ref('account.group_account_user')),(3,ref('pti_branch.group_pti_branch_sales_admin_invoice')),(4,ref('account.group_account_manager')),(4,ref('pti_branch.group_pti_branch_finance_admin')),(4,ref('pti_branch.pti_audit_group'))]"/>
+		</record>
+		<record id="account.menu_finance_reports" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(3,ref('pti_branch.group_pti_branch_sales_admin_invoice')),
+    									   (3,ref('account.group_account_user')),
+    									   (4,ref('account.group_account_manager')),
+    									   (4,ref('pti_branch.group_pti_branch_finance_admin')),
+    									   (4,ref('pti_branch.pti_audit_group')),
+    									   (4,ref('pti_branch.group_pti_branch_kdc'))]"/>
+		</record>
+		<record id="account.account_reports_business_intelligence_menu" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(3,ref('pti_branch.group_pti_branch_sales_admin_invoice')),(3,ref('account.group_account_user')),(4,ref('account.group_account_manager')),
+    									   (4,ref('pti_branch.group_pti_branch_finance_admin')),
+    									   (4,ref('pti_branch.pti_audit_group')),
+    									   (4,ref('pti_branch.group_pti_branch_kdc'))]"/>
+		</record>
+        <record id="general_ledger_kdc_group" model="ir.ui.view">
+            <field name="name">general.ledger.kdc.group</field>
+            <field name="model">account.report.general.ledger</field>
+            <field name="inherit_id" ref="account.account_report_general_ledger_view" />
+            <field name="arch" type="xml">                                   
+                <field name="journal_ids" position="attributes">
+<!--                   <attribute name="domain">[('parent.dc_id','=',user.partner_id.dc_id.id)]</attribute-->
+                   <attribute name="readonly">0</attribute>
+                </field>                           
+            </field>
+		</record> 
+        
+        <menuitem id="menu_dc_reporting" name="DC Reporting" parent="account.menu_finance" sequence="9" groups="pti_branch.group_pti_branch_kdc"/>
+        <menuitem
+	        id="menu_general_ledger"
+	        name="General Ledger"
+	        parent="menu_dc_reporting" 
+        	groups="pti_branch.group_pti_branch_kdc" 
+	        action="account.action_account_general_ledger_menu"
+        />
+        <record id="menu_dc_reporting" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(3,ref('pti_branch.group_pti_branch_sales_admin_invoice')),(3,ref('account.group_account_user')),(3,ref('account.group_account_manager')),
+    									   (4,ref('pti_branch.group_pti_branch_kdc'))]"/>
+		</record>
+	</data>
+</openerp>

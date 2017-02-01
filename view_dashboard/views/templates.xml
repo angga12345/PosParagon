@@ -1,0 +1,21 @@
+<openerp>
+    <data>
+        <template id="page_tree_view_extend" name="list_test_tree_extend" inherit_id="web.assets_backend">
+        	<xpath expr="." position="inside">
+                <script type="text/javascript" src="/view_dashboard/static/src/js/displayperpage.js"></script>
+            </xpath>
+		</template>
+		
+    	<record id="stock_pikcing_type_kanban_inherites" model="ir.ui.view">
+            <field name="name">stock_pikcing_type_kanban_inherites</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+            <field name="arch" type="xml">
+				<xpath expr="//t/div[1]/div[2]/div[1]/div[2]/div[3]/div[1]/a" position="replace">
+						
+                </xpath>
+            </field>
+        </record>
+    	
+    </data>
+ </openerp>

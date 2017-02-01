@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	
+		<record id="paper_landscape" model="report.paperformat">
+		    <field name="name">PTI Landscape</field>
+		    <field name="default" eval="True" />
+		    <field name="format">custom</field>
+		    <field name="page_height">216</field>
+		    <field name="page_width">310</field>
+		    <field name="orientation">Portrait</field>
+		    <field name="margin_top">30</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">6</field>
+		    <field name="margin_right">18</field>
+		    <field name="header_line" eval="False" />
+		    <field name="header_spacing">35</field>
+		    <field name="dpi">90</field>
+		</record>
+		
+		<record id="paper_letter" model="report.paperformat">
+		    <field name="name">PTI Letter</field>
+		    <field name="default" eval="True" />
+		    <field name="format">Letter</field>
+		    <field name="page_height">0</field>
+		    <field name="page_width">0</field>
+		    <field name="orientation">Portrait</field>
+		    <field name="margin_top">10</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">7</field>
+		    <field name="margin_right">7</field>
+		    <field name="header_line" eval="False" />
+		    <field name="header_spacing">35</field>
+		    <field name="dpi">90</field>
+		</record>
+		
+		<record id="paper_portrait" model="report.paperformat">
+		    <field name="name">PTI Portrait</field>
+		    <field name="default" eval="True" />
+		    <field name="format">custom</field>
+		    <field name="page_height">307</field>
+		    <field name="page_width">216</field>
+		    <field name="orientation">Portrait</field>
+		    <field name="margin_top">30</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">6</field>
+		    <field name="margin_right">6</field>
+		    <field name="header_line" eval="False" />
+		    <field name="header_spacing">35</field>
+		    <field name="dpi">90</field>
+		</record>
+
+		<record id="paper_a4" model="report.paperformat">
+		    <field name="name">PTI A4</field>
+		    <field name="default" eval="True" />
+		    <field name="format">custom</field>
+		    <field name="page_height">307</field>
+		    <field name="page_width">216</field>
+		    <field name="orientation">Portrait</field>
+		    <field name="margin_top">40</field>
+		    <field name="margin_bottom">20</field>
+		    <field name="margin_left">7</field>
+		    <field name="margin_right">7</field>
+		    <field name="header_line" eval="False" />
+		    <field name="header_spacing">35</field>
+		    <field name="dpi">90</field>
+		</record>
+					
+		<!-- Delivery Note Paper Format -->
+		<record id="pti_do_report.action_report_dn" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="pti_paper.paper_portrait" />
+		</record>
+
+		<!-- Delivery Note Sort Paper Format -->
+		<record id="pti_do_report.action_report_dns" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="pti_paper.paper_portrait" />
+		</record>
+		
+				
+		<!-- Delivery Note Paper Format Landscape -->
+		<record id="pti_do_report.action_report_dn_lands" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="pti_paper.paper_letter" />
+		</record>
+
+		<!-- Pro Forma Invoice Paper Format -->
+		<record id="pti_do_report.action_report_pi" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="pti_paper.paper_landscape" />
+		</record>
+
+		<!-- Invoice Paper Format -->
+		<record id="pti_invoice_report.action_invoice_report" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="pti_paper.paper_landscape" />
+		</record>	
+		
+		<!-- Picking Operation Paper Format -->
+		<record id="stock.action_report_picking" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="pti_paper.paper_a4" />
+		</record>	
+		
+		<!--	Internal Transfer Paper Format		-->
+		<record id="pti_do_report.action_internal_transfer" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="pti_paper.paper_a4"/>
+		</record>
+		
+    </data>
+</openerp>

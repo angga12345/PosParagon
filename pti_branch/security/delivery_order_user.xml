@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	<!-- =============================MENU ACCESS=============================== -->	
+    	<!-- here -->
+		<!-- =============================RECORD RULES=============================== -->
+		<!-- PARTNER -->
+        <record id="delivery_user_partner_rule" model="ir.rule">
+	        <field name="name">DO customers</field>
+	        <field ref="account.model_res_partner" name="model_id"/>
+	        <field name="domain_force">['|','|',('dc_id','=',user.partner_id.dc_id.id),('is_dc','=',True),('this_for_all','=',True)]</field>
+		<field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_delivery_order'))]"/>
+	    </record>
+	    
+		<!-- LOCATION -->
+	    <record id="delivery_user_stock_location_rule" model="ir.rule">
+	        <field name="name">DO Personal Location</field>
+	        <field ref="stock.model_stock_location" name="model_id"/>
+	        <field name="domain_force"></field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_delivery_order'))]"/>
+	    </record>
+		
+	    <record id="quants_do_rule" model="ir.rule">
+	        <field name="name">DO Quants</field>
+	        <field ref="stock.model_stock_quant" name="model_id"/>
+	        <field name="domain_force">
+	        	[
+	        	'|',
+	        	('location_id.this_for_all','=',True),
+	        	('location_id.dc_id','=',user.partner_id.dc_id.id)
+	        	]
+	        </field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_delivery_order'))]"/>
+	    </record> 
+	    
+	    <!-- WAREHOUSE 
+	    <record id="delivery_user_stock_warehouse_rule" model="ir.rule">
+	        <field name="name">DO Personal Stock Warehouse</field>
+	        <field ref="stock.model_stock_warehouse" name="model_id"/>
+	        <field name="domain_force">['|',('dc_id','=',False),('dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_delivery_order'))]"/>
+	    </record>
+	    -->
+	    
+	    <record id="delivery_user_stock_picking_rule" model="ir.rule">
+	        <field name="name">DO Personal Stock Picking Warehouse</field>
+	        <field ref="stock.model_stock_picking" name="model_id"/>
+	        <field name="domain_force">
+	        	[
+	        		'|',
+	        			('picking_type_id.warehouse_id.dc_id','=',user.partner_id.dc_id.id),
+		        		'|',
+		        		('picking_type_id.warehouse_id', 'in', [wh.id for wh in user.partner_id.warehouse_ids]),
+		        		('picking_type_id.is_sjb_operation', '=', True),		        		
+	        	]	
+	        </field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_delivery_order'))]"/>
+	    </record>
+	    
+	    <record id="delivery_user_stock_picking_type_rule" model="ir.rule">
+	        <field name="name">DO Personal Stock Picking Type</field>
+	        <field ref="stock.model_stock_picking_type" name="model_id"/>
+	        <field name="domain_force">
+	        	[
+	        		'|',
+	        			('warehouse_id.dc_id','=',user.partner_id.dc_id.id),
+		        		'|',
+			        	('warehouse_id', 'in', [wh.id for wh in user.partner_id.warehouse_ids]),
+		        		('is_sjb_operation', '=', True),
+	        	]
+	        </field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_delivery_order'))]"/>
+	    </record>
+    </data>
+</openerp>

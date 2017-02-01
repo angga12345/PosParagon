@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="update_tax_wizard_view" model="ir.ui.view">
+			<field name="name">update.tax.wizard.view</field>
+            <field name="model">purchase.order.line.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Update Taxes">
+                    <group>
+						<field name="apply_all"/>
+						<field name="taxes" mode="tree">
+							<tree string="Taxes" editable="bottom" >
+								<field name="name" />
+							</tree>
+						</field>
+                    </group>
+					<footer>
+						<button name="apply_changes" string="Apply" type="object" class="btn-primary" default_focus="1"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_update_tax_wizard" model="ir.actions.act_window">
+			<field name="name">Update Tax</field>
+            <field name="res_model">purchase.order.line.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="update_tax_wizard_view"/>
+            <field name="target">new</field>
+		</record>
+
+	</data>
+</openerp>

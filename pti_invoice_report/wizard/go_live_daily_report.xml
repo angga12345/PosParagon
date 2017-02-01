@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+		
+        <record id="report_go_live_view" model="ir.ui.view">
+            <field name="name">report.go.live.view</field>
+            <field name="model">report.go.live</field>
+            <field name="arch" type="xml">
+                <form string="Go Live Report">
+                        <group string="please click button below" colspan="4">
+                            <field name="date_report" readonly="0"/>
+                        </group>
+                        <field invisible="1" name="state_position"/>
+                        <newline/>    
+                        <group col="4" fill="0" attrs="{'invisible':[('state_position','!=','get')]}">
+                            <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_position','=','choose')]}"/>
+                            <field name="name" invisible="1" width="100"/>
+                            <field name="data_binary" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_position','=','choose')]}"/>
+                        </group>
+                        <footer>
+                            <button icon="gtk-print" name="excel_report" string="Generate Excel" type="object" colspan="2" default_focus="1" />
+                            or
+                            <button string="Close" special="cancel"/>
+                        </footer>
+                </form>
+
+            </field>
+        </record>
+        
+	    <record id="action_go_live_report" model="ir.actions.act_window">
+	        <field name="name">Go Live Report</field>
+	        <field name="res_model">report.go.live</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="report_go_live_view"/>
+	        <field name="target">new</field>
+	        <!--field name="context" eval="{'default_account_report_id':ref('account.account_financial_report_balancesheet0')}"/-->
+	    </record>
+		<menuitem id="menu_go_live_report_dailies" name="Go-live Report" action="action_go_live_report" parent="account.menu_finance_reports" sequence="7"/>
+
+    </data>
+</openerp>
+

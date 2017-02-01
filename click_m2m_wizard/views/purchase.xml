@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="button_update_tax_wizard" model="ir.ui.view">
+			<field name="name">button.update.tax.wizard</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<field name="price_subtotal" position="after">
+					<button type="action"
+                            name="%(click_m2m_wizard.action_update_tax_wizard)d"
+                            string="Edit"
+                            class="oe_edit_only"
+                            help="Edit Taxes"/>
+				</field>
+			</field>
+		</record>
+
+	</data>
+</openerp>

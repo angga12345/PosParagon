@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	
+        <!-- Consolidate Product form  -->
+        <record model="ir.ui.view" id="view_date_product_form">
+            <field name="name">stock.picking.date.product.form</field>
+            <field name="model">date.consolidate.product</field>
+            <field name="arch" type="xml">
+                <form string="Report Consolidate Picking">
+                    <separator string="choose Date and Brand"/>
+                    <field name="date_consolidate" class="oe_inline"/>
+                    <field name="brand_consolidate" class="oe_inline"/>
+                    <footer>
+                        <button name="create_consolidate_product" type="object" string="processed" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--  consolidate product action -->
+        <record model="ir.actions.act_window" id="action_date_product_form">
+            <field name="name">Report Consolidate Picking</field>
+            <field name="res_model">date.consolidate.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_date_product_form"/>
+            <field name="target">new</field>
+        </record>
+                
+		<menuitem name="Consolidate Picking" action="action_date_product_form" parent="stock.menu_stock_warehouse_mgmt" id="consolidate_product" sequence="32"/>
+
+	    <record id="view_picking_consolidate_product_form" model="ir.ui.view">
+            <field name="name">date.consolidate.product.form</field>
+            <field name="model">date.consolidate.product</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Stock Picking Waves">
+                    <sheet>
+                        <separator string="Pickings"/>
+                        <field name="date_consolidate"/>
+                        <field name="brand_consolidate"/>
+                        <field name="picking" readonly="1">
+                            <tree>
+                                <field name="product_id"/>
+                                <field name="tot_qty"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+            
+        </record>			        
+        
+	    <record id="view_picking_consolidate_product_tree" model="ir.ui.view">
+            <field name="name">date.consolidate.product.tree</field>
+            <field name="model">date.consolidate.product</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date_consolidate"/>
+                </tree>
+            </field>
+            
+        </record>			        
+       
+	</data>
+</openerp>

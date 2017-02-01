@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+	    <record id="id_tax_product_type_material_po" model="account.tax">
+	        <field name="name">Material (PO)</field>
+	        <field name="description">Tax Product Type: Material</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	    
+	    <record id="id_tax_product_type_material" model="account.tax">
+	        <field name="name">Material</field>
+	        <field name="description">Tax Product Type: Material</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	
+	    <record id="id_tax_product_type_service_po" model="account.tax">
+	        <field name="name">Service (by Company/Institution) (PO)</field>
+	        <field name="description">Tax Product Type: Service (by Company/Institution)</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	    
+	    <record id="id_tax_product_type_service" model="account.tax">
+	        <field name="name">Service (by Company/Institution)</field>
+	        <field name="description">Tax Product Type: Service (by Company/Institution)</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	
+	    <record id="id_tax_product_type_rental_land_building_po" model="account.tax">
+	        <field name="name">Rental Land and Building (PO)</field>
+	        <field name="description">Tax Product Type: Rental Land and Building</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	    
+	    <record id="id_tax_product_type_rental_land_building" model="account.tax">
+	        <field name="name">Rental Land and Building</field>
+	        <field name="description">Tax Product Type: Rental Land and Building</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	
+	    <record id="id_tax_product_type_rental_non_land_building_po" model="account.tax">
+	        <field name="name">Rental Non Land and Building (PO)</field>
+	        <field name="description">Tax Product Type: Rental Non Land and Building</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	    
+	    <record id="id_tax_product_type_rental_non_land_building" model="account.tax">
+	        <field name="name">Rental Non Land and Building</field>
+	        <field name="description">Tax Product Type: Rental Non Land and Building</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	
+	    <record id="id_tax_product_type_intangible_asset_po" model="account.tax">
+	        <field name="name">Intangible Assets (PO)</field>
+	        <field name="description">Tax Product Type: Intangible Assets</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	    
+	    <record id="id_tax_product_type_intangible_asset" model="account.tax">
+	        <field name="name">Intangible Assets</field>
+	        <field name="description">Tax Product Type: Intangible Assets</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	
+	    <record id="id_tax_product_type_civil_construction_po" model="account.tax">
+	        <field name="name">Civil Construction (PO)</field>
+	        <field name="description">Tax Product Type: Civil Construction</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	    
+	    <record id="id_tax_product_type_civil_construction" model="account.tax">
+	        <field name="name">Civil Construction</field>
+	        <field name="description">Tax Product Type: Civil Construction</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_tax_product_type')])]"/>
+	    </record>
+	    
+	    <!-- other tax purchase-->
+	    <record id="id_paragon_purchase_pph_23_2" model="account.tax">
+	        <field name="name">PPH23 2% (PO)</field>
+	        <field name="description">PPH 23 2%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_004"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_004"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-2</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record> 
+	    
+	    <record id="id_paragon_purchase_pph_4_10" model="account.tax">
+	        <field name="name">Final Tax PPh 4(2) 10%(PO)</field>
+	        <field name="description">Final Tax PPh 4(2) 10%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-10</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record> 
+	    
+	    <record id="id_paragon_purchase_pph_4_2" model="account.tax">
+	        <field name="name">Final Tax PPh 4(2) 2% (PO)</field>
+	        <field name="description">Final Tax PPh 4(2) 2%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-2</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_purchase_pph_4_3" model="account.tax">
+	        <field name="name">Final Tax PPh 4(2) 3% (PO)</field>
+	        <field name="description">Final Tax PPh 4(2) 3%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-3</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	     <record id="id_paragon_purchase_pph_4_4" model="account.tax">
+	        <field name="name">Final Tax PPh 4(2) 4% (PO)</field>
+	        <field name="description">FFinal Tax PPh 4(2) 4%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-4</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_purchase_pph_23_2tarif" model="account.tax">
+	        <field name="name">PPh23 (2xtariff) (PO)</field>
+	        <field name="description">PPh23 (2xtariff)</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_004"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_004"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-4</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_purchase_20_import" model="account.tax">
+	        <field name="name">20% Import (PO)</field>
+	        <field name="description">20% Import</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-20</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_purchase_pph_21_1" model="account.tax">
+	        <field name="name">PPh 21 2,5% (PO)</field>
+	        <field name="description">PPh 21 2,5%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_002"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_002"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-2.5</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	 	<record id="id_paragon_purchase_pph_21_2" model="account.tax">
+	        <field name="name">PPh 21 7,5% (PO)</field>
+	        <field name="description">PPh 21 7,5%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_002"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_002"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-7.5</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_purchase_pph_21_3" model="account.tax">
+	        <field name="name">PPh 21 12,5% (PO)</field>
+	        <field name="description">PPh 21 12,5%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_002"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_002"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-12.5</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	     <record id="id_paragon_purchase_pph_21_4" model="account.tax">
+	        <field name="name">PPh 21 15% (PO)</field>
+	        <field name="description">PPh 21 15%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_002"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_002"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-2</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_purchase_offshore_0" model="account.tax">
+	        <field name="name">Offshore 0% (PO)</field>
+	        <field name="description">Offshore 0%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-20</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+
+	    <record id="id_paragon_purchase_offshore_5" model="account.tax">
+	        <field name="name">Offshore 5% (PO)</field>
+	        <field name="description">Offshore 5%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-5</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_purchase_offshore_10" model="account.tax">
+	        <field name="name">Offshore 10% (PO)</field>
+	        <field name="description">Offshore 10%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-10</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_purchase_offshore_20" model="account.tax">
+	        <field name="name">Offshore 20% (PO)</field>
+	        <field name="description">Offshore 20%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_003"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-20</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">purchase</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <!-- other tax sales-->
+	    <record id="id_paragon_sale_pph_23_2" model="account.tax">
+	        <field name="name">PPH23 2%</field>
+	        <field name="description">PPH 23 2%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-2</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record> 
+	     	
+	    <record id="id_paragon_sale_pph_4_10" model="account.tax">
+	        <field name="name">Final Tax PPh 4(2) 10%</field>
+	        <field name="description">Final Tax PPh 4(2) 10%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-10</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_pph_4_2" model="account.tax">
+	        <field name="name">Final Tax PPh 4(2) 2%</field>
+	        <field name="description">Final Tax PPh 4(2) 2%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-2</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_pph_4_3" model="account.tax">
+	        <field name="name">Final Tax PPh 4(2) 3%</field>
+	        <field name="description">Final Tax PPh 4(2) 3%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-3</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	     <record id="id_paragon_sale_pph_4_4" model="account.tax">
+	        <field name="name">Final Tax PPh 4(2) 4%</field>
+	        <field name="description">Final Tax PPh 4(2) 4%</field>
+	        <field name="account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="refund_account_id" ref="account_account_2_1_05_01_001"/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-4</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_pph_23_2tarif" model="account.tax">
+	        <field name="name">PPh23 (2xtariff)</field>
+	        <field name="description">PPh23 (2xtariff)</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-4</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_20_import" model="account.tax">
+	        <field name="name">20% Import</field>
+	        <field name="description">20% Import</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-20</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_pph_21_1" model="account.tax">
+	        <field name="name">PPh 21 2,5%</field>
+	        <field name="description">PPh 21 2,5%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-2.5</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	 	<record id="id_paragon_sale_pph_21_2" model="account.tax">
+	        <field name="name">PPh 21 7,5%</field>
+	        <field name="description">PPh 21 7,5%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-7.5</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_pph_21_3" model="account.tax">
+	        <field name="name">PPh 21 12,5%</field>
+	        <field name="description">PPh 21 12,5%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-12.5</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	     <record id="id_paragon_sale_pph_21_4" model="account.tax">
+	        <field name="name">PPh 21 15%</field>
+	        <field name="description">PPh 21 15%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-2</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_offshore_0" model="account.tax">
+	        <field name="name">Offshore 0%</field>
+	        <field name="description">Offshore 0%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">0</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_offshore_5" model="account.tax">
+	        <field name="name">Offshore 5%</field>
+	        <field name="description">Offshore 5%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-5</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_offshore_10" model="account.tax">
+	        <field name="name">Offshore 10%</field>
+	        <field name="description">Offshore 10%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-10</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+	    
+	    <record id="id_paragon_sale_offshore_20" model="account.tax">
+	        <field name="name">Offshore 20%</field>
+	        <field name="description">Offshore 20%</field>
+	        <field name="account_id" ref=""/>
+	        <field name="refund_account_id" ref=""/>
+	        <field name="price_include" eval="0"/>
+	        <field name="amount">-20</field>
+	        <field name="company_id" ref="base.main_company"/>
+	        <field name="amount_type">percent</field>
+	        <field name="type_tax_use">sale</field>
+	        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10_exclude')])]"/>
+	    </record>
+
+    </data>
+</odoo>

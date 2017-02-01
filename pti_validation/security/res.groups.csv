@@ -1,0 +1,6 @@
+"id","menu_access/id","implied_ids/id"
+"pti_validation.pti_stock_adjustment","stock.menu_stock_inventory_control,stock.menu_stock_root,stock.menu_action_inventory_form",
+"pti_validation.pti_validate_adjustment","stock.menu_stock_inventory_control,stock.menu_stock_root,stock.menu_action_inventory_form",
+"pti_validation.pti_prodev","base.menu_base_partner,base.menu_sales",
+"base.group_system",,"base.group_erp_manager,pti_validation.pti_stock_adjustment"
+"stock.group_stock_manager",,"account.group_account_invoice,stock.group_stock_user,pti_validation.pti_stock_adjustment"

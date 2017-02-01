@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+        <record id="free_product_form" model="ir.ui.view">
+            <field name="name">free.product.form</field>
+            <field name="model">sale.free.product</field>
+            <field name="arch" type="xml">
+                <form string="Transfer details" version="7">
+                	<group string="Free products">
+						<div class="oe_grey" colspan="4">
+                        	<p>Add list free product</p>
+                    	</div>
+                    </group>
+                 	<field name="sale_id" invisible="True"/>
+                    <group>
+                        <field name="item_ids" nolabel="1">
+                            <tree string="Inventory Details" editable="bottom" >
+                                <field name="free_product_line" invisible="1"/>
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="price_unit"/>
+                                <field name="product_uom"/>
+                                <field name="customer_lead" invisible="1"/>
+                                <field name="product_uom_qty"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="add_products" string="Add free product" type="object" class="oe_highlight"/>
+                        or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_free_product" model="ir.actions.act_window">
+            <field name="name">Free Product</field>
+            <field name="res_model">sale.free.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+           <field name="view_id" ref="free_product_form"/>
+           <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

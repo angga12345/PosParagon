@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    	
+        <!--  add Mark as todo action -->
+        <record model="ir.ui.view" id="mark_as_todo_act">
+            <field name="name">mark.as.todo.act</field>
+            <field name="model">stock.picking.action</field>
+            <field name="arch" type="xml">
+                <form>
+                    <footer>
+                    	<button name="action_confirm" type="object"
+                    			string="Mark as Todo" class="oe_highlight"/>
+                    	or
+                    	<button special="cancel" string="cancel"/>                  	
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <!--  add booking action -->
+        <record model="ir.ui.view" id="booking_act">
+            <field name="name">booking.act</field>
+            <field name="model">stock.picking.action</field>
+            <field name="arch" type="xml">
+                <form>
+                    <footer>
+                    	<button name="action_assign" type="object"
+                    			string="Booking" class="oe_highlight"/>
+                    	or
+                    	<button special="cancel" string="cancel"/>                  	
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+     	<!--  add validate action -->
+        <record model="ir.ui.view" id="validate_act">
+            <field name="name">validate.act</field>
+            <field name="model">stock.picking.action</field>
+            <field name="arch" type="xml">
+                <form>
+                    <footer>
+                    	<button name="do_new_transfer" type="object"
+                    			string="Validate" class="oe_highlight"/>
+                    	or
+                    	<button special="cancel" string="cancel"/>                  	
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="view_validate_transfer" model="ir.ui.view">
+        <field name="name">view.validate.transfer</field>
+        <field name="model">stock.picking.action</field>
+        <field name="arch" type="xml">
+            <form string="Immediate transfer?">
+                <group>
+                    <p>
+                        You haven't set processed quantities in one or more picking. If you click <i>apply</i>,
+                        Odoo will process all quantities to do.
+                    </p>
+                </group>
+                <footer>
+                    <button name="process_set_all" string="_Apply" type="object" class="btn-primary"/>
+                    <button string="_Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <act_window id="action_mark_as_todo"
+                    name="Mark as Todo"
+					multi="True"        
+                    src_model="stock.picking"
+                    res_model="stock.picking.action" 
+                    view_mode="form"
+        			view_id="mark_as_todo_act"
+                    target="new"
+                    key2="client_action_multi"/>
+                    	
+        <act_window id="action_booking"
+                    name="Booking"
+					multi="True"
+                    src_model="stock.picking"
+                    res_model="stock.picking.action" 
+                    view_mode="form"
+        			view_id="booking_act"
+                    target="new"
+                    key2="client_action_multi"/>
+
+<!--        <act_window id="action_validate"
+                    name="Validate"
+					multi="True"
+                    src_model="stock.picking"
+                    res_model="stock.picking.action" 
+                    view_mode="form"
+        			view_id="validate_act"
+                    target="new"
+                    key2="client_action_multi"/> -->
+    </data>
+</openerp>
+                    	

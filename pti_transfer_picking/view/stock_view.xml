@@ -1,0 +1,16 @@
+<openerp>
+	<data>
+		<record id="stock_backorder_confirmation_inherit" model="ir.ui.view">
+            <field name="name">stock.backorder.confirmation.inherit</field>
+            <field name="model">stock.backorder.confirmation</field>
+            <field name="inherit_id" ref="stock.view_backorder_confirmation"/>
+ 			<field name="arch" type="xml">            
+                <button name="process_cancel_backorder" position="replace">
+                   <button name="quick_process_cancel_backorder" string="No Backorder" groups="stock.group_stock_user" class="btn-primary" type="object"/>
+                </button>
+           </field>
+        </record>
+	</data>
+</openerp>
+
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	<!-- =============================MENU ACCESS=============================== -->	
+		<record id="stock.menu_stock_config_settings" model="ir.ui.menu">
+			<field name="groups_id" eval="[(4,ref('group_pti_branch_finance_admin'))]"/>
+		</record>
+		<!-- =============================RECORD RULES=============================== -->
+		
+	    <!-- SALE ORDER -->
+        <record id="finance_user_sale_order_rule" model="ir.rule">
+	        <field name="name">Finance Sale Order</field>
+	        <field ref="sale.model_sale_order" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_finance_admin'))]"/>
+	    </record>
+	    
+	    <record id="finance_user_sale_order_line_rule" model="ir.rule">
+	        <field name="name">Finance Sale Order Line</field>
+	        <field ref="sale.model_sale_order_line" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_finance_admin'))]"/>
+	    </record>
+    </data>
+</openerp>

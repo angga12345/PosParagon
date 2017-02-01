@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+        <menuitem id="menu_prodev" name="Prodev"
+            parent="base.menu_base_partner" sequence="3"/>
+		
+    	<record id="request_product_action" model="ir.actions.act_window">
+            <field name="name">Request Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product.product_template_kanban_view"/>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.
+                </p><p>
+                    You must define a product for everything you sell, whether it's a physical product, a consumable or a service you offer to  customers.               
+                </p><p>
+                    The product form contains information to simplify the sale process: price, notes in the quotation, accounting data, procurement methods, etc.
+                </p>
+            </field>
+        </record>
+        
+    	<menuitem action="request_product_action"
+            id="menu_product_template_action_finacial"
+            parent="pti_validation.menu_prodev" 
+    		groups="pti_branch.group_pti_branch_finance_admin" sequence="14" />
+        
+        <record id="prodev_readonly_can_be_sold" model="ir.ui.view">
+            <field name="name">prodev.readonly.can.be.sold</field>
+
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('pti_validation.pti_prodev') ])]" />
+                      
+            <field name="arch" type="xml">                                   
+                <field name="sale_ok" position="attributes">
+                   <attribute name="readonly">1</attribute>
+                                      
+                </field>                           
+            </field>
+		</record> 
+		<record id="product_validation_button" model="ir.ui.view">
+            <field name="name">product.validation.button</field>
+
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('pti_branch.group_pti_branch_finance_admin') ])]" />
+                      
+            <field name="arch" type="xml"> 
+            	<!-- FOR DOMAIN BUTTON TO WORK make invisible state field --> 
+            	<field name="sale_ok" position="after">
+                   <field name="state"  attrs="{'invisible': 1 }"/>
+                                      
+                </field>                                        
+                <xpath expr="//header" position="inside">
+                     <button name="validate" string="Validate" class="oe_highlight" type="object" attrs="{'invisible':[ ('state', '=', 'sellable')]}"/>
+                </xpath>                         
+            </field>
+		</record> 
+		<!--  <record id="product.menu_product_template_action" model="ir.ui.menu">
+			<field name="groups_id" eval="[(4,ref('pti_prodev'))]"/>
+		</record>-->
+		
+	</data>
+</openerp>   

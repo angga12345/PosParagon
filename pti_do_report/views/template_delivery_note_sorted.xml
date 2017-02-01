@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+   <data>
+
+      <template id="report_delivery_note_sorted">
+         <t t-foreach="docs" t-as="o">
+            <div class="row">
+               <t t-call="pti_do_report.report_delivery_note_body_sorted"/>
+               <p style="color:#fff;"><span t-esc="set_notify(o)"/></p>
+            </div>
+         </t>
+      </template>       
+
+      <template id="report_delivery_note_body_sorted">
+         <t t-call="report.html_container">
+            <div class="page">
+                  <div class="container" position="fixed">
+                     <div class="col-xs-5 col-xs-offset-7" style="font-weight: bold; font-size: 24px; margin-bottom: 5px;">
+                        Delivery Note
+                     </div>
+                     <div class="col-xs-5">
+                        <p style="font-weight: bold; border-bottom: 1px solid">Delivery Address</p>
+                        <t t-if="o.partner_id.parent_id">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.ref"/> <span t-field="o.partner_id.name"/></p>
+                        </t>
+                        <t t-if="not o.partner_id.parent_id">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.ref"/> <span t-field="o.partner_id.name"/> </p>
+                        </t>
+                        <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.street"/> <span t-field="o.partner_id.street2"/> </p>
+                        <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.zip"/> </p>
+                        <t t-if="o.partner_id.mobile">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Phone: <span t-field="o.partner_id.mobile"/> </p>
+                        </t>
+                        <t t-if="o.partner_id.fax">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Fax: <span t-field="o.partner_id.fax"/> </p>
+                        </t>
+                        <p style="margin-left: 2px; margin-bottom: 0px">
+	                      <t t-if="o.sale_id.partner_invoice_id.parent_id">
+	                         NPWP: <span t-field="o.sale_id.partner_invoice_id.parent_id.npwp"/>
+	                      </t>
+	                      <t t-if="not o.sale_id.partner_invoice_id.parent_id">
+	                         NPWP: <span t-field="o.sale_id.partner_invoice_id.npwp"/>
+	                      </t>
+                       </p>
+                       <br/>
+                        <p style="font-weight: bold; border-bottom: 1px solid">Billing Address</p>
+                        <t t-if="not o.sale_id">
+                           <t t-if="o.partner_id.parent_id">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.parent_id.name"/> </p>
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.parent_id.ref"/></p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.name"/> </p>
+                           <t t-if="not o.partner_id.parent_id">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.ref"/></p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.street"/> <span t-field="o.partner_id.street2"/> </p>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.zip"/> </p>
+                           <t t-if="o.partner_id.mobile">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Phone: <span t-field="o.partner_id.mobile"/> </p>
+                           </t>
+                           <t t-if="o.partner_id.fax">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Fax: <span t-field="o.partner_id.fax"/> </p>
+                           </t>
+                        </t>
+                        <t t-if="o.sale_id">
+                           <t t-if="o.sale_id.partner_invoice_id.parent_id">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.sale_id.partner_invoice_id.parent_id.name"/> </p>
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.sale_id.partner_invoice_id.parent_id.ref"/></p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.sale_id.partner_invoice_id.name"/></p>
+                           <t t-if="not o.sale_id.partner_invoice_id.parent_id">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.sale_id.partner_invoice_id.ref"/></p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.sale_id.partner_invoice_id.street"/> <span t-field="o.sale_id.partner_invoice_id.street2"/> </p>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.sale_id.partner_invoice_id.city"/>, <span t-field="o.sale_id.partner_invoice_id.zip"/> </p>
+                           <t t-if="o.sale_id.partner_invoice_id.mobile">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Phone: <span t-field="o.sale_id.partner_invoice_id.mobile"/> </p>
+                           </t>
+                           <t t-if="o.sale_id.partner_invoice_id.fax">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Fax: <span t-field="o.sale_id.partner_invoice_id.fax"/> </p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> NPWP: <span t-field="o.sale_id.partner_invoice_id.npwp"/> </p>
+                        </t>
+                     </div>
+
+                     <div class="col-xs-6">
+                        <div class="col-xs-6" style="text-align: right">Doc No:</div>
+                        <div class="col-xs-6">
+                           <span t-field="o.name"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align: right">Order No:</div>
+                        <div class="col-xs-6">
+                           <span t-field="o.origin"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align: right">Customer PO No:</div>
+                        <div class="col-xs-6">
+                           <t t-if="o.sale_id">
+                              <span t-field="o.sale_id.client_order_ref"/>
+                           </t>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align: right">Date:</div>
+                        <div class="col-xs-6">
+                           <span t-field="o.date_create_do"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+						<div class="col-xs-6" style="text-align: right"><![CDATA[&nbsp;]]></div>
+                        <div class="col-xs-6">
+                           <![CDATA[&nbsp;]]>
+                           <![CDATA[&nbsp;]]>
+                        </div>                        
+                        <div class="col-xs-6" style="text-align: right">Source Location:</div>
+                        <div class="col-xs-6">
+                           <span t-field="o.location_id"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>       
+                        <div class="col-xs-6">
+                           &amp;nbsp;
+                        </div>
+                        <div class="col-xs-6">
+                          <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.name, 120, 120)"/>
+                        </div>
+                     </div>
+                     <div/>
+                     <br/>
+                     <table class="table table-bordered" style="border-color: #004269;">
+                        <thead>
+                           <tr>
+							<td style="width: 5%;  ">No</td>
+							<td style="width: 10%; ">Item</td>
+							<td style="width: 65%; ">Material Description</td>
+							<td style="width: 10%; ">Quantity</td>
+							<td style="width: 10%; ">UOM</td>
+                           </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                        	<t t-set="i" t-value="1"/>
+							<t t-set="do_line_sorted" t-value="o.pack_operation_product_ids.sorted(key=lambda b: b.product_id.default_code)"/>             	
+							<tr t-foreach="do_line_sorted" t-as="line">
+							  <t t-if="line.qty_done != 0.0">
+							  	 <td> <span t-esc="i"/></td>
+							     <td> <span style="font-size: 16px" t-field="line.product_id.default_code"/> </td>
+							     <td> <span t-field="line.product_id.name"/> </td>
+							     <td> <span style="font-size: 16px" t-esc="'{0:,.0f}'.format((line.qty_done))"/> </td>
+							     <td> <span t-field="line.product_id.uom_id.name"/> </td>
+							     <t t-set="i" t-value="i+1"/>
+							  </t>
+							</tr>
+							<tr>
+							  <td colspan="5">
+							     Remark (if any): <span t-field="o.notes"/>
+							  </td>
+							</tr>
+                        </tbody>
+                     </table>
+                     <div class="row">
+                        <div class="col-xs-6">
+                           <p>Delivered By:</p>
+                           <p>Authorized Signature &amp; Company Stamp</p><br></br>
+                           <p>( . . . . . . . . . . . . . . . )</p>
+                           <p>Date:</p>
+                        </div>
+
+
+                        <div class="col-xs-5 col-xs-offset-1">
+                           <p>Received By:</p>
+                           <p>Authorized Signature &amp; Company Stamp</p><br></br>
+                           <p>( . . . . . . . . . . . . . . . )</p>
+                           <p>Date:</p>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-xs-6">
+                           <table class="table table-condensed table-bordered">
+                              <tbody>
+                                 <tr>
+                                    <td style="text-align: center">Picking by</td>
+                                    <td style="text-align: center">Checked by</td>
+                                 </tr>
+                                 <tr>
+                                    <td><br/><br/><center>( . . . . . . . . . . . . . . . )</center>Date:</td>
+                                    <td><br/><br/><center>( . . . . . . . . . . . . . . . )</center>Date:</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-xs-6">
+                           <p style="border:1px solid; padding: 3px">
+                              No goods may be returned without prior approval or aggrement from Company.
+                              Claim for any shortage or damage must be notifed in writing within 7 working
+                              days from the date of receiving goods
+                           </p>
+                        </div>
+
+                        <div class="col-xs-5 col-xs-offset-1">
+                           <div class="col-xs-12">Document Distribution:</div>
+                           <div class="col-xs-5">Original (White)</div>
+                           <div class="col-xs-7">: For Invoicing</div>
+                           <div class="col-xs-5">Copy 1 (Blue)</div>
+                           <div class="col-xs-7">: For Finance Head Office</div>
+                           <div class="col-xs-5">Copy 2 (Green)</div>
+                           <div class="col-xs-7">: Filing at Warehouse</div>
+                           <div class="col-xs-5">Copy 3 (Pink)</div>
+                           <div class="col-xs-7">: Copy for Customer</div>
+                           <div class="col-xs-5">Copy 4 (Yellow)</div>
+                           <div class="col-xs-7">: Filing at Distribution Center</div>
+                        </div>
+                                                
+                     </div>
+                  </div>
+            </div>
+				<!--footer number-->            
+			<div class="footer">
+		    	<div style="margin-top:30px;" class="row">
+		        	<div class="col-xs-5">
+		            		<small style="margin-top:20px;">
+								<span>Document <span t-field="o.name"/> || Page <span class="page"/> of <span class="topage"/></span>
+							</small>
+		        	</div>
+		    	</div>
+			</div>
+         </t>
+      </template>
+   </data>
+</openerp>

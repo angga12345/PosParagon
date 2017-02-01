@@ -1,0 +1,14 @@
+<openerp>
+	<data>
+		<record id="account_invoice_so_parama_form" model="ir.ui.view">
+			<field name="name">account.invoice.so.parama.form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<field name="fiscal_position_id" position="after">
+					<field name="parama_so_id"/>
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+		
+        <!--menuitem
+        	name="Stock Report"
+            id="report_stock_card"
+            parent="stock.menu_stock_inventory_control"  
+            sequence="101"
+        	action="report_timber_wiz"
+          	/-->
+       	<menuitem
+        	name="QoH Report"
+            id="report_qoh_product" 
+            parent="stock.menu_warehouse_report"  
+            sequence="102"
+        	action="report_qoh_wiz"
+          	/>
+		
+        <!--act_window
+            id="report_timber" 
+            name="Print Report Timber" 
+            res_model="stock.card"  
+            src_model="stock.card"
+            view_id="print_timber_report_view"
+            target="new"
+            /-->  
+            	
+
+		<record model="ir.ui.view" id="id_report_stock">
+			<field name="name">report.stock.move</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_form"/>
+			<field name="arch" type="xml">	
+				<xpath expr="//field[@name='origin']" position="after">
+				   <field name="date_track"/>			   			           
+     			</xpath>
+     		</field>	
+		</record>
+		            	
+    </data>
+    
+</openerp>

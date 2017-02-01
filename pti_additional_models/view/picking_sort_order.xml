@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+
+        <record id="pickingsortorder" model="ir.ui.view">
+            <field name="name">pickingsortorder.tree</field>
+            <field name="model">picking.sort.order</field>
+            <field name="arch" type="xml">
+                <tree string="Picking list">
+                    <field name="name"/>
+                    <field name="location_id"/>
+                    <field name="dc_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="picking_sort_order_form" model="ir.ui.view">
+    		<field name="name">picking.sort.order.form</field>
+    		<field name="model">picking.sort.order</field>
+            <field name="arch" type="xml">
+				<form string="Picking Sort Order">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="location_id"/>
+                            </group>
+                            <group>
+                                <field name="dc_id" domain="[('is_dc', '=', True)]"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Bill">
+                                <field name="picking_sort_order_lines" context="{'default_picking_sort_order_id': id}">
+                                    <tree editable="bottom">
+                                        <field name="index"/>
+                                        <field name="product_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+    	</record>
+
+        <record id="picking_sort_order_act" model="ir.actions.act_window">
+            <field name="name">Picking Sort Order</field>
+            <field name="res_model">picking.sort.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create a picking sort order.
+              </p><p>
+                You can set product sequence on report warehouse.
+              </p>
+            </field>
+        </record>
+        <menuitem id="picking_sort_order_menuitem" name="Picking Sort Order" parent="stock.menu_stock_config_settings" sequence="7"
+                  action="picking_sort_order_act" groups="stock.group_stock_manager,stock.group_stock_user"/>
+    </data>
+</openerp>

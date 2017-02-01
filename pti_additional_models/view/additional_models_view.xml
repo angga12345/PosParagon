@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>		        
+        
+    	<record id="view_retur_tree" model="ir.ui.view">
+            <field name="name">stock.retur.tree</field>
+            <field name="model">retur.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Reason">
+                    <field name="name"/>
+					<field name="name_detail"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_retur_form" model="ir.ui.view">
+            <field name="name">stock.retur.form</field>
+            <field name="model">retur.reason</field>
+            <field name="arch" type="xml">
+                <form string="Reason">
+                	<sheet>
+                        <group>
+	                        <group>
+			                    <field name="name"/>
+								<field name="account_id"/>
+		                    </group>
+		                    <group>
+								<field name="name_detail"/>
+							</group>
+							
+						</group>
+					</sheet>
+                </form>
+            </field>
+        </record>
+    	<record id="action_retur_reason_form" model="ir.actions.act_window">
+            <field name="name">Retur Reason</field>
+            
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">retur.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_retur_tree"/>
+            
+        </record>    	
+    	<menuitem name="Retur Reason" action="action_retur_reason_form" parent="stock.menu_stock_warehouse_mgmt" id="retur_reason" sequence="31"/>
+    	
+    	<!-- Form View  Distribution Channel  -->
+    	<record id="custom_res_customer_distribution_channel" model="ir.ui.view">
+    		<field name="name">custom.res.customer.distribution.channel</field>
+    		<field name="model">distribution.channel</field>
+            <field name="arch" type="xml">
+				<tree string="Distribution channel">
+                    <field name="name"/>
+                    <field name="name_detail"/>
+                </tree>
+            </field>
+    	</record>
+
+    	<!-- Form View Sub Channel  -->
+    	<record id="custom_res_customer_sub_distribution_channel" model="ir.ui.view">
+    		<field name="name">custom.res.customer.sub.distribution.channel</field>
+    		<field name="model">sub.distribution.channel</field>
+            <field name="arch" type="xml">
+				<tree string="Sub channel">
+                    <field name="name"/>
+                    <field name="name_detail"/>
+                </tree>
+            </field>
+    	</record>
+    	
+		<!-- Form View  Outlet Type  -->
+    	<record id="custom_res_customer_outlet_type" model="ir.ui.view">
+    		<field name="name">custom.res.customer.outlet.type</field>
+    		<field name="model">outlet.outlet</field>
+            <field name="arch" type="xml">
+				<tree string="Outlet type">
+                    <field name="name"/>
+                    <field name="name_detail"/>
+                </tree>
+            </field>
+    	</record>
+    	
+    	<!-- Form View  Outlet Category  -->
+    	<record id="custom_res_customer_outlet_category" model="ir.ui.view">
+    		<field name="name">custom.res.customer.outlet.category</field>
+    		<field name="model">outlet.category</field>
+            <field name="arch" type="xml">
+				<tree string="Outlet category">
+                    <field name="name"/>
+                    <field name="name_detail"/>
+                </tree>
+            </field>
+    	</record>
+    	
+    	<!-- Form View Discount Customer  -->
+    	<record id="custom_res_customer_discount_volume" model="ir.ui.view">
+    		<field name="name">custom.res.customer.discount.customer</field>
+    		<field name="model">discount.discount</field>
+            <field name="arch" type="xml">
+				<tree string="Discount customer">
+                    <field name="name"/>
+                    <field name="percentage"/>
+                </tree>
+            </field>
+    	</record>
+
+        <!-- Form View Discount Customer  -->
+        <record id="discount_discount_form_view" model="ir.ui.view">
+            <field name="name">discount.discount.form.view</field>
+            <field name="model">discount.discount</field>
+            <field name="arch" type="xml">
+                <form string="Discount Global">
+                   <group>
+                       <group>
+                           <field name="status"/>
+                           <field name="brand"/>
+                           <field name="percentage"/>
+                       	   <field name="account_id"/>
+                       </group>
+                       <group>
+                           <field name="name"/>
+                           <field name="expired_date"/>
+                           <field name="type" invisible="context.get('hide_type',False)"/>
+                           <field name = "sequence_discount" />
+                       </group>
+                   </group>
+                </form>
+            </field>
+        </record>    	
+    	
+    	<!-- Form View Payment Method  -->
+    	<record id="custom_res_customer_payment_category" model="ir.ui.view">
+    		<field name="name">custom.res.customer.payment.category</field>
+    		<field name="model">payment.category</field>
+            <field name="arch" type="xml">
+				<tree string="Payment category">
+                    <field name="name"/>
+                    <field name="name_detail"/>
+                </tree>
+            </field>
+    	</record>
+    	
+    	<!-- Form View Area  -->
+    	<record id="custom_res_customer_payment_method" model="ir.ui.view">
+    		<field name="name">custom.res.customer.area</field>
+    		<field name="model">area.area</field>
+            <field name="arch" type="xml">
+				<tree string="Payment method">
+                    <field name="name"/>
+                    <field name="name_detail"/>
+                    <field name="lead_time"/>
+                </tree>
+            </field>
+    	</record>
+    	
+    	<!-- Form View Order Method  -->
+    	<record id="custom_res_customer_order_method" model="ir.ui.view">
+    		<field name="name">custom.res.customer.order.method</field>
+    		<field name="model">order.method</field>
+            <field name="arch" type="xml">
+				<tree string="Order method">
+                    <field name="name"/>
+                    <field name="detail_name"/>
+                </tree>
+            </field>
+    	</record>
+    	
+    	<!-- Form View Brand  -->
+    	<record id="custom_res_customer_product_brand" model="ir.ui.view">
+    		<field name="name">custom.res.customer.product.brand</field>
+    		<field name="model">product.brand</field>
+            <field name="arch" type="xml">
+				<tree string="Brands">
+                    <field name="name"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+    	</record>
+    	
+    	<!-- Form View Tags  -->
+    	<record id="custom_res_customer_product_tags" model="ir.ui.view">
+    		<field name="name">custom.res.customer.product.tags</field>
+    		<field name="model">product.tags</field>
+            <field name="arch" type="xml">
+				<tree string="Tags">
+                    <field name="name"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+    	</record>
+    	
+    	<!-- Menu Distribution channel -->
+    	<record model='ir.actions.act_window' id='pti_customer_distribution_channel'>
+            <field name="name">Distribution Channel</field>
+            <field name="res_model">distribution.channel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Distribution Channel
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu Sub channel -->
+    	<record model='ir.actions.act_window' id='pti_customer_sub_distribution_channel'>
+            <field name="name">Sub Channel</field>
+            <field name="res_model">sub.distribution.channel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Sub Channel
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu  Outlet Type -->
+    	<record model='ir.actions.act_window' id='pti_customer_outlet_type'>
+            <field name="name">Outlet Type</field>
+            <field name="res_model">outlet.outlet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Outlet Type
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu  Outlet Category -->
+    	<record model='ir.actions.act_window' id='pti_customer_outlet_category'>
+            <field name="name">Outlet Category</field>
+            <field name="res_model">outlet.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Outlet Category
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu  Discount Customer -->
+    	<record model='ir.actions.act_window' id='pti_customer_discount_customer'>
+            <field name="name">Discount Customer</field>
+            <field name="res_model">discount.discount</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'group_by': 'type'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Discount Customer
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu Payment Method -->
+    	<record model='ir.actions.act_window' id='pti_customer_payment_method'>
+            <field name="name">Payment Category</field>
+            <field name="res_model">payment.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Payment Method
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu Area -->
+    	<record model='ir.actions.act_window' id='pti_customer_area'>
+            <field name="name">Area</field>
+            <field name="res_model">area.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Area
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu Order Method -->
+    	<record model='ir.actions.act_window' id='pti_customer_order_method'>
+            <field name="name">Order Method</field>
+            <field name="res_model">order.method</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Order Method
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu Product Tag -->
+    	<record model='ir.actions.act_window' id='pti_customer_brand'>
+            <field name="name">Brands</field>
+            <field name="res_model">product.brand</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Brands
+                </p>    
+            </field>
+        </record>
+        
+        <!-- Menu Tags -->
+    	<record model='ir.actions.act_window' id='pti_customer_tags'>
+            <field name="name">Tags</field>
+            <field name="res_model">product.tags</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Tags
+                </p>    
+            </field>
+        </record>
+        <!-- Menu Locations -->
+    	<record model='ir.actions.act_window' id='pti_locations_action'>
+            <field name="name">Locations</field>
+            <field name="res_model">stock.location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="stock.view_location_tree2"/>
+            <field name="search_view_id" ref="stock.view_location_search"/>
+            <field name="context">{'search_default_in_location':1}</field>
+            <field name="groups_id">35</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Locations
+                </p>    
+            </field>
+        </record>
+        
+		
+        <!--<data noupdate="1">
+        	<record id="35" model="res.groups">
+            	<field name="full_name">Inventory / Manager</field>
+        	</record>
+        </data>-->	
+		
+    	<menuitem action="pti_locations_action" id="pti_locations_menu" parent="stock.menu_warehouse_report" sequence="151"/>
+        
+    	<menuitem name="Customer Clasification" id="pti_customer_clasification_menu" parent="base.menu_base_partner" sequence="100"/>
+	    	<menuitem action="pti_customer_distribution_channel" id="pti_customer_distribution_channel_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="100"/>
+	    	<menuitem action="pti_customer_sub_distribution_channel" id="pti_customer_sub_distribution_channel_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="101"/>
+	    	<menuitem action="pti_customer_outlet_type" id="pti_customer_outlet_type_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="102"/>
+	    	<menuitem action="pti_customer_outlet_category" id="pti_customer_outlet_category_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="103"/>
+	    	<menuitem action="pti_customer_discount_customer" id="pti_customer_discount_customer_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="104"/>
+	    	<menuitem action="pti_customer_payment_method" id="pti_customer_payment_method_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="105"/>
+	    	<menuitem action="pti_customer_area" id="pti_customer_area_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="106"/>
+	    	<menuitem action="pti_customer_order_method" id="pti_customer_order_method_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="107"/>
+	    	<menuitem action="pti_customer_brand" id="pti_customer_brand_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="108"/>
+	    	<menuitem action="pti_customer_tags" id="pti_customer_tags_menu" parent="pti_additional_models.pti_customer_clasification_menu" sequence="109"/>
+	</data>
+</openerp>

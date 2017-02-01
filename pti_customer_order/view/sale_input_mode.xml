@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+        <record id="view_order_input_tree" model="ir.ui.view">
+            <field name="name">sale.order.input.tree</field>
+            <field name="model">sale.order.input</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Pre Sales Order">
+                	<field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="sales_id"/>
+                    <field name="order_method"/>
+                    <field name="dc_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_order_input_form" model="ir.ui.view">
+            <field name="name">sale.order.input.form</field>
+            <field name="model">sale.order.input</field>
+            <field name="arch" type="xml">
+                <form string="Pre Sales Order">
+                <header>
+                    <button name="create_so" string="Create Customer Order"
+                        type="object" class="btn-primary"/>
+					<field name="state" widget="statusbar"/>              
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" invisible="1"/>
+                            <field name="so_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" domain="[('customer','=',True)]"/>
+                            <field name="dc_id" readonly="1"/>
+                            <field name="warehouse_id"/>
+                            <field name="pricelist_id" required="1"/>
+                        </group>
+                        <group>
+                        	<field name="sales_id" domain="[('dc_id','=',dc_id),('is_employee','=',True)]"/>
+                            <field name="order_method"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="order_line" mode="tree,kanban">
+                                <form string="Sales Order Lines">
+                                    <group>
+                                        <group>
+                                            <field name="product_id"
+                                               />
+                                            <label for="product_uom_qty" string="Order Quantity"/>
+                                            <div>
+                                                <field
+                                                    name="product_uom_qty" class="oe_inline"/>
+                                            </div>
+                                        </group>
+                                    </group>
+                                </form>
+                                <tree string="Sales Order Lines" editable="bottom">
+                                    <field name="product_id" options="{'limit': 10, 'create': false, 'create_edit': false, 'no_open': true}"/>
+                                    <field name="product_uom_qty" string="Order Qty"/>
+                                </tree>
+                            </field>
+                        </page>
+                        
+                        
+                        <page string="Free products">
+                            <field name="free_ids" mode="tree,kanban">
+                                <form string="Free products">
+                                    <group>
+                                        <group>
+                                            <field name="product_id"
+                                               />
+                                            <label for="product_uom_qty" string="Order Quantity"/>
+                                            <div>
+                                                <field
+                                                    name="product_uom_qty" class="oe_inline"/>
+                                            </div>
+                                        </group>
+                                    </group>
+                                </form>
+                                <tree string="Free products" editable="bottom">
+                                    <field name="product_id" options="{'limit': 10, 'create': false, 'create_edit': false, 'no_open': true}"/>
+                                    <field name="product_uom_qty" string="Order Qty"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+    	
+        <record id="action_input_orders" model="ir.actions.act_window">
+            <field name="name">Quick Sales Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.input</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="context">{'show_sale': True}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Quotation, the first step of a new sale.
+                </p>
+            </field>
+        </record>
+        <menuitem action="action_input_orders"
+            id="menu_sale_order_input" parent="base.menu_sales" groups="pti_branch.group_pti_branch_finance_admin,pti_branch.group_pti_branch_customer_order,base.group_sale_manager"
+            sequence="12"/>
+    </data>
+</openerp>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_journal_setting_form" model="ir.ui.view">
+            <field name="name">sale.journal.setting.form</field>
+            <field name="model">sale.journal.setting</field>
+            <field name="arch" type="xml">
+                <form string="Journal Sequence">
+                	<header>
+                		<button name="action_update_sequence" string="Update" type="object"/>
+                	</header>
+                    <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="prefix"/>
+                            <field name="suffix"/>
+                            <field name="padding"/>
+                            <field name="number_increment"/>
+                        </group>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_journal_settingn_tree" model="ir.ui.view">
+            <field name="name">sale.journal.setting.tree</field>
+            <field name="model">sale.journal.setting</field>
+            <field name="arch" type="xml">
+                <tree string="Journal Sequence">
+                    <field name="name"/>
+                    <field name="prefix"/>
+                    <field name="suffix"/>
+                    <field name="padding"/>
+                    <field name="number_increment"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_journal_setting" model="ir.actions.act_window">
+            <field name="name">Journal Sequence</field>
+            <field name="res_model">sale.journal.setting</field>
+            <field name="view_id" ref="view_journal_settingn_tree"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_journal_setting" id="menu_action_journal_setting" parent="account.account_account_menu" sequence="10"/>
+       
+		<record id="customer_journal_form" model="ir.ui.view">
+            <field name="name">customer.journal.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                   <field name="property_account_payable_id" position="after">
+                   		<field name="journal_id"/>
+                   </field>
+                </data>
+            </field>
+        </record>        	
+        	
+	</data>
+</openerp>

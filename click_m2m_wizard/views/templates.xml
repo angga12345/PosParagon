@@ -1,0 +1,15 @@
+<openerp>
+    <data>
+        <template id="m2m_wizard" name="list_tree_extend" inherit_id="web.assets_backend">
+        	 
+        	<xpath expr="." position="inside">
+<!-- 
+                <script type="text/javascript" src="/click_m2m_wizard/static/src/js/click_m2m_wizard.js"></script>
+ -->
+
+            </xpath>
+		</template>
+		
+
+    </data>
+ </openerp>

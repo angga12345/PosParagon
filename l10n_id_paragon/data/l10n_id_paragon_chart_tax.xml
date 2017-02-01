@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<odoo>
+    <data noupdate="1">
+    <!-- Account Tags -->
+    <record id="tag_id_paragon_purchase_tax_10_include" model="account.account.tag">
+        <field name="name">Purchase Tax 10% Include Price</field>
+        <field name="applicability">taxes</field>
+    </record>
+    
+    <record id="tag_id_paragon_purchase_tax_10_exclude" model="account.account.tag">
+        <field name="name">Purchase Tax 10% Exclude Price</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tag_id_paragon_sale_tax_10" model="account.account.tag">
+        <field name="name">Sales Tax 10%</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <!-- Sales Tax -->
+
+    <record id="id_paragon_sale_tax_10" model="account.tax.template">
+        <field name="name">Sales Tax 10%</field>
+        <field name="description">10%</field>
+        <field name="price_include" eval="0"/>
+        <field name="amount">10</field>
+        <field name="amount_type">percent</field>
+        <field name="type_tax_use">sale</field>
+        <field name="account_id" ref="account_account_2_1_04_01_002"/>
+        <field name="refund_account_id" ref="account_account_2_1_04_01_002"/>
+        <field name="chart_template_id" ref="l10n_id_paragon_chart_template"/>
+        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_sale_tax_10')])]"/>
+    </record>
+
+    <!-- Purchases Tax -->
+
+    <record id="id_paragon_purchase_tax_10_include" model="account.tax.template">
+        <field name="name">Purchase Tax 10% Include Price</field>
+        <field name="description">10% Include Price</field>
+        <field name="account_id" ref="account_account_2_1_04_01_001"/>
+        <field name="refund_account_id" ref="account_account_2_1_04_01_001"/>
+        <field name="price_include" eval="1"/>
+        <field name="amount">10</field>
+        <field name="amount_type">percent</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_id_paragon_chart_template"/>
+        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_purchase_tax_10_include')])]"/>
+    </record>
+    
+    <record id="id_paragon_purchase_tax_10_exclude" model="account.tax.template">
+        <field name="name">Purchase Tax 10% Exclude Price</field>
+        <field name="description">10% Exclude Price</field>
+        <field name="account_id" ref="account_account_2_1_04_01_001"/>
+        <field name="refund_account_id" ref="account_account_2_1_04_01_001"/>
+        <field name="price_include" eval="0"/>
+        <field name="amount">10</field>
+        <field name="amount_type">percent</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_id_paragon_chart_template"/>
+        <field name="tag_ids" eval="[(6,0,[ref('tag_id_paragon_purchase_tax_10_exclude')])]"/>
+    </record>
+
+    </data>
+</odoo>

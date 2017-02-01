@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	<record id="view_inventory_adjustment_custom" model="ir.ui.view">
+    		<field name="name">view.inventory.adjustment.custom</field>
+    		<field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+            	<!--    Start Inventory     -->
+            	<xpath expr="//form/header/button[@name='prepare_inventory']" position="replace">
+            		<button name="prepare_inventory" states="draft" string="Start Inventory" type="object" class="oe_highlight" groups="stock.group_stock_user,pti_validation.pti_stock_adjustment"/>
+            	</xpath>
+				<!--    Validate Inventory     -->
+				<xpath expr="//form/header/button[@name='action_done']" position="replace">
+                	<button name="action_done" states="confirm" string="Validate Inventory" type="object" class="oe_highlight" groups="stock.group_stock_manager,pti_validation.pti_validate_adjustment"/>
+                </xpath>
+            </field>
+    	</record>
+
+		<!--  deleting group activate developer mode for menu inventory at date  -->
+		<record model="ir.ui.menu" id="stock_account.menu_action_wizard_valuation_history">
+			<field name="groups_id" eval="[(3,ref('base.group_no_one'))]"/>
+		</record>
+    </data>
+</openerp>

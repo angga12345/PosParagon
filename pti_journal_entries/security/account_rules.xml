@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+	<data>
+		<record id="account_journal_entries_dc_rule" model="ir.rule">
+	        <field name="name">Journal Entries DC</field>
+	        <field name="model_id" ref="account.model_account_move"/>
+	        <field name="domain_force">['|',('dc_id','=', user.partner_id.dc_id.id),('journal_id.dc_id','=',user.partner_id.dc_id.id)]</field>
+			<field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_sales_admin_invoice'))]"/>
+	    </record>
+	    
+	    <record id="account_journal_items_dc_rule" model="ir.rule">
+	        <field name="name">Journal Items DC</field>
+	        <field name="model_id" ref="account.model_account_move_line"/>
+	        <field name="domain_force">['|',('move_id.dc_id','=', user.partner_id.dc_id.id),('move_id.journal_id.dc_id','=',user.partner_id.dc_id.id)]</field>
+			<field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_sales_admin_invoice'))]"/>
+	    </record>
+	    
+	    <record id="inventory_adjustment_dc_rule" model="ir.rule">
+	        <field name="name">Inventory Adjustment DC</field>
+	        <field name="model_id" ref="stock.model_stock_inventory"/>
+	        <field name="domain_force">['|',('location_id.dc_id','=',user.partner_id.dc_id.id),('location_id.this_for_all','=',True)]</field>
+			<field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_sales_admin_invoice'))]"/>
+	    </record>
+	</data>
+</openerp>

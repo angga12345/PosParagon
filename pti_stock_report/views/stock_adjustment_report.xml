@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+   <data>
+      <template id="report_delivery_note">
+         <t t-foreach="docs" t-as="o">
+            <div class="row">
+               <t t-call="pti_do_report.report_delivery_note_body"/>
+            </div>
+         </t>
+      </template>
+      
+	  <template id="pti_report_inventory">
+        <t t-call="report.html_container">
+            <div class="page">
+               <t t-foreach="docs" t-as="o">
+                  <div class="container" position="fixed">
+                     <div class="col-xs-5 col-xs-offset-7" style="font-weight: bold; font-size: 24px; margin-bottom: 5px;">
+                        Stock Adjustment
+                     </div>
+					 <div class="col-xs-6">
+					 </div>
+                     <div class="col-xs-6">
+                        <div class="col-xs-6" style="text-align: left">Doc: </div>
+                        <div class="col-xs-6">
+                           <span t-field="o.name"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align: left">Location : </div>
+                        <div class="col-xs-6">
+                           <span t-field="o.location_id.complete_name"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align: left">Date : </div>
+                        <div class="col-xs-6">
+                           <span t-field="o.date"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                     </div>
+                     <div/>
+                     <br/>
+                     <table class="table table-bordered" style="border-color: #004269;">
+                        <thead>
+                           <tr>
+							<td style="width: 5%;  ">No</td>
+							<td style="width: 10%; ">Code</td>
+							<td style="width: 65%; ">Material Description</td>
+							<td style="width: 10%; ">Old quantity</td>
+							<td style="width: 10%; ">Real Quantity</td>
+							<td style="width: 10%; ">Different</td>
+                           </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                        	<t t-set="i" t-value="1"/>
+                           <tr t-foreach="o.line_ids" t-as="line">
+                          	  <td><span t-esc="i"/></td>
+                              <td> <span t-field="line.product_id.default_code"/> </td>
+                              <td> <span t-field="line.product_id.name"/> </td>
+                              <td> <span t-esc="'{0:,.0f}'.format((line.theoretical_qty))"/> </td>
+                              <td> <span t-esc="'{0:,.0f}'.format((line.product_qty))"/> </td>
+                              <td>
+                              	  <t t-set="different" t-value="line.theoretical_qty - line.product_qty"/>
+                              	  <span t-esc="'{0:,.0f}'.format((different))"/>
+                              </td>
+                              <t t-set="i" t-value="i+1"/>
+                           </tr>
+                        </tbody>
+                     </table>
+                     
+                  </div>
+               </t>
+            </div>
+			<div class="footer">
+		    	<div style="margin-top:30px;" class="row">
+		        	<div class="col-xs-2  pull-center">
+		            	<center>
+		            		<small style="margin-top:20px;">
+								<span>Page </span><span class="page" /> of <span class="topage" />
+							</small>
+						</center>
+		        	</div>
+		    	</div>
+			</div>
+         </t>
+      </template>
+   </data>
+</openerp>

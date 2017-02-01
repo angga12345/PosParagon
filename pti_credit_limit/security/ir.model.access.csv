@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_ptifa_bypasslimit_history","ptifa.bypasslimit.history","pti_credit_limit.model_sale_order_bypasslimit_history","pti_branch.group_pti_branch_finance_admin",1,1,1,0
+"access_pti_kdc_bypasslimit_history","pti.kdc.bypasslimit.history","pti_credit_limit.model_sale_order_bypasslimit_history","pti_branch.group_pti_branch_kdc",1,1,1,0
+"access_pti_do_bypasslimit_history","pti.do.bypasslimit.history","pti_credit_limit.model_sale_order_bypasslimit_history","pti_branch.group_pti_branch_delivery_order",1,1,1,0
+"access_pti_cou_bypasslimit_history","pti.cou.bypasslimit.history","pti_credit_limit.model_sale_order_bypasslimit_history","pti_branch.group_pti_branch_customer_order",1,1,1,0
+"audit_bypasslimit_history","audit.bypasslimit.history","pti_credit_limit.model_sale_order_bypasslimit_history","pti_branch.pti_audit_group",1,0,0,0

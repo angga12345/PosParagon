@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+	<data>
+		<record id="view_account_payment_wizard_form" model="ir.ui.view">
+            <field name="name">account.payment.wizard.form</field>
+            <field name="model">account.internal.transfer</field>
+			<field name="arch" type="xml">
+				<form string="Register Payment">
+					<sheet>
+                        <group>
+                            <group>
+                                <field name="payment_type" widget="radio"/>
+                                <field name="journal_id" widget="selection"/>
+                                <field name="destination_journal_id" widget="selection" attrs="{'required': [('payment_type', '=', 'transfer')], 'invisible': [('payment_type', '!=', 'transfer')],}"/>
+                                <field name="payment_method_id" string=" " widget="radio"/>
+                                <label for="amount"/>
+                                <div name="amount_div" class="o_row" widget="monetery">
+                                    <field name="amount"/>
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="payment_date"/>
+                                <field name="communication"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string='Save' name="bank_statement_action" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+	</data>
+</openerp>

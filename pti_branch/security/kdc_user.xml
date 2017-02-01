@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	<!-- =============================MENU ACCESS=============================== -->	
+		<!-- here -->
+		<!-- =============================RECORD RULES=============================== -->
+		<!-- PARTNER -->
+        <record id="partner_kdc_rule" model="ir.rule">
+	        <field name="name">KDC customers</field>
+	        <field ref="account.model_res_partner" name="model_id"/>
+	        <field name="domain_force">['|',('is_dc','=',True),('dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    
+		<!-- SALE ORDER -->
+	    <record id="sale_order_kdc_personal_rule" model="ir.rule">
+	        <field name="name">KDC Personal Customer Order</field>
+	        <field ref="sale.model_sale_order" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1),('dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    <record id="sale_order_line_kdc_personal_rule" model="ir.rule">
+	        <field name="name">KDC Personal Customer Order Line</field>
+	        <field ref="sale.model_sale_order_line" name="model_id"/>
+	        <field name="domain_force">[('order_id.dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    <!-- ACCOUNT INVOICE -->
+	    
+	    <record id="account_invoice_kdc_personal_rule" model="ir.rule">
+	        <field name="name">KDC Personal Invoice</field>
+	        <field ref="account.model_account_invoice" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1),('dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    
+	    <record id="account_inv_line_kdc_rule" model="ir.rule">
+	        <field name="name">KDC Personal Invoice Line</field>
+	        <field ref="account.model_account_invoice_line" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1),('invoice_id.dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    
+		<!-- LOCATION -->
+	    
+	    <record id="stock_location_kdc_personal_rule" model="ir.rule">
+	        <field name="name">KDC Personal Location</field>
+	        <field ref="stock.model_stock_location" name="model_id"/>
+	        <field name="domain_force">['|',('this_for_all','=',True),('dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    <!-- WAREHOUSE -->
+	    
+	    <record id="stock_warehouse_kdc_personal_rule" model="ir.rule">
+	        <field name="name">KDC Personal Warehouse</field>
+	        <field ref="stock.model_stock_warehouse" name="model_id"/>
+	        <field name="domain_force">['|',('dc_id','=',False),('dc_id','=',user.partner_id.dc_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    <!-- ACCOUNT JOURNAL -->
+	    <record id="account_journal_kdc_rule" model="ir.rule">
+	        <field name="name">KDC Personal Journal</field>
+	        <field ref="account.model_account_journal" name="model_id"/>
+	        <field name="domain_force">['|',('dc_id','=',user.partner_id.dc_id.id),('this_for_all','=',True)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    <!-- STOCK PICK TYPE -->
+	    <record id="stock_picking_type_kdc_rule" model="ir.rule">
+	        <field name="name">KDC Personal Stock Picking Warehouse</field>
+	        <field ref="stock.model_stock_picking_type" name="model_id"/>
+	        <field name="domain_force">['|',('warehouse_id.dc_id','=',user.partner_id.dc_id.id),('partner_operators','in',[user.partner_id.dc_id.id])]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    <!-- BANK STATEMENT -->
+	    <record id="kdc_account_bank_statement_rule" model="ir.rule">
+	        <field name="name">KDC Bank Statement</field>
+	        <field ref="account.model_account_bank_statement" name="model_id"/>
+	        <field name="domain_force">['|',('journal_id.dc_id','=',user.partner_id.dc_id.id),('journal_id.this_for_all','=',True)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+	    
+	    <record id="kdc_account_bank_statement_line_rule" model="ir.rule">
+	        <field name="name">KDC Bank Statement Line</field>
+	        <field ref="account.model_account_bank_statement_line" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1)]</field>
+	        <field name="groups" eval="[(4, ref('pti_branch.group_pti_branch_kdc'))]"/>
+	    </record>
+    </data>
+</openerp>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	<!-- Add distribution channel, outlet type, Outlet type2 in res partner -->
+		<record id="custom_res_customer" model="ir.ui.view">
+    		<field name="name">custom.res.customer</field>
+    		<field name="model">res.partner</field>
+            <field name="inherit_id" ref="pti_branch.custom_res_partner"/>
+            <field name="arch" type="xml">
+            	
+            	<xpath expr="//div/field[@name='state_id']" position="attributes">
+					<attribute name="placeholder">Province</attribute>
+				</xpath>
+				<field name="website" position="after">
+					<!--"is customer == True"-->
+					<field name="customer_groups"/>
+					<field name="district"/>
+					<field name="sub_district"/>
+					<field name="npwp"/>
+                   	<field name="distribution_channel" attrs="{'invisible': [('customer', '=', False)]}"/>
+					<field name="sub_distribution_channel" attrs="{'invisible': [('customer', '=', False)]}"/>                   	
+                   	<field name="outlet_type"  attrs="{'invisible': [('customer', '=', False)]}"/>
+                   	<field name="outlet_category" attrs="{'invisible': [('customer', '=', False)]}"/>
+                   	<field name="discount_customer" attrs="{'invisible': [('customer', '=', False)]}">
+                   		<tree string="Discount Sale Order" editable="bottom">
+                   			<field name="discount_id" domain="['|',('type','=','additional'),
+                   											  ('type','=','volume'),('status','=',True)]" required="1"/>
+                   		</tree>
+                   	</field>
+                   	<!-- field name="discount_add_customer" domain="[('type','=','additional'),('status','=',True)]" attrs="{'invisible': [('customer', '=', False)]}"/ -->
+				   	<field name="payment_category" attrs="{'invisible': [('customer', '=', False)]}"/>
+				   	<field name="is_consignment" attrs="{'invisible': ['|','|',('customer', '=', False),('is_dc','=',True),('is_team_leader','=',True)]}"/>
+				   	<field name="is_team_leader" attrs="{'invisible': ['|','|',('customer', '=', False),('is_dc','=',True),('is_consignment','=',True)]}"/>
+				   	<field name="area" attrs="{'invisible': [('customer', '=', False)]}">
+				   		<tree string="Area" editable="bottom">
+				   		<field name ="name"/>
+						<field name ="lead_time" invisible='True'/>
+						<field name ="name_detail" invisible='True'/>
+						</tree>
+				   	</field>
+				   	<field name="tax_address" />
+				   	<field name="tax_name" />
+                </field>
+                <field name="is_dc" position="attributes">
+                	<attribute name="attrs">{"invisible":['|',('is_consignment','=',True),('is_team_leader','=',True)]}</attribute>
+                </field>
+            </field>
+    	</record>
+    	
+    	<!--  Address pop up tree view    -->
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree_add_address</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="before"> 
+                	<field name="contact_address"/>
+            	</field>
+                <field name="display_name" position="before"> 
+                	<field name="ref"/>
+            	</field>
+            </field>
+        </record>
+        
+        <record id="res_partner_show_credit" model="ir.ui.view">
+            <field name="name">custom.res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="credit" position="replace">
+                   <field name="credit"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="res_partner_view_custom_buttons_sale" model="ir.ui.view">
+            <field name="name">custom.button.res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="sale.res_partner_view_buttons"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//div/button[@name='%(sale.act_res_partner_2_sale_order)d']" position="attributes">
+                   <attribute name="icon"></attribute>
+				</xpath>
+
+            </field>
+        </record>
+	</data>
+</openerp>

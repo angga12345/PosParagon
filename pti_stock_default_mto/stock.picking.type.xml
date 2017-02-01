@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+        <record id="picking_goods" model="stock.picking.type">
+            <field name="name">Picking Goods</field>
+            <field name="code">internal</field>
+            <field name="apply_mto">False</field>
+            <field name="sequence_id" model="ir.sequence" search="['|','|','|',('prefix','=','NDC\\INT\\'),('prefix','=','NDC/INT/'),('prefix','=','WH\\INT\\'),('prefix','=','WH/INT/')]"/>
+            <field name="warehouse_id" ref="stock.warehouse0"/>
+            <field name="return_picking_type_id" ref="stock.picking_type_in"/>
+            <field name="default_location_src_id" ref="stock.stock_location_stock"/>
+            <field name="default_location_dest_id" ref="ndc_staging"/>
+       </record>
+       
+       <record id="picking_quarantine" model="stock.picking.type">
+            <field name="name">Picking Quarantine</field>
+            <field name="code">internal</field>
+            <field name="apply_mto">False</field>
+            <field name="sequence_id" model="ir.sequence" search="['|','|','|',('prefix','=','NDC\\INT\\'),('prefix','=','NDC/INT/'),('prefix','=','WH\\INT\\'),('prefix','=','WH/INT/')]"/>
+            <field name="warehouse_id" ref="stock.warehouse0"/>
+            <field name="default_location_src_id" ref="ndc_transit_quarantine"/>
+            <field name="default_location_dest_id" ref="ndc_quarantine"/>
+       </record>
+    </data>
+</openerp>

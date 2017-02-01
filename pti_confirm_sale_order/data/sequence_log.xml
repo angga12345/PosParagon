@@ -1,0 +1,13 @@
+ <openerp>
+    <data>   
+    	<record id="log_process_sequence" model="ir.sequence">
+            <field name="name">Log Sequence</field>
+            <field name="code">log.process.sequence</field>
+            <field name="prefix">Log/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</openerp>

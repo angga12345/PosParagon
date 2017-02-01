@@ -1,0 +1,2 @@
+id,name,model,paperformat_id/id,type,report_type,report_name
+pti_do_report.action_report_dn,Delivery Note,stock.picking,report.paperformat_us,ir.actions.report.xml,PDF,pti_do_report.report_delivery_note

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data noupdate="1">
+        <record id="product_brand_wardah" model="product.brand">
+            <field name="name">brand:Wardah</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_make_over" model="product.brand">
+            <field name="name">brand:Make Over</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_putri" model="product.brand">
+            <field name="name">brand:Putri</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_ix" model="product.brand">
+            <field name="name">brand:IX</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_emina" model="product.brand">
+            <field name="name">brand:Emina</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_vivre" model="product.brand">
+            <field name="name">brand:Vivre</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_beauty_essence" model="product.brand">
+            <field name="name">brand:Beauty Essence</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_cni" model="product.brand">
+            <field name="name">brand:CNI</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_evitderma" model="product.brand">
+            <field name="name">brand:Evitderma</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_beauty_essence" model="product.brand">
+            <field name="name">brand:Beauty Essence</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_mgm" model="product.brand">
+            <field name="name">brand:Mega Global Mulai</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_pupphamesurine" model="product.brand">
+            <field name="name">brand:Pupphamesurine</field>
+            <field name="status">True</field>
+        </record>
+        <record id="product_brand_zahra" model="product.brand">
+            <field name="name">brand:Zahra</field>
+            <field name="status">True</field>
+        </record>
+    </data>
+</openerp>

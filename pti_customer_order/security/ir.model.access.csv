@@ -1,0 +1,13 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_pti_kdc_discount_co","pti.kdc.discount.co","model_sale_order_discounts","pti_branch.group_pti_branch_kdc",1,1,1,0
+"access_pti_finance_discount_co","pti.finance.discount.co","model_sale_order_discounts","pti_branch.group_pti_branch_finance_admin",1,1,1,1
+"access_pti_co_discount_co","pti.co.discount.co","model_sale_order_discounts","pti_branch.group_pti_branch_customer_order",1,1,1,1
+"access_pti_do_discount_co","pti.do.discount.co","model_sale_order_discounts","pti_branch.group_pti_branch_delivery_order",1,1,1,0
+"access_pti_inv_discount_co","pti.inv.discount.co","model_sale_order_discounts","pti_branch.group_pti_branch_sales_admin_invoice",1,1,1,0
+"audit_discount_co","audit.discount.co","model_sale_order_discounts","pti_branch.pti_audit_group",1,0,0,0
+"access_input_mode_co","pti.co.input","model_sale_order_input","pti_branch.group_pti_branch_customer_order",1,1,1,1
+"access_input_mode_co_line","pti.co.input.line","model_sale_order_line_input","pti_branch.group_pti_branch_customer_order",1,1,1,1
+"access_input_mode_co_finance","pti.co.input.finance","model_sale_order_input","pti_branch.group_pti_branch_finance_admin",1,1,1,1
+"access_input_mode_co_line_finance","pti.co.input.line.finance","model_sale_order_line_input","pti_branch.group_pti_branch_finance_admin",1,1,1,1
+"access_input_mode_co_manager","pti.co.input.manager","model_sale_order_input","base.group_sale_manager",1,1,1,1
+"access_input_mode_co_line_manager","pti.co.input.line.manager","model_sale_order_line_input","base.group_sale_manager",1,1,1,1

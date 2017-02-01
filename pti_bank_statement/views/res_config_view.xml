@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+        <record id="view_account_config_settings" model="ir.ui.view">
+            <field name="name">account settings inherited</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='bank_statement_import_options']" position="inside">
+                    <div>
+                        <field name="group_payments" class="oe_inline"/>
+                        <label for="group_payments"/>
+                    </div>
+                </xpath>
+				<!-- interface for account id on setting Accounting menu -->
+                <xpath expr="//div[@name='account_config']" position="inside">
+                    <div>
+                        <label for="account_id" />
+                        <field name="account_id" class="oe_inline"  options="{'no_create': True}" readonly="0"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

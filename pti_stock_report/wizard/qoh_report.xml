@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>      
+        <record id="print_qoh_report_view" model="ir.ui.view">
+            <field name="name">print.qoh.report.view</field>
+            <field name="model">qoh.product.report</field>
+            <field name="arch" type="xml">
+               <form string="Print Stock Card" version="7.0">
+                    <group>
+                    	   <field name="partner_id"/>
+						   <field name="location_id" domain="[('partner_id','=',partner_id),('usage','=','internal')]" required="1" options='{"no_create": 1, "no_create_edit": 1}'/>
+                    </group>
+                    <field invisible="1" name="state_x"/>
+                    <newline/>    
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" invisible="1" width="100" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+                    <footer>
+                        <button name="qoh_excel_report" string="Generate" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="report_qoh_wiz" model="ir.actions.act_window">
+            <field name="name">Report Quantity on Hand</field>
+            <field name="res_model">qoh.product.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="print_qoh_report_view"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

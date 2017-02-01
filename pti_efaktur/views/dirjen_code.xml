@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<openerp>
+    <data>
+    	
+        <record id="dirjen_code_form" model="ir.ui.view">
+            <field name="name">credit.note.form</field>
+            <field name="model">dirjen.tax.code</field>
+            <field name="arch" type="xml">
+                <form string="VAT Number">
+	                <sheet string="Invoice">
+	                    <group>
+	                        <field name="name" attrs="{'readonly' : ['|',('access_group','=',False),('validated','=',True)]}"/>
+		                    <field name="validated" groups="account.group_account_manager"/>
+		                    <field name="invoice_id" domain="[('dirjen_tax_id','=',False)]" 
+		                    		attrs="{'readonly' : ['|',('access_group','=',False),('validated','=',True)]}" 
+		                    		context="{'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale'}"/>
+		                    <field name="access_group" invisible="1"/>
+		                    <field name="date_validated" groups="account.group_account_manager"/>
+							<field name="npwp_o" groups="account.group_account_manager"/>	
+							<field name="date_assign" groups="account.group_account_user"/>	                    
+	                    </group>                  
+	                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="dirjen_code_tree" model="ir.ui.view">
+            <field name="name">credit.note.tree</field>
+            <field name="model">dirjen.tax.code</field>
+            <field name="arch" type="xml">
+                <tree string="VAT Number">
+                    <field name="name"/>
+                    <field name="validated"/>
+                    <field name="date_assign" readonly="1"/>
+                    <field name="invoice_id"/>
+                    <field name="dc_id" />
+					<field name="npwp_o" />                    
+                </tree>
+            </field>
+        </record>
+
+        <record id="dirjen_tax_code_search" model="ir.ui.view">
+            <field name="name">dirjen.tax.code.search</field>
+            <field name="model">dirjen.tax.code</field>
+            <field name="arch" type="xml">
+                <search string="Efaktur">
+                    <field name="name" string="VAT Number"/>
+                    <field name="invoice_id" string="Invoice"/>
+                    <field name="date_assign" string="Date"/>
+                </search>
+            </field>
+        </record>
+
+    	<record model='ir.actions.act_window' id='dirjen_tax_invoice_action'>
+            <field name="name">VAT Number</field>
+            <field name="res_model">dirjen.tax.code</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="dirjen_code_tree"/>
+            <field name="search_view_id" ref="dirjen_tax_code_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    VAT Number
+                </p>    
+            </field>
+        </record>
+            
+    	<menuitem action="dirjen_tax_invoice_action" id="dirjen_tax_invoice" parent="account.menu_finance_receivables" sequence="5"
+    	 		groups="pti_branch.group_pti_branch_sales_admin_invoice,pti_branch.group_pti_branch_kdc,account.group_account_manager"/>
+    	
+		<!--    add field dirgen_tax_id on invoice	-->
+    	<record id="add_field_dirgen_to_invoice_form" model="ir.ui.view">
+            <field name="name">add.field.dirgen.to.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            	<field name="team_id" position="after">
+					 <field name="dirjen_tax_id" domain="[('invoice_id', '=', False)]" readonly="1"/>
+                </field>
+            </field>
+        </record>    	 			
+		<record id="system_group_view_dirjec_tax_id" model="ir.ui.view">
+		    <field name="name">system.group.view.dirjec.tax.id</field>
+            <field name="model">account.invoice</field>
+		    <field name="inherit_id" ref="pti_efaktur.add_field_dirgen_to_invoice_form"/>
+		    <field name="groups_id" eval="[(6, 0, [ref('base.group_system') ])]"/>
+		    <field name="arch" type="xml">
+		        <field name="dirjen_tax_id" position = "attributes"> 
+		            <attribute name="readonly">0</attribute>
+		        </field>
+		    </field>
+		</record>
+        <record model="ir.ui.view" id="add_field_dirgen_to_invoice_tree">
+        	<field name="name">add.field.dirgen.to.invoice.tree</field>
+        	<field name="model">account.invoice</field>
+        	<field name="inherit_id" ref="account.invoice_tree"/> 
+        	<field name="arch" type="xml">
+				<field name="user_id" position="after" >
+					<field name="dirjen_tax_id"/>
+				</field>
+        	</field>
+   		</record>
+	</data>
+</openerp>

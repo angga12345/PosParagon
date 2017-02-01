@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+    	<!-- 
+    		
+    	-->
+    	<record id="sale_order_discounts" model="ir.ui.view">
+    		<field name="name">sale.order.discounts</field>
+    		<field name="model">sale.order.discounts</field>
+            <field name="arch" type="xml">
+				<tree string="Order method">
+                    <field name="order_id" invisible="1"/>
+                    <field name="discount_id"/>
+                </tree>
+            </field>
+    	</record>
+    	<!-- Add Order date, Discount Customer Order, Order Method in sale order -->
+		<record id="custom_customer_sale_order" model="ir.ui.view">
+    		<field name="name">custom.customer.sale.order</field>
+    		<field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<field name="partner_shipping_id" position="after">
+            		<field name="allow_sales"/>
+                   	<field name="allow_finance" groups="account.group_account_manager"/> <!-- make readonly if not finance -->
+                </field>
+            	<button name="%(sale.action_view_sale_advance_payment_inv)d" position="attributes">
+            		<attribute name="invisible">True</attribute>
+            	</button>
+            	<xpath expr="//button[2]" position="attributes">
+            		<attribute name="invisible">True</attribute>
+            	</xpath>
+            	<button name="%(sale.action_view_sale_advance_payment_inv)d" position="after">
+            		<button name="action_invoice_create" type="object" string="Create Invoice"
+            				class="btn-primary" context="{'open_gan' : True}" 
+                        	attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>
+            		<button name="button_dummy" type="object" string="Update Global Discount"
+            				class="btn-primary"
+                        	attrs="{'invisible': [('state', 'in', ('done','cancel'))]}"/>
+            	</button>
+				<xpath expr="//group/field[@name='date_order']" position="replace">
+                	<field name="date_order" />
+                </xpath>
+                
+				<field name="partner_id" position="after">
+                   	<field name="order_method" attrs="{'readonly': [('state', 'in', ('done','sale'))]}"/>
+                </field>
+                <field name="validity_date" position="after">
+                	<field name="discount_cust_order" attrs="{'readonly': [('state', 'in', ('done'))]}">
+                   		<tree string="Discount SO" editable="bottom">
+                   			<field name="discount_id" domain="[('type','=','sale_order'),('status','=',True)]" 
+                   			required="1" context="{'default_type': 'sale_order', 'hide_type': True,'default_status': True}"/> <!-- context="{'sale_id' : active_id }" -->
+                   		</tree>
+                   		
+                   	</field>
+                   	<button name="%(action_free_product)d" type='action' string='Add Free Products' states="draft,sent"/>
+                </field>
+                
+                <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                	<attribute name="options">{'no_create': True}</attribute>
+                	<attribute name="attrs">{'readonly': ['|','|', ('is_free','=',True), ('qty_invoiced', '&gt;', 0), ('procurement_ids', '!=', [])]}</attribute>
+                </xpath>
+                <!-- THIS FOR FINANCE WHEN CHECK editable_price -> true -->
+                <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                	<attribute name="attrs">{'readonly' :[('editable_price', '=', False)]}</attribute>
+                </xpath>
+                <!--Remove Discount(%)-->
+                <xpath expr="//tree/field[@name='discount']" position="replace">
+                	<field name="discount_m2m" attrs="{'invisible': [('editable_discount', '=', False)],'readonly': [('state', '=', 'done')]}" widget="many2many_tags" domain="[('type','=','extra')]"/>
+                	<field name="is_free" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='name']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_uom']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='qty_delivered']" position="after">
+                    <field name="qty_returned" readonly="1"/>
+                    <field name="product_brand" invisible="1"/>
+                    <field name="editable_discount" invisible="1"/>
+                    <field name="editable_price" invisible="1"/>
+                    <field name="price_unit_hidden" invisible="1"/>
+            	</xpath>
+            	<xpath expr="//tree/field[@name='qty_delivered']" position="attributes">
+            		<attribute name="readonly">1</attribute>
+            		<attribute name="invisible">0</attribute>
+            	</xpath>
+            	<xpath expr="//tree/field[@name='product_uom_qty']" position="attributes">
+            		<attribute name="attrs">{'readonly': [('state', 'in', ('sale','done'))]}</attribute> 
+            	</xpath>
+            </field>
+    	</record>
+       <record id="sale_order_form_group_system" model="ir.ui.view">
+		    <field name="name">sale.order.form.group.system</field>
+            <field name="model">sale.order</field>
+		    <field name="inherit_id" ref="pti_customer_order.custom_customer_sale_order"/>
+		    <field name="groups_id" eval="[(6, 0, [ref('base.group_system') ])]"/>
+		    <field name="arch" type="xml">
+		        <field name="qty_returned" position = "attributes"> 
+		            <attribute name="readonly">0</attribute>
+		        </field>
+		       <field name="qty_delivered" position = "attributes"> 
+		            <attribute name="readonly">0</attribute>
+		        </field>
+		    </field>
+		</record>
+		
+       <record id="tl_view_sale_order" model="ir.ui.view">
+            <field name="name">tl.view.sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+            	<data> 
+            		<field name="warehouse_id" position="replace"></field>
+            		<field name="partner_shipping_id" position="after">
+            			<field name="warehouse_id" options="{'no_create': True}" groups="stock.group_locations"/>
+            		</field>
+        		</data>
+           	</field>
+        </record>
+        
+    	<!-- Update attribute -->
+		<record id="sale_order_branch_inherit" model="ir.ui.view">
+    		<field name="name">custom.sale.order</field>
+    		<field name="model">sale.order</field>
+            <field name="inherit_id" ref="pti_branch.custom_sale_order"/>
+            <field name="arch" type="xml">
+        		<xpath expr="//field[@name='partner_id']" position="attributes">
+                	<attribute name="domain">['|',('customer','=',True),('ref','=','tmp.customer')]</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+        <!--Old Code item product.template-->
+    	<record id="custom_product_template" model="ir.ui.view">
+            <field name="name">custom.product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">          	
+				<field name="default_code" position="after">
+                   	<field name="old_koitem" />
+                   	<field name="tags" widget="many2many_tags"/>
+                   	<field name="ext_tags" widget="many2many_tags"/>
+                </field>
+                <xpath expr="//field[@name='sale_ok']" position="before">
+                 	<div class="o_row">
+               		<label class="oe_edit_only"  for="project_code" string="Project Code"/>
+             	 	<field name="project_code"/>
+             	 	</div>
+             	 	<p/><p/>
+				 </xpath>  
+            </field>
+        </record>
+        
+        <record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="domain">[('customer','=','True')]</field>   
+        </record>
+        
+    </data>
+</openerp>

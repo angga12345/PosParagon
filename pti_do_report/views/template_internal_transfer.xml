@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<openerp>
+	<data>					    		
+		<template id="report_internal_transfer_body">  		
+			<t t-call="pti_do_report.custom_layout">		    
+            	<div class="page">
+                     <div class="row">
+						<div class="col-xs-6">
+							 <div style="font-weight: bold; font-size: 24px; margin-bottom: 5px;">
+							    Internal Transfer
+							 </div>
+							<div style="list-style: none; font-size:12pt;">
+								<li t-if="user.company_id.email">Ref: <span t-field="o.name"/></li>
+							</div>                 
+						</div>
+					</div>
+                     <div class="row">
+                        <div class="col-xs-6">
+		          				<div style="list-style: none; font-size:12pt;">
+				          			<li t-if="user.company_id.email">From: <span t-field="o.location_id.complete_name"/></li>
+			                	</div>                 
+                        </div>
+
+
+                        <div class="col-xs-5 col-xs-offset-1">
+		          				<div style="list-style: none; font-size:12pt;">
+				          			<li t-if="user.company_id.email">To: <span t-field="o.location_dest_id.complete_name"/></li>
+			                	</div>                 
+                        </div>
+                    </div>
+    			    
+		    		<br/><br/>
+								
+		            <table style="width:100%;">			                
+		            	<thead class="sale_thead">					
+		            		<tr style="border-bottom: 2px solid black;">
+								<th style="width:5%; text-align: center; font-Size:14px;">
+									No
+								</th>
+								<th style="width:80%; text-align: left; font-Size:14px; padding-left: 50px;">
+									P   r   o   d   u   k
+								</th>
+								<th style="width:15%; text-align: center; font-Size:14px;">
+									Jumlah (pcs)
+								</th>
+							</tr>
+		               </thead>
+		               
+		               <tbody class="sale_tbody">          		
+		               		<t t-set="line_num" t-value="1"/>
+							<t t-set="five_line_holder" t-value="1"/>			               		
+		               		
+							<t t-foreach="o.move_lines" t-as="l"> 
+	               				<t t-if="five_line_holder != 5">
+	               					<tr height="20">
+										<td style="text-align:center; vertical-align: font-Size:14px;">	
+											<span t-esc="line_num"/>		
+										</td>		                        		                    	
+				                        <td style="text-align:left; vertical-align: top; font-Size:14px; padding-left: 20px;">
+				                           <span t-esc="l.product_id.name"/> 
+				                        </td>
+				                        <td style="text-align:center; vertical-align: top; font-Size:14px;">
+				                        	<t t-set="quantity" t-value="l.product_uom_qty"/>		                            
+											<t t-esc="'%.0f'%(quantity)"/>                      
+				                        </td>
+		                        	</tr>
+	                        	</t>
+	                        	
+	               				<t t-if="five_line_holder == 5">
+	               					<tr height="20" style="border-bottom: 1px solid gray;">
+										<td style="text-align:center; vertical-align: font-Size:14px; ">	
+											<span t-esc="line_num"/>		
+										</td>		                        		                    	
+				                        <td style="text-align:left; vertical-align: top; font-Size:14px; padding-left: 20px;">
+				                           <span t-esc="l.product_id.name"/> 
+				                        </td>
+				                        <td style="text-align:center; vertical-align: top; font-Size:14px;">
+				                        	<t t-set="quantity" t-value="l.product_uom_qty"/>		                            
+											<t t-esc="'%.0f'%(quantity)"/>         
+				                        </td>
+				                        <t t-set="five_line_holder" t-value="0"/>
+			                        </tr>
+		                        </t>			                        
+
+		                        <t t-set="line_num" t-value="line_num+1"/>
+		                        <t t-if="five_line_holder &lt; 5"> 
+		                        	<t t-set="five_line_holder" t-value="five_line_holder+1"/>
+	                        	</t>
+		                    </t>
+	                    
+		                </tbody>	
+			        </table> 
+		        	
+			        <br/><br/><br/>
+			        
+                     <div class="row">
+                        <div class="col-xs-6">
+                           <p>Penerima Barang:</p><br></br>
+                           <p>Nama : . . . . . . . . . . . . . . .</p>
+                           <p>Tgl:</p>
+                        </div>
+
+
+                        <div class="col-xs-5 col-xs-offset-1">
+                           <p>Yang Menyerahkan Barang:</p><br></br>
+                           <p>Nama : . . . . . . . . . . . . . . .</p>
+                           <p>Tgl:</p>
+                        </div>
+                     </div>
+                     
+                     <div class="row">
+                        <div class="col-xs-6">
+							<span t-esc="time.strftime('%Y-%m-%d %H:%M:%S')"/>             
+						</div>
+                     </div>
+			        	 
+                </div>
+            </t> 	        
+        </template>  	
+        
+                              		    	  	
+    	<!-- Custom Layout, use custom header and footer -->
+    	<!-- ########################################### -->
+		    	
+		 <template id="custom_layout">
+		    <t t-if="o and 'company_id' in o">
+		        <t t-set="company" t-value="o.company_id"></t>
+		    </t>
+		    <t t-if="not o or not 'company_id' in o">
+		        <t t-set="company" t-value="res_company"></t>
+		    </t>
+		
+		    <t t-call="pti_do_report.custom_layout_header" />
+		    <t t-raw="0" />
+		    <t t-call="pti_do_report.custom_layout_footer" />		    
+		</template>
+		
+		<template id="custom_layout_header">
+		    <div class="header">		    		
+		    </div>
+		</template>
+		
+		<template id="custom_layout_footer">	
+		    <div class="footer">
+		    	<div style="margin-top:30px;" class="row">
+		        	<div class="col-xs-5">
+		            		<small style="margin-top:20px;">
+								<span>Document <span t-field="o.name"/> || Page <span class="page"/> of <span class="topage"/></span>
+							</small>
+		        	</div>
+		    	</div>
+		    </div> 
+		</template>
+		
+			    		
+		<template id="report_internal_transfer">
+		    <t t-call="report.html_container">
+		        <t t-foreach="docs" t-as="o">
+	        			<t t-call="pti_do_report.report_internal_transfer_body"/>
+		        </t>
+		    </t>
+		</template>
+	</data>
+</openerp>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<openerp>
+    <data>
+    	<record id="efaktur_report_form" model="ir.ui.view">
+            <field name="name">view.efaktur.report</field>
+            <field name="model">efaktur.report</field>
+            <field name="arch" type="xml">
+                <form string="E-Faktur">
+                	<field name="start_date"/>
+                	to
+                	<field name="end_date"/>
+                	<field invisible="1" name="state_x"/>
+                    <newline/>
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" invisible="1" width="100" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                    </group>
+                    <footer>
+                        <button icon="gtk-print" string='Generate' name="create_efaktur_report" type="object" attrs="{'invisible':[('state_x','=','get')]}"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+    	
+        <record id="action_efaktur_report" model="ir.actions.act_window">
+            <field name="name">Efaktur Report</field>
+            <field name="res_model">efaktur.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="efaktur_report_form"/>
+            <field name="target">new</field>
+        </record>
+        
+    	<menuitem action="action_efaktur_report" 
+			          id="efaktur_report_menuitem" 
+			          name="Report E-Faktur"  		
+			          parent="account.menu_finance_receivables" groups="account.group_account_manager,pti_branch.group_pti_branch_sales_admin_invoice" sequence="3"/>
+	</data>
+</openerp>

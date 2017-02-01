@@ -1,0 +1,2 @@
+"id","active","date_format","decimal_point","direction","iso_code","code","name","grouping","thousands_sep","time_format","translatable"
+"base.lang_en","True","%d %b %Y",".","Left-to-Right",,"en_US","English","[3,0]",",","%H:%M:%S","True"

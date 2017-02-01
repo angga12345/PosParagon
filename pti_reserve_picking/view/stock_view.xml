@@ -1,0 +1,14 @@
+<openerp>
+	<data>
+		<record id="stock_picking_view_confirm_button" model="ir.ui.view">
+            <field name="name">stock.picking.form.view.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="pti_stock_picking.stock_picking_add_finish_update"/>
+ 			<field name="arch" type="xml">            
+                <button name="action_assign" position="replace">
+                   <button name="quick_action_assign" string="Booking" states="waiting,confirmed" groups="stock.group_stock_user" class="btn-primary" type="object"/>
+                </button>
+           </field>
+        </record>
+	</data>
+</openerp>

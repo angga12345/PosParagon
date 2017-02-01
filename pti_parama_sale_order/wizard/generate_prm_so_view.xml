@@ -1,0 +1,38 @@
+<openerp>
+	<data>
+		<record id="generate_prm_form" model="ir.ui.view">
+			<field name="name">generate.prm.form</field>
+			<field name="model">generate.prm.so</field>
+            <field name="arch" type="xml"> 
+            	<form string="PRM Sales Order">
+            		<newline/>
+<!--            		<group>-->
+<!--            			<field name="parama_so_id"/>-->
+<!--            		</group>-->
+            		<footer>
+            			<button string="Create SO" name="generate_prm" type="object"/>
+            			<button string="Cancel" class="btn-default" special="cancel"/>
+            		</footer>
+            	</form>
+            </field>
+		</record>
+		
+		<record id="action_generate_prm_so" model="ir.actions.act_window">
+			<field name="name">Generate PRM SO</field>
+		    <field name="res_model">generate.prm.so</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">form</field>
+		    <field name="view_id" ref="generate_prm_form"></field>
+		    <field name="target">new</field>
+		</record>
+		
+		<!-- Action menuitem to generate PRM SO -->
+		<menuitem 
+				action="action_generate_prm_so"
+				id="action_menu_generate_prm_so"
+				parent="sale.menu_sale_invoicing"
+				name="Generate PRM SO"
+				sequence="9"
+		/>
+	</data>
+</openerp>

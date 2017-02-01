@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+        <template id="header_footer" inherit_id="report.external_layout" primary="True">
+			<xpath expr="//t[@t-call='report.external_layout_header']" position="replace">
+				<t/>
+            </xpath>
+            <xpath expr="//t[@t-call='report.external_layout_footer']" position="replace">
+			<div class="footer">
+		    	<div style="margin-top:30px;" class="row">
+		        	<div class="col-xs-5">
+		            		<small style="margin-top:20px;">
+								<span>Document <span t-field="o.name"/> || Page <span class="page"/> of <span class="topage"/></span>
+							</small>
+		        	</div>
+		    	</div>
+			</div>
+            </xpath>
+        </template>
+            	
+    	<template id="report_picking_opereation_inherit_demo" inherit_id="stock.report_picking">
+            
+    	<xpath expr="//t[@t-call='stock.external_layout_barcode_right']" position="attributes">
+        	<attribute name="t-call">pti_do_report.header_footer</attribute>
+    	</xpath>
+
+		<xpath expr="//div[@class='row']//div[@class='col-xs-6']//div[1]" position="before">
+             <div style="font-weight: bold; font-size: 24px; margin-bottom: 5px;">
+                Picking List
+             </div>
+    	</xpath>
+    	   	    	
+		<xpath expr="//div[@t-field='o.picking_type_id']" position="after">
+			<br/>
+			<div> <b>Source Location: </b>
+               <span t-field="o.location_id"/>
+            </div>
+            <div> <b>Destination Location: </b>
+               <span t-field="o.location_dest_id"/>
+            </div>
+    	</xpath>
+    	    	
+    	<xpath expr="//table[2]" position="replace">
+            <table class="table table-condensed" t-if="o.pack_operation_ids">
+              <thead>
+                <tr>
+                    <th><strong>Product</strong></th>
+                    <th class="text-right"><strong>Quantity</strong></th>
+                    <t t-if="o.picking_type_id.code != 'incoming'"><th><strong>Source</strong></th></t>
+                    <th></th>
+                    <t t-if="o.picking_type_id.code != 'outgoing'"><th><strong>Destination</strong></th></t>
+                </tr>
+              </thead>
+              <tbody>
+                <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">
+                    <td><span t-field="pack_operation.product_id"/>
+                        <t t-if="not pack_operation.product_id and pack_operation.package_id"><span  t-field="pack_operation.package_id"/></t></td>
+                    <td class="text-right"><span t-esc="'%.0f'%(pack_operation.product_qty)"/> <span t-field="pack_operation.product_uom_id" groups="product.group_uom"/></td>
+                    <t t-if="o.picking_type_id.code != 'incoming'"><td><span t-field="pack_operation.location_id"/>
+                        <span t-if="pack_operation.package_id">:</span>
+                        <span t-field="pack_operation.package_id"/>
+                        </td>
+                    </t>
+                    <td>
+
+                        <span t-if="pack_operation.package_id and not pack_operation.product_id">
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', pack_operation.package_id.name, 600, 100)" style="width:300px;height:50px"/>
+                        </span>
+                        <table class="table table-condensed" t-if="pack_operation.pack_lot_ids">
+                            <thead>
+                                <tr><th>Lot</th><th>Qty</th></tr>
+                            </thead>
+                            <tr t-foreach="pack_operation.pack_lot_ids" t-as="packlot">
+                                <td>
+                                    <span t-field="packlot.lot_id"/>
+                                    <t t-if="not packlot.lot_id">
+                                        <span t-field="packlot.lot_name"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-field="packlot.qty"/> <t t-if="o.picking_type_id.use_existing_lots and o.state!='done'"> / <span t-field="packlot.qty_todo"/></t>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <t t-if="o.picking_type_id.code != 'outgoing'"><td><span t-field="pack_operation.location_dest_id"/>
+                        <span t-if="pack_operation.result_package_id">:</span>
+                        <span t-field="pack_operation.result_package_id"/>
+                    </td></t>
+                </tr>
+              </tbody>
+            </table>
+                <p t-if="o.pack_operation_ids">
+                	<div class="row">
+                        <div class="col-xs-6">
+                           <p>Pick By:</p>
+                           <p>Authorized Signature &amp; Company Stamp</p><br></br>
+                           <p>( . . . . . . . . . . . . . . . )</p>
+                           <p>Date:</p>
+                        </div>
+
+
+                        <div class="col-xs-5 col-xs-offset-1">
+                           <p>Received By:</p>
+                           <p>Authorized Signature &amp; Company Stamp</p><br></br>
+                           <p>( . . . . . . . . . . . . . . . )</p>
+                           <p>Date:</p>
+                        </div>
+                     </div>
+                </p>
+    	</xpath>
+
+	    
+        </template>
+
+    </data>
+</openerp>

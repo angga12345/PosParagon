@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record id="view_account_invoice_refund_credit" model="ir.ui.view">
+            <field name="name">account.invoice.refund.credit.form</field>
+            <field name="model">account.invoice.refund</field>
+            <field name="arch" type="xml">
+                <form string="Credit Note">
+                	<group>
+                         <group>
+                             <field name="description"/>
+                             
+                         </group>
+                         <group>
+                             <field name="date_invoice"/>
+                             <field name="date" groups="base.group_no_one"/>
+                         </group>
+                    </group>
+                    <footer>
+                        <button string='Refund Credit' name="invoice_refund_credit" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+    	
+   	 <record id="action_account_invoice_refund_credit" model="ir.actions.act_window">
+            <field name="name">Refund Credit</field>
+            <field name="res_model">account.invoice.refund</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+           <field name="view_id" ref="view_account_invoice_refund_credit"/>
+           <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

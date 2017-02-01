@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>	
+    	
+		<!--  Action Report Delivery Note Sorted -->
+        <report 
+            id="action_report_dns"
+            string="Delivery Note (sorted)"         
+            model="stock.picking"
+            report_type="qweb-pdf"
+        	file="pti_do_report.report_delivery_note_sorted" 
+            name="pti_do_report.report_delivery_note_sorted" 
+        />
+
+		<!--  Action Report Delivery Note  -->
+        <report 
+            id="action_report_dn"
+            string="Delivery Note"         
+            model="stock.picking"
+            report_type="qweb-pdf"
+        	file="pti_do_report.report_delivery_note" 
+            name="pti_do_report.report_delivery_note" 
+        />
+		<!-- Action Report delivery note letter -->
+        <report 
+            id="action_report_dn_lands"
+            string="Delivery Note Letter"        
+            model="stock.picking"
+            report_type="qweb-pdf"
+        	file="pti_do_report.report_delivery_note_letter" 
+            name="pti_do_report.report_delivery_note_letter" 
+        />
+		<!--      Action Report proforma Invoice          -->
+        <report 
+            id="action_report_pi"
+		    string="Proforma Invoice"        
+            model="stock.picking"
+            report_type="qweb-pdf"
+        	file="pti_do_report.report_pi" 
+            name="pti_do_report.report_pi" 
+	     />
+
+        <!-- Menu Internal Transfer -->
+        <report
+         	id="action_internal_transfer"
+         	string="Internal Transfer"
+			model="stock.picking"
+         	report_type="qweb-pdf"
+        	file="pti_do_report.report_internal_transfer"
+         	name="pti_do_report.report_internal_transfer" 
+         /> 
+
+        <!-- Menu Consolidate Product -->
+        <report
+         	id="action_consolidate_product"
+         	string="Consolidate Picking"
+			model="date.consolidate.product"
+         	report_type="qweb-pdf"
+        	file="pti_do_report.report_consolidate_product"
+         	name="pti_do_report.report_consolidate_product"
+         /> 
+	     	
+	     <!-- Menu Picking Operation -->
+	     <report
+	     	id="stock.action_report_picking"
+            string="Picking Operations"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="stock.report_picking"
+            file="stock.report_picking_operations"
+	     	menu="True"  
+	     />
+
+	     <!-- Menu Print Tracking Shipment -->
+	     <report
+	     	id="tracking_shipment"
+            string="Tracking Shipment"
+            model="truck.picking.shipment"
+            report_type="qweb-pdf"
+            name="pti_do_report.report_tracking_shipment"
+            file="pti_do_report.report_tracking_shipment"
+	     	menu="True"  
+	     />
+	     		     
+    </data>
+</openerp>

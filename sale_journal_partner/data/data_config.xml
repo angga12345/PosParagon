@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data noupdate="1">
+    	<record id="sequence_parama_out" model="ir.sequence">
+            <field name="name">Parama Out</field>
+            <field name="code">parama.out</field>
+            <field name="prefix">PRM/OUT/</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">6</field>
+        </record>
+        <record id="sequence_parama_in" model="ir.sequence">
+            <field name="name">Parama In</field>
+            <field name="code">parama.in</field>
+            <field name="prefix">PRM/IN/</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">6</field>
+        </record>
+        
+        <record id="sequence_parama_sale_oerder" model="ir.sequence">
+            <field name="name">Parama Sales Order</field>
+            <field name="code">prm.sale.orders</field>
+            <field name="prefix">PRM/SO</field>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">3</field>
+        </record>
+        
+        <record id="sequence_parama_invoice_number" model="ir.sequence">
+            <field name="name">Parama Invoice Number</field>
+            <field name="code">invoice.number.parama.sequence</field>
+            <field name="prefix">%(range_year)s</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">6</field>
+        </record>
+        <record id="sequence_parama_cancel_invoice_number" model="ir.sequence">
+            <field name="name">Parama Canceled Invoice Number</field>
+            <field name="code">invoice.cancel.number.parama.sequence</field>
+            <field name="prefix">%(range_year)s</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">6</field>
+        </record>
+        
+        <record id="sequence_parama_debit_number" model="ir.sequence">
+            <field name="name">Parama Debit Number</field>
+            <field name="code">debit.number.parama.sequence</field>
+            <field name="prefix">%(range_year)s</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">6</field>
+        </record>
+        <record id="sequence_parama_cancel_debit_number" model="ir.sequence">
+            <field name="name">Parama Canceled Debit Number</field>
+            <field name="code">debit.cancel.number.parama.sequence</field>
+            <field name="prefix">%(range_year)s</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">6</field>
+        </record>
+        
+        <record id="sequence_parama_credit_number" model="ir.sequence">
+            <field name="name">Parama Credit Number</field>
+            <field name="code">credit.number.parama.sequence</field>
+            <field name="prefix">%(range_year)s</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">6</field>
+        </record>
+        <record id="sequence_parama_cancel_credit_number" model="ir.sequence">
+            <field name="name">Parama Canceled Credit Number</field>
+            <field name="code">credit.cancel.number.parama.sequence</field>
+            <field name="prefix">%(range_year)s</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</openerp>

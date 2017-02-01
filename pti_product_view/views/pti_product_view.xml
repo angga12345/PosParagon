@@ -1,0 +1,108 @@
+<openerp>
+	<data>
+		<record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="stock.view_stock_product_template_tree"/>
+            <field name="context">{"search_default_filter_to_sell":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.
+                </p><p>
+                    You must define a product for everything you sell, whether it's a physical product, a consumable or a service you offer to  customers.               
+                </p><p>
+                    The product form contains information to simplify the sale process: price, notes in the quotation, accounting data, procurement methods, etc.
+                </p>
+            </field>
+        </record>
+         <record id="product.product_template_action_product" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_products": 1, 'default_type': 'product'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.
+                </p>
+            </field>
+        </record>
+        <record id="product_template_tree_test1234" model="ir.ui.view">
+            <field name="name">product.template.tree.test1234</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+            <field name="arch" type="xml">
+            	<tree position="replace">
+            		<tree>
+	            		<field name="default_code"/>
+						<field name="name"/>
+	                    <field name="volume"/>
+	                    <field name="weight"/>
+	                    <field name="categ_id"/>      			
+	            		</tree>
+            	</tree>
+            </field>
+        </record>
+        <record id="wk_ui_view_quantity" model="ir.ui.view">
+            <field name="name">wk.ui.view.quantity</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+				<xpath expr="//div/button[@name='action_open_quants']" position="replace">
+					<button type="object"
+                            name="action_open_quants"
+                            attrs="{'invisible':[('type', '!=', 'product')]}"
+                            class="oe_stat_button" icon="fa-building-o"
+                            string="Quantity On Hand">
+                     </button>
+				</xpath>          	
+				<xpath expr="//div/button[@name='%(stock.action_stock_level_forecast_report_template)d']" position="replace">
+					
+           		</xpath>
+           		
+			 </field>
+        </record>
+        
+        <record id="wk_ui_view_quantity_forecast" model="ir.ui.view">
+            <field name="name">wk.ui.view.quantity.forecast</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="arch" type="xml">       
+            	<xpath expr="//div[@name='button_box']" position="inside">
+					<button type="action"
+                            name="%(stock.action_stock_level_forecast_report_template)d"
+                            attrs="{'invisible':[('type', '!=', 'product')]}"
+                            class="oe_stat_button" icon="fa-building-o">
+                            <div class="o_form_field o_stat_info">
+               
+                                <span class="o_stat_text">Forecasted</span>
+                            </div>
+                     </button>
+           		</xpath>	
+				
+			 </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="product_template_form_sale_321">
+            <field name="name">product.template.form.sale.321</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="sale.product_template_form_view_sale_order_button"/>
+			          
+            <field name="arch" type="xml">
+				<xpath expr="//div/button[@name='action_view_sales']" position="replace">
+					<button class="oe_stat_button" name="action_view_sales"
+                        type="object" icon="fa-usd"
+                        string="Sales">
+                    </button>
+				</xpath> 
+            </field>
+         </record>
+         
+	</data>
+</openerp>
+

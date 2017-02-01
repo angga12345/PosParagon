@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+   <data>
+   	
+      <template id="report_pi">
+         <t t-foreach="docs" t-as="o">
+            <div class="row">
+               <t t-call="pti_do_report.report_pi_body"/>
+               <p style="color:#fff;"><span t-esc="set_notify(o)"/></p>
+            </div>
+         </t>
+      </template>
+   	
+      <template id="report_pi_body">
+         <t t-call="report.html_container">
+            <!--t t-call="report.external_layout"/-->
+		   <t t-if="o.state=='done'">
+            <div class="page">
+                  <div class="container" position="fixed">
+                     <div class="col-xs-5 col-xs-offset-7" style="font-weight: bold; font-size: 24px; margin-bottom: 5px;">
+                        PROFORMA INVOICE
+                     </div>
+                     <div class="col-xs-6">
+                        <p style="font-weight: bold; border-bottom: 1px solid">BILL TO:</p>
+                        <t t-if="not o.sale_id">
+                           <t t-if="o.partner_id.parent_id">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.parent_id.name"/> </p>
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.parent_id.ref"/> </p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.name"/> </p>
+                           <t t-if="not o.partner_id.parent_id">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.ref"/> </p>
+                           </t>
+                           <t t-if="o.partner_id.parent_id and o.partner_id.parent_id.email">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Email: <span t-field="o.partner_id.parent_id.email"/> </p>
+                           </t>
+                           <t t-if="(not o.partner_id.parent_id) and o.partner_id.email">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Email: <span t-field="o.partner_id.email"/> </p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.street"/> <span t-field="o.partner_id.street2"/> </p>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.zip"/> </p>
+                           <t t-if="o.partner_id.mobile">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Phone: <span t-field="o.partner_id.mobile"/> </p>
+                           </t>
+                           <t t-if="o.partner_id.fax">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Fax: <span t-field="o.partner_id.fax"/> </p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px">
+                              <t t-if="o.partner_id.parent_id">
+                                 <span t-field="o.partner_id.parent_id.npwp"/>
+                              </t>
+                              <t t-if="not o.partner_id.parent_id">
+                                 NPWP: <span t-field="o.partner_id.npwp"/>
+                              </t>
+                           </p>
+                        </t>
+                        <t t-if="o.sale_id">
+                           <t t-if="o.sale_id.partner_invoice_id.parent_id">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.sale_id.partner_invoice_id.parent_id.name"/> </p>
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.sale_id.partner_invoice_id.parent_id.ref"/> </p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.sale_id.partner_invoice_id.name"/> </p>
+                           <t t-if="not o.sale_id.partner_invoice_id.parent_id">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.sale_id.partner_invoice_id.ref"/> </p>
+                           </t>
+                           <t t-if="o.sale_id.partner_invoice_id.parent_id and o.sale_id.partner_invoice_id.parent_id.email">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Email: <span t-field="o.sale_id.partner_invoice_id.parent_id.email"/> </p>
+                           </t>
+                           <t t-if="(not o.sale_id.partner_invoice_id.parent_id) and o.sale_id.partner_invoice_id.email">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Email: <span t-field="o.sale_id.partner_invoice_id.email" /> </p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.sale_id.partner_invoice_id.street"/> <span t-field="o.sale_id.partner_invoice_id.street2"/> </p>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.sale_id.partner_invoice_id.city"/>, <span t-field="o.sale_id.partner_invoice_id.zip"/> </p>
+                           <t t-if="o.sale_id.partner_invoice_id.mobile">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Phone: <span t-field="o.sale_id.partner_invoice_id.mobile"/> </p>
+                           </t>
+                           <t t-if="o.sale_id.partner_invoice_id.fax">
+                              <p style="margin-left: 2px; margin-bottom: 0px"> Fax: <span t-field="o.sale_id.partner_invoice_id.fax"/> </p>
+                           </t>
+                           <p style="margin-left: 2px; margin-bottom: 0px">
+                              <t t-if="o.sale_id.partner_invoice_id.parent_id">
+                                 <span t-field="o.sale_id.partner_invoice_id.parent_id.npwp"/>
+                              </t>
+                              <t t-if="not o.sale_id.partner_invoice_id.parent_id">
+                                 NPWP: <span t-field="o.sale_id.partner_invoice_id.npwp"/>
+                              </t>
+                           </p>
+                        </t>
+
+
+
+                        <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.ref"/>
+                        </p>
+
+                        <br/>
+
+                        <p style="font-weight: bold; border-bottom: 1px solid">SHIP TO:</p>
+                        <t t-if="o.partner_id.parent_id">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.parent_id.name"/> </p>
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.parent_id.ref"/> </p>
+                        </t>
+                        <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.name"/> </p>
+                        <t t-if="not o.partner_id.parent_id">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Customer ID: <span t-field="o.partner_id.ref"/> </p>
+                        </t>
+                        <t t-if="o.partner_id.parent_id and o.partner_id.parent_id.email">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Email: <span t-field="o.partner_id.parent_id.email"/> </p>
+                        </t>
+                        <t t-if="(not o.partner_id.parent_id) and o.partner_id.email">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Email: <span t-field="o.partner_id.email"/> </p>
+                        </t>
+                        <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.street"/> <span t-field="o.partner_id.street2"/> </p>
+                        <p style="margin-left: 2px; margin-bottom: 0px"> <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.zip"/> </p>
+                        <t t-if="o.partner_id.mobile">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Phone: <span t-field="o.partner_id.mobile"/> </p>
+                        </t>
+                        <t t-if="o.partner_id.fax">
+                           <p style="margin-left: 2px; margin-bottom: 0px"> Fax: <span t-field="o.partner_id.fax"/> </p>
+                        </t>
+                        <p/>
+                     </div>
+
+                     <div class="col-xs-6">
+                        <div class="col-xs-6" style="text-align:right">Doc No: </div>
+                        <div class="col-xs-6">
+                           <span>PFI/<span t-field="o.name"/></span>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align:right">Date: </div>
+                        <div class="col-xs-6">
+                           <span t-field="o.date"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align:right">Customer PO No: </div>
+                        <div class="col-xs-6">
+                           <span t-field="o.sale_id.client_order_ref"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align:right">Term of Payment: </div>
+                        <div class="col-xs-6">
+                           <t t-if="o.sale_id">
+                              <span t-field="o.sale_id.payment_term_id.name"/>
+                           </t>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align:right">Inco Terms: </div>
+                        <div class="col-xs-6">
+                           <![CDATA[&nbsp;]]>
+                        </div>
+                        <div class="col-xs-6" style="text-align:right">Delivery Order No: </div>
+                        <div class="col-xs-6">
+                           <span t-field="o.name"/>
+                           <![CDATA[&nbsp;]]>
+                        </div>
+
+                        <div class="col-xs-6" style="text-align:right">Currency: </div>
+                        <div class="col-xs-6">
+                           <t t-if="o.sale_id">
+                              <span t-field="o.sale_id.currency_id"/>
+                           </t>
+                           <t t-if="not o.sale_id">
+                              <span t-field="company.currency_id"/>
+                           </t>
+                        </div>
+                     </div>
+
+                           <p/>
+
+                              <table class="table table-bordered">
+
+                                 <thead>
+                                    <tr>
+                                       <td style="width: 45px;">No</td>
+                                       <td style="width: 60px;">Item Code</td>
+                                       <td>Item Description</td>
+                                       <td style="width: 100px;">Unit Price</td>
+                                       <td style="width: 55px;">Qty</td>
+                                       <td style="width: 55px;">UOM</td>
+                                       <td style="width: 100px;">Disc Volume</td>
+                                       <td style="width: 100px;">Add Disc</td>
+                                       <td style="width: 100px;">Disc Program</td>
+                                       <td style="width: 125px;">Price After Disc</td>
+                                    </tr>
+                                 </thead>
+
+                                 <tbody class="sale_tbody">
+                                    <t t-set="no" t-value="1"/>
+                                    <tr t-foreach="get_lines(o)" t-as="line">
+                                       <t t-if="line['state']=='assigned' or line['state']=='done'">
+                                          <t t-if="not line.get('is_free')">
+                                          	  <td class="text-right"> <span t-esc="no"/> <t t-set="no" t-value="no+1"/></td>
+	                                          <td> <span t-esc="line.get('product_code')"/> </td>
+	                                          <td> <span t-esc="line.get('product_name')"/> </td>
+	                                          <td class="text-right">
+	                                             <span t-esc="'{0:,.2f}'.format(line.get('price_unit'))"/>
+	                                          </td>
+	                                          <td class="text-right"> <span t-esc="'{0:,.0f}'.format(line.get('product_qty'))"/> </td>
+	                                          <td> <span t-esc="line.get('product_uom')"/> </td>
+	                                          <td class="text-right">
+	                                             <span t-esc="'{0:,.2f}'.format(line.get('tot_disc_volume'))"/>
+	                                          </td>
+	                                          <td class="text-right">
+	                                             <span t-esc="'{0:,.2f}'.format(line.get('tot_disc_add'))"/>
+	                                          </td>
+	                                          <td class="text-right">
+	                                             <span t-esc="'{0:,.2f}'.format(line.get('tot_disc_program'))"/>
+	                                          </td>
+	                                          <td class="text-right">
+	                                             <span t-esc="'{0:,.2f}'.format(line.get('price_subtotal'))"/>
+	                                          </td>
+                                          </t>
+                                          <t t-if="line.get('is_free')">
+                                          	  <td class="text-right"></td>
+                                          	  <td> <span t-esc="line.get('product_code')"/> </td>
+	                                          <td colspan="7"> <span t-esc="line.get('product_name')"/> </td>
+	                                          <td class="text-right">
+	                                             <span t-esc="'{0:,.2f}'.format(line.get('price_subtotal'))"/>
+	                                          </td>
+                                      	  </t>
+                                       </t>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                              <table align="right" width="30%">
+                                 <tr>
+                                    <td> Subtotal</td>
+                                    <td style="width: 125px" align="right"><span t-esc="'{0:,.2f}'.format(get_order_subtotal())"/></td>
+                                 </tr>
+                                 <tr>
+                                    <td> Total Discount Volume</td>
+                                    <td style="width: 125px; border-bottom: 1px solid" align="right">
+                                    	<t t-if="get_order_disc_volume() &gt; 0">
+                                    		-<span t-esc="'{0:,.2f}'.format(get_order_disc_volume())"/>
+                                    	</t>
+                                    	<t t-if="get_order_disc_volume() == 0">
+                                    		0.00
+                                    	</t>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td> <font color="white"> . </font> </td>
+                                    <td style="width: 125px" align="right"> <font color="white"> . </font> </td>
+                                 </tr>
+                                 <tr>
+                                    <td> Total Additional Discount</td>
+                                    <td style="width: 125px" align="right">
+                                    	<t t-if="get_order_disc_add() &gt; 0">
+                                    		-<span t-esc="'{0:,.2f}'.format(get_order_disc_add())"/>
+                                    	</t>
+                                    	<t t-if="get_order_disc_add() == 0">
+                                    		0.00
+                                    	</t>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td> Total Discount Program</td>
+                                    <td style="width: 125px" align="right">
+                                    	<t t-if="get_order_disc_program() &gt; 0">
+                                    		-<span t-esc="'{0:,.2f}'.format(get_order_disc_program())"/>
+                                    	</t>
+                                    	<t t-if="get_order_disc_program() == 0">
+                                    		0.00
+                                    	</t>
+                                    </td>
+                                 </tr>
+                                 <tr t-foreach="get_order_disc_global()" t-as="line">
+                                    <td> Discount - <span t-esc="line.get('name_discount')"/> </td>
+                                    <td style="width: 125px;" align="right">
+                                    	<t t-if="line.get('discount_value') &gt; 0">
+                                    		-<span t-esc="'{0:,.2f}'.format(line.get('discount_value'))"/>
+                                    	</t>
+                                    	<t t-if="line.get('discount_value') == 0">
+                                    		0.00
+                                    	</t>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td> Freight</td>
+                                    <td style="width: 125px; border-bottom: 1px solid" align="right"><span t-esc="'{0:,.2f}'.format(0)"/></td>
+                                 </tr>
+                                 <tr>
+                                    <td> Net Price</td>
+                                    <td style="width: 125px" align="right"><span t-esc="'{0:,.2f}'.format(get_order_net())"/></td>
+                                 </tr>
+                                 <tr>
+                                    <td> PPN 10%</td>
+                                    <td style="width: 125px; border-bottom: 1px solid" align="right"><span t-esc="'{0:,.2f}'.format(get_order_tax())"/></td>
+                                 </tr>
+                                 <tr>
+                                    <td> <strong>TOTAL</strong> </td>
+                                    <td style="width: 125px; border-bottom: 2px double" align="right"><span t-esc="'{0:,.2f}'.format(get_order_total())"/></td>
+                                 </tr>
+                              </table>
+                              <div class="col-xs-12">
+                                 (In words : <span t-esc="get_order_total_text()"/>)
+                              </div>
+                              <hr style="width: 100%;"></hr>
+                              <div class="col-xs-6">
+                                 <p>
+                                    Note:
+                                    <li>Please state the invoice number and your company name when you make the payment</li>
+                                    <li>This Invoice is Computer generated. No signature required</li>
+                                 </p>
+                              </div>
+
+                              <div class="col-xs-5 col-xs-offset-1">
+                                 <div class="col-xs-12">Document Distribution:</div>
+                                 <div class="col-xs-5">Original (White)</div>
+                                 <div class="col-xs-7">: For Invoicing</div>
+                                 <div class="col-xs-5">Copy 1 (Purple)</div>
+                                 <div class="col-xs-7">: For BA</div>
+                                 <div class="col-xs-5">Copy 2 (Pink)</div>
+                                 <div class="col-xs-7">: Copy for Customer</div>
+                                 <div class="col-xs-5">Copy 3 (Yellow)</div>
+                                 <div class="col-xs-7">: Filing at Distribution Center</div>
+                              </div>
+                           </div>
+
+                     </div>
+					<div class="footer">
+				    	<div style="margin-top:30px;" class="row">
+				        	<div class="col-xs-3">
+				            		<small style="margin-top:20px;">
+										<span>Document : PFI/<span t-field="o.name"/> || Page <span class="page" /> of <span class="topage" /></span>
+									</small>
+				        	</div>
+				    	</div>
+					</div>
+				   </t>
+                  </t>
+               </template>
+
+            </data>
+         </openerp>
+         
+	         

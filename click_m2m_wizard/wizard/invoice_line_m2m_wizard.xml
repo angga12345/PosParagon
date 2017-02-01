@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="update_discount_tax_wizard_view" model="ir.ui.view">
+			<field name="name">update.discount.tax.wizard.view</field>
+            <field name="model">invoice.line.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Update Discount and Taxes">
+					<group>
+						<field name="active_id" invisible="1"/>
+						<field name="options"/>
+						<field name="apply_all"/>
+					</group>
+                    <newline/>
+                    <group attrs="{'invisible':[('options','=','taxes')]}">
+						<field name="discount_m2m" mode="tree">
+							<tree string="Discount" editable="bottom" >
+								<field name="name" />
+							</tree>
+						</field>
+                    </group>
+                    <group attrs="{'invisible':[('options','=','discount')]}">
+						<field name="taxes" mode="tree">
+							<tree string="Taxes" editable="bottom" >
+								<field name="name" />
+							</tree>
+						</field>
+                    </group>
+					<footer>
+						<button name="apply_changes" string="Apply" type="object" class="btn-primary" default_focus="1"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+	
+		<record id="action_update_discount_tax_wizard" model="ir.actions.act_window">
+			<field name="name">Update Discount or Tax</field>
+            <field name="res_model">invoice.line.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="update_discount_tax_wizard_view"/>
+            <field name="target">new</field>
+		</record>
+		
+	</data>
+</openerp>

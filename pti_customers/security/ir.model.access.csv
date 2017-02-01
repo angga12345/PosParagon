@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ptifa_customer_discount,ptifa.customer.discount,pti_customers.model_customer_discount,pti_branch.group_pti_branch_finance_admin,1,1,1,1
+access_pti_kdc_customer_discount,pti.kdc.customer.discount,pti_customers.model_customer_discount,pti_branch.group_pti_branch_kdc,1,0,0,0
+access_pti_co_customer_discount,pti.co.customer.discount,pti_customers.model_customer_discount,pti_branch.group_pti_branch_customer_order,1,0,0,0
+access_pti_inv_customer_discount,pti.inv.customer.discount,pti_customers.model_customer_discount,pti_branch.group_pti_branch_sales_admin_invoice,1,0,0,0
+access_pti_do_customer_discount,pti.do.customer.discount,pti_customers.model_customer_discount,pti_branch.group_pti_branch_delivery_order,1,0,0,0
+audit_customer_discount,audit.customer.discount,pti_customers.model_customer_discount,pti_branch.pti_audit_group,1,0,0,0

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+		<!-- Add DC  in res partner -->
+		<record id="custom_res_partner" model="ir.ui.view">
+    		<field name="name">custom.res.partner</field>
+    		<field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//form/sheet" position="before">
+            		<header>
+                     <button name="customer_active" string="Validate" class="oe_highlight" type="object" attrs="{'invisible':[ ('state', '=', 'validated')]}" groups="pti_branch.group_pti_branch_finance_admin" />
+                    </header>
+                </xpath> 
+				<field name="category_id" position="after">
+					<field name="is_dc" attrs="{'invisible': [('supplier', '=', True)]}"/>
+					<field name="state" invisible = "1" />
+					<field name="warehouse_id" groups="stock.group_stock_user"
+						   attrs="{'invisible': [('supplier', '=', True)]}"/>
+                   	<field name="dc_id" domain="[('is_dc','=',True)]"
+						   widget="selection"
+						   attrs="{'invisible': [('supplier', '=', True)]}"/>
+                   	<field name="this_for_all" attrs="{'invisible': [('supplier', '=', True)]}"/>
+                   	<field name="is_employee" attrs="{'invisible': [('supplier', '=', True)]}" />
+                   	<field name="salesperson_id" attrs="{'invisible': [('supplier', '=', True)]}"/>
+                </field>
+                <xpath expr="//field[@name='website']" position="attributes">
+                	<attribute name="attrs">{"invisible":True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='function']" position="attributes">
+                	<attribute name="attrs">{"invisible":True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="attributes">
+                	<attribute name="attrs">{"invisible":True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='title']" position="attributes">
+                	<attribute name="attrs">{"invisible":True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="replace">
+                	<group>
+					<label for="ref" string="Customer Code" attrs="{'invisible': [('supplier','=',True)]}"/>
+					<label for="ref" string="Vendor Code" attrs="{'invisible': [('customer','=',True)]}"/>
+					</group>				
+					<group>	
+                	<field name="ref" nolabel="1"/>
+                	</group>
+                </xpath>
+                <xpath expr="//field[@name='lang']" position="attributes">
+                	<attribute name="attrs">{"invisible":True}</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group/group/field[@name='user_id']" position="attributes">
+                       <attribute name="attrs">{"invisible":True}</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']" position="after">
+                   <page name='logistic_access' string="Warehouse access">
+                    	<group>
+                    		<field name="warehouse_ids" widget="many2many_tags" placeholder="Access Warehouse"
+                    			   groups="stock.group_stock_manager" 
+                    		/>
+                    	</group>
+                   </page>
+                </xpath> 
+            </field>
+    	</record>
+    	
+    	<!--ADD Default Dc ID Bank statement-->
+    	<record id="custom_bank_statement_line" model="ir.ui.view">
+            <field name="name">custom.bank.statement.line</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <!--ADD domain filter line_ids-->
+            	<xpath expr="//tree/field[@name='partner_id']" position="attributes">
+                	<attribute name="domain">[('is_dc','!=',True)]</attribute>
+                	<attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+    	
+    	<!-- Add DC  in Sale Order -->
+		<record id="custom_sale_order" model="ir.ui.view">
+    		<field name="name">custom.sale.order</field>
+    		<field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<field name="user_id" position="attributes">
+                   	<attribute name="attrs">{"invisible":True}</attribute>
+                </field>
+                <field name="validity_date" position="attributes">
+                   	<attribute name="attrs">{"invisible":True}</attribute>
+                </field>
+                <field name="partner_id" position="before">
+                   	<field name="dc_id" domain="[('is_dc','=',True)]" widget="selection" attrs="{'readonly' : [('access_group','=',False)]}"/>
+                   	<field name="access_group" invisible = "1"/>
+                </field>
+            	<xpath expr="//field[@name='partner_id']" position="attributes">
+                	<attribute name="domain">[('customer','=',True)]</attribute>
+                	<attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                	<attribute name="attrs">{"invisible":True}</attribute>
+                </xpath>
+                <xpath expr="//group/field[@name='client_order_ref']" position="replace"></xpath>
+                <xpath expr="//field[@name='team_id']" position="after">
+                	<field name="payment_term_id"/>
+                </xpath>
+                <field name="partner_id" position="after">
+                	<field name="client_order_ref" attrs="{'readonly': [('state', 'in', ('done','sale'))]}"/>
+                   	<field name="sales_id" required="1" domain="[('is_employee','=',True)]" attrs="{'readonly': [('state', 'in', ('done','sale'))]}"/>
+                </field>
+                <xpath expr="//field[@name='sales_id']" position="attributes">
+                	<attribute name="domain">[('is_employee', '=', True)]</attribute>
+                	<attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//form/group/group/div/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="digits">(14, 0)</attribute>
+                </xpath>
+            </field>
+    	</record>
+    	
+    	<!-- Add DC  in Sale Order -->
+		<record id="custom_sale_order_quotation" model="ir.ui.view">
+    		<field name="name">custom.sale.order.quotation</field>
+    		<field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+                   	<field name="dc_id"/>
+                </field>
+                <field name="user_id" position="replace">
+                   	<field name="sales_id"/>
+                </field>
+            </field>
+    	</record>
+    	
+    	<!-- Add Draft Filter -->
+    	<record id="draft_res_partner_filter" model="ir.ui.view">
+            <field name="name">draft.res.partner.filter</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter name="supplier"  position="after">
+                   <filter string="Draft" name="state" domain="[('state','=','draft'),('active','=',False)]"/>
+                </filter>
+            </field>
+        </record>
+        
+        <!-- Add Validate Button On Customer Form View, Group Id Finance Admin
+        <record id="customer_validation_button" model="ir.ui.view">
+            <field name="name">customer.validation.button</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('pti_branch.group_pti_branch_finance_admin') ])]" />          
+            <field name="arch" type="xml">                                       
+                <xpath expr="//form" position="inside">
+                     <button name="validate" string="Validate" class="oe_highlight" type="object" attrs="{'invisible':[ ('state', '=', 'validated')]}"/>
+                </xpath>                         
+            </field>
+		</record> 
+	  	 -->
+    	
+    	<!-- Add DC  in Sale Order -->
+		<record id="custom_sale_order_tree" model="ir.ui.view">
+    		<field name="name">custom.sale.order.tree</field>
+    		<field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+				<field name="name" position="after">
+                   	<field name="dc_id"/>
+                </field>
+                <field name="user_id" position="replace">
+                   	<field name="sales_id"/>
+                </field>
+                <field name="sales_id" position="after">
+                   	<field name="delivery_count"/>
+                </field>
+            </field>
+    	</record>
+    	
+    	
+    	<!-- Add DC  in Warehouse -->
+		<record id="custom_warehouse" model="ir.ui.view">
+    		<field name="name">custom.warehouse</field>
+    		<field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+				<field name="code" position="after">
+                   	<field name="dc_id" domain="[('is_dc','=',True)]" widget="selection"/>
+                </field>
+            </field>
+    	</record>
+    	
+    	<record id="pti_stock_picking_type" model="ir.ui.view">
+    		<field name="name">pti.stock.default.mto</field>
+    		<field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="arch" type="xml">
+                <field name="barcode_nomenclature_id" position = "after" > 
+                	<!--field name="partner_operators" groups="stock.group_stock_manager" widget="many2many_tags" domain="[('is_dc','=',True)]"/-->
+                	<field name="is_sjb_operation" groups="stock.group_stock_manager"/>
+                	<field name="is_retur"/>
+			    </field>
+            </field>
+    	</record>
+    	
+    	<record id="custom_picking" model="ir.ui.view">
+    		<field name="name">custom.picking</field>
+    		<field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+            	<!-- xpath expr="//page[@string='Additional Info']" position="attributes">
+			    	<attribute name="groups">stock.group_stock_manager</attribute>
+				</xpath -->
+                <button name="force_assign" position = "attributes"> 
+			       <attribute name ="groups">base.group_system</attribute>
+			    </button>
+            </field>
+    	</record>
+    	
+    	<record id="stock.action_picking_tree_all" model="ir.actions.act_window">
+            <field name="domain">[('can_view','=',True)]</field>
+        </record>
+        
+        <record id="account.open_account_journal_dashboard_kanban" model="ir.actions.act_window">
+            <field name="domain">[('can_view_ho','=',True)]</field>
+        </record>
+        
+    	<!-- Add DC  in Location -->
+		<record id="custom_location" model="ir.ui.view">
+    		<field name="name">custom.location</field>
+    		<field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+				<field name="partner_id" position="after">
+                   	<field name="dc_id" domain="[('is_dc','=',True)]" widget="selection"/>
+                   	<field name="this_for_all"/>
+                </field>
+            </field>
+    	</record>
+    	
+    	<!-- Add DC  in Journal -->
+		<record id="custom_journal" model="ir.ui.view">
+    		<field name="name">custom.journal</field>
+    		<field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+				<field name="type" position="after">
+                   	<field name="dc_id" domain="[('is_dc','=',True)]" widget="selection"/>
+                   	<field name="this_for_all"/>
+                </field>
+            </field>
+    	</record>
+    	
+    	<!-- Add DC  in Invoice -->
+		<record id="custom_account_invoice" model="ir.ui.view">
+    		<field name="name">custom.account.invoice</field>
+    		<field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            	<field name="user_id" position="replace">
+                   	<field name="sales_id" domain="[('is_employee','=',True)]"/>
+                </field>
+				<field name="payment_term_id" position="after">
+                   	<field name="dc_id" domain="[('is_dc','=',True)]" widget="selection" attrs="{'readonly' : [('access_group','=',False)]}"/>
+                   	<field name="access_group" invisible = "1"/>
+                </field>
+                <button name="%(account.action_account_invoice_payment)d" position = "attributes" > 
+			        <attribute name ="invisible">1</attribute>
+			    </button>
+            </field>
+    	</record>
+    	
+    	<!-- CHANGE ATTR BUTTON ONLY MANAGER INVENTORY CAN SEE -->
+		<record id="product_template_custom" model="ir.ui.view">
+    		<field name="name">product.template.custom</field>
+    		<field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+            	<button name="%(stock.action_view_change_product_quantity)d" position = "attributes" >
+            		<attribute name="groups">stock.group_stock_manager</attribute>
+                </button>
+                <button name="%(stock.act_make_procurement)d" position = "attributes" >
+            		<attribute name="groups">stock.group_stock_manager</attribute>
+                </button>
+            </field>
+    	</record>
+    	
+    	<!-- CHANGE ATTR BUTTON ONLY MANAGER INVENTORY CAN SEE -->
+		<record id="product_product_custom" model="ir.ui.view">
+    		<field name="name">product.product.custom</field>
+    		<field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+            	<button name="%(stock.action_view_change_product_quantity)d" position = "attributes" >
+            		<attribute name="groups">stock.group_stock_manager</attribute>
+                </button>
+                <button name="%(stock.act_make_procurement)d" position = "attributes" >
+            		<attribute name="groups">stock.group_stock_manager</attribute>
+                </button>
+            </field>
+    	</record>
+    	
+    	<!-- Menu DC -->
+    	<record model='ir.actions.act_window' id='pti_dc_action'>
+            <field name="name">Distribution Center</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="base.view_partner_tree"/>
+            <field name="domain">[('is_dc','=',True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Distribution Center
+                </p>    
+            </field>
+        </record>
+		
+    	<menuitem action="pti_dc_action" id="pti_dc_menu" parent="stock.menu_stock_config_settings" sequence="2"/>
+    	<record id="account.menu_action_invoice_tree1" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('account.group_account_user')),
+    									   (4,ref('account.group_account_invoice')),
+    									   (4,ref('pti_branch.group_pti_branch_sales_admin_invoice')),
+    									   (4,ref('account.group_account_manager')),
+    									   (4,ref('pti_branch.group_pti_branch_finance_admin')),
+    									   (4,ref('pti_branch.pti_audit_group'))]"/>
+    	</record>
+    	<record id="account.menu_finance_receivables" model="ir.ui.menu">
+    		 <field name="groups_id" eval="[(4,ref('account.group_account_user')),
+    									   (4,ref('account.group_account_invoice')),
+    									   (4,ref('pti_branch.group_pti_branch_sales_admin_invoice')),
+    									   (4,ref('account.group_account_manager')),
+    									   (4,ref('pti_branch.group_pti_branch_finance_admin')),
+    									   (4,ref('pti_branch.pti_audit_group'))]"/>
+    	</record>
+    	<record id="account.menu_finance_reports" model="ir.ui.menu">
+             <field name="groups_id" eval="[(3,ref('account.group_account_user')),
+             								(3,ref('account.group_account_invoice')),
+											(3,ref('pti_branch.group_pti_branch_sales_admin_invoice')),
+											(4,ref('account.group_account_manager')),
+											(4,ref('group_pti_branch_finance_admin')),
+											(4,ref('pti_audit_group')),
+											(4,ref('group_pti_branch_kdc'))]"/>
+       </record>
+	</data>
+</openerp>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+		<!--unit price read only-->
+    	<record id="acount_invoice_pti_custom" model="ir.ui.view">
+            <field name="name">acount.invoice.pti.custom</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+				<!--   Collector id  -->
+				<button name="%(account.action_account_invoice_refund)d" position="attributes">
+					<attribute name="groups">account.group_account_manager,pti_branch.group_pti_branch_finance_admin</attribute>
+				</button>
+				<!-- Remove Button Print and Print invoice-->
+	            <xpath expr="//button[2]" position="attributes">
+					<attribute name="invisible">1</attribute>                   	
+                </xpath>                          		                        	
+	            <xpath expr="//button[4]" position="attributes">
+					<attribute name="invisible">1</attribute>                   	
+                </xpath>
+				<!--	Rename Refund Invoice tobe Refund/Cancel Invoice	-->
+	            <xpath expr="//button[9]" position="attributes">
+					<attribute name="string">Refund/Cancel Invoice</attribute>                   	
+                </xpath>
+				<!--	Hidden Button PRO-FORMA	-->
+	            <xpath expr="//button[@name='invoice_proforma2']" position="attributes">
+					<attribute name="invisible">1</attribute>                   	
+                </xpath>
+                <xpath expr="//button[9]" position="after">
+					<button name="print_inv" type="object" states="open,paid" string="Print Invoice/CN"/>                   	
+                </xpath>
+                <field name="date_invoice" position="after">
+                	<field name="date_posted" readonly="True"/>
+                	<field name="create_date" readonly="True"/>
+                </field>
+            	<field name="team_id" position="after">
+                	 <field name="type_code_invoice"/>
+                </field>
+                <xpath expr="//page/group/group/field[@name='account_id']" position="replace">
+                	<field name="account_id" domain="[('company_id', '=', company_id), ('internal_type', '=', 'payable'), ('deprecated', '=', False)]" groups="account.group_account_manager,pti_branch.group_pti_branch_sales_admin_invoice"/>
+                </xpath>
+                <!--Remove Discount(%)-->
+                <xpath expr="//tree/field[@name='discount']" position="replace">
+                	<field name="discount_m2m" widget="many2many_tags" />
+                	<field name="product_brand" invisible="1"/>
+                	<field name="qty_returned"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='account_id']" position="attributes">
+                	<attribute name="invisible">True</attribute> 
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                	<attribute name="invisible">1</attribute> 
+                </xpath>
+                <xpath expr="//field[@name='state']" position="before">
+                	<field name="state_merge" widget="statusbar" nolabel="1"  statusbar_visible="draft,open,paid" statusbar_colors='{"proforma":"blue","proforma2":"blue"}'/> 
+                	<field name="state_refund" widget="statusbar" nolabel="1" statusbar_colors='{"proforma":"blue","proforma2":"blue"}' invisible="1"/> 
+                </xpath>
+            </field>
+        </record>
+
+		<!--	hidden button Cancel from draft	-->
+        <record id="inherit_invoice_form_cancel_inherit" model="ir.ui.view">
+            <field name="name">inherit.invoice.form.cancel.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_cancel.invoice_form_cancel_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_cancel']" position="replace">
+                    <button name="invoice_cancel" string="Cancel Invoice" groups="account.group_account_invoice" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    	
+        <!-- Change wizard journal entries -->
+        <record id="pti_view_account_move_line_reconcile_full" model="ir.ui.view">
+            <field name="name">pti.account.move.line.reconcile.full.form</field>
+            <field name="model">account.move.line.reconcile</field>
+            <field name="inherit_id" ref="account.view_account_move_line_reconcile_full"/>
+            <field name="arch" type="xml">
+            	<!-- add condition if same value to reconcile by sales admin (trans_rec_reconcile_partial_reconcile,trans_rec_reconcile_full) -->
+			    <button name="trans_rec_addendum_writeoff" position = "attributes" > 
+			        <attribute name ="groups">account.group_account_manager</attribute>
+			    </button>
+            </field>
+        </record>
+        
+        <record id="pti_view_account_move_filter" model="ir.ui.view">
+            <field name="name">account.move.select</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                	 <field name="dc_id"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="custom_account_invoice_cancel" model="ir.ui.view">
+    		<field name="name">custom.account.invoice.cancel</field>
+    		<field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">            	
+				<field name="reference" position="after">
+                   	<field name="type_code_invoice"/>
+                </field>               
+            </field>
+    	</record>
+    	
+    	<record id="account.action_invoice_tree1" model="ir.actions.act_window">
+            <field name="domain">[('type','=','out_invoice'),('state_refund','=',False)]</field>   
+        </record>
+        
+        <record model="ir.ui.view" id="change_salesperson_field_tree">
+        	<field name="name">change.salesperson.field.tree</field>
+        	<field name="model">account.invoice</field>
+        	<field name="inherit_id" ref="account.invoice_tree"/> 
+        	<field name="arch" type="xml">
+				<field name="user_id" position="replace" >
+					<field name="sales_id" />
+				</field>
+                <xpath expr="//field[@name='state']" position="after">
+                	<field name="state_merge"/> 
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                	<attribute name="invisible">1</attribute> 
+                </xpath>
+        	</field>
+   		</record>
+
+    	<record id="replace_default_discount_bill" model="ir.ui.view">
+			<field name="name">replace.default.discount.bill</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="replace">
+					<field name="discount_m2m" widget="many2many_tags" />
+				</xpath>
+			</field>
+		</record>
+
+        <record id="parama_info" model="ir.ui.view">
+            <field name="name">parama.info</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='account_control_ids']" position="after">
+                    <field name="other_journal"/>
+                </xpath>
+
+            </field>
+        </record>
+        
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">             
+        	<field name="domain">[('supplier','=','True')]</field>           
+        </record>
+    </data>
+</openerp>

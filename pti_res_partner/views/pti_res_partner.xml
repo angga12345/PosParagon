@@ -1,0 +1,35 @@
+<openerp>
+	<data>
+		<record id="res_partner_address_types" model="ir.ui.view">
+            <field name="name">res.partner.view.address_types</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[1]/field[@name='child_ids']" position="replace">
+                    <field name="child_ids"/>
+                </xpath>
+            </field>
+        	</record>
+        	
+        <record id="base.action_partner_customer_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'default_customer':1, 'search_default_customer':1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a customer: discussions, history of business opportunities,
+                documents.
+              </p>
+            </field>
+        </record>
+        </data>
+</openerp>
+        

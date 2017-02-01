@@ -1,0 +1,7 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_pti_kdc_dirjen_tax","pti.kdc.dirjen.tax","model_dirjen_tax_code","pti_branch.group_pti_branch_kdc",1,0,0,0
+"access_pti_finance_dirjen_tax","pti.finance.dirjen.tax","model_dirjen_tax_code","pti_branch.group_pti_branch_finance_admin",1,1,1,1
+"access_pti_co_dirjen_tax","pti.co.dirjen.tax","model_dirjen_tax_code","pti_branch.group_pti_branch_customer_order",1,0,0,0
+"access_pti_do_dirjen_tax","pti.do.dirjen.tax","model_dirjen_tax_code","pti_branch.group_pti_branch_delivery_order",1,0,0,0
+"access_pti_inv_dirjen_tax","pti.inv.dirjen.tax","model_dirjen_tax_code","pti_branch.group_pti_branch_sales_admin_invoice",1,1,0,0
+"audit_discount_dirjen_tax","audit.dirjen.tax","model_dirjen_tax_code","pti_branch.pti_audit_group",1,0,0,0

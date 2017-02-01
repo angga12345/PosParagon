@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+   <data>
+
+      <template id="report_consolidate_product">
+         <t t-foreach="docs" t-as="o">
+            <div class="row">
+               <t t-call="pti_do_report.report_consolidate_product_body"/>
+            </div>
+         </t>
+      </template>
+
+      <template id="report_consolidate_product_body">
+         <t t-call="report.html_container">
+            <div class="page">
+                  <div class="container" position="fixed">
+                  	
+                     <div class="col-xs-6">
+                     <p style="font-weight: bold; font-size: 24px;">
+                        Consolidate Product
+                     </p> 
+                     <br/>
+                     <p style="font-weight: bold;"> Date : <span t-field="o.date_consolidate"/></p>
+                     <p style="font-weight: bold;"> Brand : <span t-field="o.brand_consolidate"/></p>
+                     </div>
+                     <br/>
+
+                     <table class="table table-bordered" style="border-color: #004269;">
+                        <thead>
+                           <tr>
+							<td style="width: 70%;  ">Name</td>
+							<td style="width: 30%; ">Quantity</td>
+                           </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                           <tr t-foreach="o.picking" t-as="picking">
+                                 <td> <span t-field="picking.product_id"/> </td>
+                                 <td style="text-align: right;"> <span t-esc="'{0:,.0f}'.format((picking.tot_qty))"/> </td>
+                           </tr>
+                        </tbody>
+                     </table>
+
+
+                  </div>
+            </div>
+				<!--footer number-->            
+			<div class="footer">
+		    	<div style="margin-top:30px;" class="row">
+		        	<div class="col-xs-5">
+		            		<small style="margin-top:20px;">
+								<span>Page <span class="page"/> of <span class="topage"/></span>
+							</small>
+		        	</div>
+		    	</div>
+			</div>
+         </t>
+      </template>
+   </data>
+</openerp>

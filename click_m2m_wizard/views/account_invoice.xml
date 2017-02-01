@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="button_update_discount_tax_wizard" model="ir.ui.view">
+			<field name="name">button.update.discount.tax.wizard</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<field name="price_subtotal" position="after">
+					<!--field name="state_inv" invisible="1"/-->
+					<button
+				       type="action"
+				       name="%(click_m2m_wizard.action_update_discount_tax_wizard)d"
+				       string="Edit"
+				       class="oe_edit_only"
+				       help="Edit Discount or Taxes"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="button_update_discount_tax_vendor" model="ir.ui.view">
+			<field name="name">button.update.discount.tax.vendor</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="after">
+					<!--field name="state_inv" invisible="1"/-->
+					<button
+
+				       type="action"
+				       name="%(click_m2m_wizard.action_update_discount_tax_wizard)d"
+				       string="Edit"
+				       class="oe_edit_only"
+				       help="Edit Discount or Taxes"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

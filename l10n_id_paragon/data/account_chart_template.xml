@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<openerp>
+    <data noupdate="1">
+        <record id="action_client_l10n_id_menu" model="ir.actions.client">
+            <field name="name">Open Account Dashboard Menu</field>
+            <field name="tag">reload</field>
+            <field name="params" eval="{'menu_id': ref('account.menu_board_journal_1')}"/>
+        </record>
+        <record id="base.open_menu" model="ir.actions.todo">
+            <field name="action_id" ref="action_client_l10n_id_menu"/>
+            <field name="state">open</field>
+        </record>        
+    </data>
+
+	 <data noupdate="0">
+        <!-- Chart Template -->
+        <record id="account_account_2_1_08_01_003" model="account.account.template">
+	        <field name="name">Unidentified Transfer</field>
+	        <field name="code">2-1-08-01-003</field>
+	        <field name="reconcile" eval="False"/>
+	        <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+	    </record>
+        <record id="l10n_id_paragon_chart_template" model="account.chart.template">
+        	<field name="name">Indonesian Account Chart Template</field>
+        	<field name="currency_id" ref="base.IDR"/>
+            <field name="code_digits">1</field>
+            <field name="transfer_account_id" ref="account_account_2_1_08_01_003"/>
+        </record>
+        <record id="account_account_2_1_08_01_003" model="account.account.template">
+            <field name="chart_template_id" ref="l10n_id_paragon_chart_template"/>
+        </record>
+    </data>
+</openerp>

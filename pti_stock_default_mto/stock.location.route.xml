@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+        <record id="route_2_steps_delivery" model="stock.location.route">
+            <field name="name">2 Steps Delivery</field>
+        </record>
+        <record id="route_ndc_dc" model="stock.location.route">
+            <field name="name">PTI ROUTES</field>
+            <field name="active" eval="True"/>
+            <field name="warehouse_selectable" eval="True"/>
+        </record>
+        <record id="stock_2_staging" model="procurement.rule">
+            <field name="name">WH/Stock to WH/Staging</field>
+            <field name="procure_method">make_to_stock</field>
+            <field name="action">move</field>
+            <field name="picking_type_id" ref="picking_goods"/>
+            <field name="location_src_id" model="stock.location" search="[('complete_name','=','Physical Locations / NDC / Stock')]"/>
+            <field name="location_id" ref="ndc_staging"/>
+            <field name="route_id" ref="route_2_steps_delivery"/>
+        </record>
+        <record id="path_ndc_transit_quarantine_to_quarantine" model="stock.location.path">
+            <field name="name">NDC/Transit Quarantine to NDC/Quarantine</field>
+            <field name="route_id" ref="route_ndc_dc"/>
+            <field name="location_from_id" ref="ndc_transit_quarantine"/>
+            <field name="location_dest_id" ref="ndc_quarantine"/>
+            <field name="picking_type_id" ref="picking_quarantine"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</openerp>

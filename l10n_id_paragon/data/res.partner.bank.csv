@@ -1,0 +1,72 @@
+id,partner_id/id,acc_number,bank_id/id,company_id/id,currency_id/id,sequence
+res_partner_bank_1_1_01_02_001,base.main_partner,Bank Mandiri HO (IDR) 102-000-434-888-1,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_002,base.main_partner,Bank Mandiri HO (IDR) 102-00-0502-109-9,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_003,base.main_partner,Bank Mandiri BDG (IDR) 102-00-0519-833-5,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_004,base.main_partner,Bank Mandiri BGK (IDR) 102-00-0519-834-3,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_005,base.main_partner,Bank Mandiri PKB (IDR) 102-00-0519-835-0,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_006,base.main_partner,Bank Mandiri BTM (IDR) 102-00-0519-836-8,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_007,base.main_partner,Bank Mandiri SOL (IDR) 102-00-0519-837-6,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_008,base.main_partner,Bank Mandiri SBY (IDR) 102-00-0519-839-2,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_009,base.main_partner,Bank Mandiri MKS (IDR) 102-00-0519-841-8,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_010,base.main_partner,Bank Mandiri BJM (IDR) 102-00-0519-842-6,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_011,base.main_partner,Bank Mandiri CBN (IDR) 102-000-569-769-0,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_012,base.main_partner,Bank Mandiri JMB (IDR) 102-000-569-770-8,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_013,base.main_partner,Bank Mandiri JGJ (IDR) 102-000-569-771-6,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_014,base.main_partner,Bank Mandiri MDN (IDR) 102-000-569-772-4,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_015,base.main_partner,Bank Mandiri PLG (IDR) 102-000-569-775-7,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_016,base.main_partner,Bank Mandiri SMG (IDR) 102-000-569-777-3,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_017,base.main_partner,Bank Mandiri BAL (IDR) 102-000-569-778-1,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_018,base.main_partner,Bank Mandiri BGR (IDR) 102-000-569-779-9,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_019,base.main_partner,Bank Mandiri SRG (IDR) 102-000-569-781-5,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_020,base.main_partner,Bank Mandiri SMD (IDR) 102-000-569-782-3,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_021,base.main_partner,Bank Mandiri LPG (IDR) 102-000-569-783-1,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_022,base.main_partner,Bank Mandiri PTK (IDR) 102-000-569-784-9,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_023,base.main_partner,Bank Mandiri MLG (IDR) 102-000-569-785-6,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_024,base.main_partner,Bank Mandiri BKS (IDR) 102-000-569-786-4,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_025,base.main_partner,Bank Mandiri PWT (IDR) 102-000-569-787-2,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_026,base.main_partner,Bank Mandiri JBR (IDR) 102-000-597-109-5,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_027,base.main_partner,Bank Mandiri ACH (IDR) 102-000-600-607-3,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_028,base.main_partner,Bank Mandiri TSK (IDR) 102-000-601-436-6,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_029,base.main_partner,Bank Mandiri JKT (IDR) 102-000-603-841-5,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_030,base.main_partner,Bank Mandiri KDR (IDR) 102-000-627-630-4,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_031,base.main_partner,Bank Mandiri TGL (IDR) 102-000-635-575-1,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_032,base.main_partner,Bank Mandiri HO (IDR) 102-000-653-914-9,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_033,base.main_partner,Bank Mandiri HO (IDR) 102-000-653-915-6,res_bank_mandiri,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_034,base.main_partner,Bank Mandiri HO USD 102-00-0515-840-4,res_bank_mandiri,base.main_company,base.USD,0
+res_partner_bank_1_1_01_02_035,base.main_partner,Bank Mandiri HO USD 102-000-646-694-7,res_bank_mandiri,base.main_company,base.USD,0
+res_partner_bank_1_1_01_02_101,base.main_partner,BCA JBR (IDR) 178-302-523-3,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_102,base.main_partner,BCA HO (IDR) 178-302-533-1,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_103,base.main_partner,BCA SBY (IDR) 178-302-543-8,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_104,base.main_partner,BCA BKS (IDR) 178-302-553-5,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_105,base.main_partner,BCA MDN (IDR) 178-302-563-2,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_106,base.main_partner,BCA PWT (IDR) 178-302-573-0,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_107,base.main_partner,BCA SMG (IDR) 178-302-583-7,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_108,base.main_partner,BCA MLG (IDR) 178-302-593-4,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_109,base.main_partner,BCA PTK (IDR) 178-302-513-6,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_110,base.main_partner,BCA PLG (IDR) 178-302-911-5,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_111,base.main_partner,BCA BAL (IDR) 178-302-912-3,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_112,base.main_partner,BCA BTM (IDR) 178-302-913-1,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_113,base.main_partner,BCA SMD (IDR) 178-302-921-2,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_114,base.main_partner,BCA JKT (IDR) 178-302-922-1,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_115,base.main_partner,BCA KDR (IDR) 178-302-930-1,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_116,base.main_partner,BCA JGJ (IDR) 178-302-931-0,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_117,base.main_partner,BCA ACH (IDR) 178-302-880-1,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_118,base.main_partner,BCA BDG (IDR) 178-008-855-5,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_119,base.main_partner,BCA BGK (IDR) 178-008-865-2,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_120,base.main_partner,BCA BJM (IDR) 178-008-875-0,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_121,base.main_partner,BCA BGR (IDR) 178-008-876-8,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_122,base.main_partner,BCA CBN (IDR) 178-008-877-6,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_123,base.main_partner,BCA JMB (IDR) 178-008-878-4,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_124,base.main_partner,BCA LPG (IDR) 178-008-879-2,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_125,base.main_partner,BCA MKS (IDR) 178-008-880-6,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_126,base.main_partner,BCA PKB (IDR) 178-008-881-4,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_127,base.main_partner,BCA SRG (IDR) 178-008-883-1,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_128,base.main_partner,BCA SOL (IDR) 178-008-884-9,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_129,base.main_partner,BCA TSK (IDR) 178-008-885-7,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_130,base.main_partner,BCA TGL (IDR) 178-008-886-5,res_bank_bca,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_201,base.main_partner,BNI HO (IDR) 280-028-0062,res_bank_bni,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_301,base.main_partner,CIMB Niaga HO (IDR) 225-01-00089-00-0,res_bank_cimb,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_401,base.main_partner,Bank Muamalat HO (IDR) 302-000-716-5,res_bank_muamalat,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_501,base.main_partner,Bank Mega HO (IDR) 01-094-00-20-43717-0,res_bank_mega,base.main_company,base.IDR,0
+res_partner_bank_1_1_01_02_601,base.main_partner,Bank Panin HO (IDR) 140-527-029-9,res_bank_panin,base.main_company,base.IDR,0
+

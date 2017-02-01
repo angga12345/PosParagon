@@ -1,0 +1,57 @@
+<openerp>
+    <data>
+    	<template id="report_trialbalance_inherit" inherit_id="account.report_trialbalance">
+
+		<xpath expr="//div[@class='row mt32']" position="replace">
+                <div class="row mt32">
+                    <div class="col-xs-3">
+                        <strong>Display Account:</strong>
+                        <p>
+                            <span t-if="data['display_account'] == 'all'">All accounts</span>
+                            <span t-if="data['display_account'] == 'movement'">With movements</span>
+                            <span t-if="data['display_account'] == 'not_zero'">With balance not equal to zero</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p>
+                            <t t-if="data['date_from']"><strong>Date from :</strong> <span t-esc="data['date_from']"/><br/></t>
+                            <t t-if="data['date_to']"><strong>Date to :</strong> <span t-esc="data['date_to']"/></t>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Target Moves:</strong>
+                        <p>
+                            <span t-if="data['target_move'] == 'all'">All Entries</span>
+                            <span t-if="data['target_move'] == 'posted'">All Posted Entries</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Currency:</strong>
+                        <p>
+                            <span t-esc="res_company.currency_id.name"/>
+                        </p>
+                    </div>
+                </div>
+    	</xpath>
+    	
+		<xpath expr="//table/tbody/tr/td[3]" position="replace">
+            <td class="text-right">
+                 <span t-att-style="style" t-esc="'{0:,.2f}'.format(account['debit'])"/>
+            </td>
+    	</xpath>
+		<xpath expr="//table/tbody/tr/td[4]" position="replace">
+            <td class="text-right">
+                <span t-att-style="style" t-esc="'{0:,.2f}'.format(account['credit'])"/>
+            </td>
+
+    	</xpath>
+		<xpath expr="//table/tbody/tr/td[5]" position="replace">
+            <td class="text-right">
+                <span t-att-style="style" t-esc="'{0:,.2f}'.format(account['balance'])"/>
+            </td>
+    	</xpath>
+    	
+
+        </template>
+    </data>
+</openerp>

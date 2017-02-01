@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data noupdate="1">
+        <record id="temporary_customers" model="res.partner">
+            <field name="name">Temporary Customer</field>
+			<field name="this_for_all">True</field>
+			<field name="company_type">person</field>
+			<field name="customer">True</field>
+			<field name="ref">tmp.customer</field>
+			<field name="property_account_receivable_id" ref="l10n_id_paragon.account_account_1_1_02_01_001"/>
+            <field name="property_account_payable_id" ref="l10n_id_paragon.account_account_2_1_01_01_001"/>
+        </record>
+    </data>
+</openerp>

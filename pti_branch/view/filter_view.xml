@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<odoo>
+	<data>
+
+		<!-- Filter to see only so created today and This Month -->
+        <record model="ir.ui.view" id="so_search">
+        	<field name="name">so search</field>
+        	<field name="model">sale.order</field>
+        	<field name="type">search</field>
+			<field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        	<field name="arch" type="xml">
+     			<xpath expr="//field[@name='name']" position="after">
+        			<filter name='so_today' string="SO today" domain="[('date_order', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('date_order', '&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+					<filter name='so_this_month' string="This Month" domain="[('date_order','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date_order','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+				</xpath>
+
+        	</field>
+        </record>
+
+		<!-- Filter to see only stock move created today -->
+        <record model="ir.ui.view" id="sm_search">
+        	<field name="name">sm search</field>
+        	<field name="model">stock.move</field>
+        	<field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_move_search"/>
+        	<field name="arch" type="xml">
+     			<xpath expr="//field[@name='date']" position="after">
+        			<filter name='sm_today' string="stock move today" domain="[('date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('date', '&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+				</xpath>
+				
+        	</field>
+        </record>
+
+		<!-- Filter to see only customer invoice created today and this Month -->
+		<record model="ir.ui.view" id="inv_search">
+			<field name="name">inv.search</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.view_account_invoice_filter"/>
+			<field name="arch" type="xml">
+				
+				<xpath expr="//field[@name='journal_id']" position="after">
+					<filter name='inv_today' string="invoice today" domain="[('date_invoice', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('date_invoice', '&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/> 
+					<filter name='inv_this_month' string="This Month" domain="[('date_invoice','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date_invoice','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+					<filter name='inv_open' string="Open" domain="[('state','=','open')]"/>
+				</xpath>
+			</field>	
+		</record>       
+	  
+		<!-- Active Filter to see only so this Month -->
+		<record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="context">{'search_default_so_this_month': True}</field>
+        </record>		
+        
+		<!-- Active Filter to see only stock move today -->
+		<record id="stock.action_move_form2" model="ir.actions.act_window">
+            <field name="context">{'search_default_sm_today': True}</field>
+        </record>		
+
+		<!-- Active Filter to see only customer invoice state Open-->
+		<record id="account.action_invoice_tree1" model="ir.actions.act_window">
+            <field name="context">{'search_default_inv_open': True}</field>
+        </record>
+	</data>
+</odoo>

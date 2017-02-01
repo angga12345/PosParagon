@@ -1,0 +1,89 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pti_sa_adj_aasman,account.account stock manager,account.model_account_account,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_aasman,account.account stock manager,account.model_account_account,pti_validate_adjustment,1,0,0,0
+access_pti_sa_adj_aj,account.journal,account.model_account_journal,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_aj,account.journal,account.model_account_journal,pti_validate_adjustment,1,1,0,0
+access_pti_sa_adj_parec,account.partial.reconcile,account.model_account_partial_reconcile,pti_stock_adjustment,1,1,1,0
+access_pti_fs_adj_parec,account.partial.reconcile,account.model_account_partial_reconcile,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_csm,product.category stock_manager,account.model_product_category,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_csm,product.category stock_manager,account.model_product_category,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_tpsm,product.template stock_manager,account.model_product_template,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_tpsm,product.template stock_manager,account.model_product_template,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_pgsm,res_partner group_stock_manager,account.model_res_partner,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_pgsm,res_partner group_stock_manager,account.model_res_partner,pti_validate_adjustment,1,1,1,0
+access_pti_sa_adj_bcsmg,barcode.nomenclature.stock.manager,barcodes.model_barcode_nomenclature,pti_stock_adjustment,1,1,1,0
+access_pti_fs_adj_bcsmg,barcode.nomenclature.stock.manager,barcodes.model_barcode_nomenclature,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_brsmger,barcode.rule.stock.manager,barcodes.model_barcode_rule,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_brsmger,barcode.rule.stock.manager,barcodes.model_barcode_rule,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_gsm,ir_property group_stock_manager,base.model_ir_property,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_gsm,ir_property group_stock_manager,base.model_ir_property,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_prorm,procurement_rule manager,procurement.model_procurement_rule,pti_stock_adjustment,1,1,1,0
+access_pti_fs_adj_prsmger,procurement_rule stock manager,procurement.model_procurement_rule,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_psmg,product.packaging stock_manager,product.model_product_packaging,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_psmg,product.packaging stock_manager,product.model_product_packaging,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_phstm,prices.history stock manager,product.model_product_price_history,pti_stock_adjustment,1,1,1,0
+access_pti_fs_adj_phstm,prices.history stock manager,product.model_product_price_history,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_psmgr,product.pricelist stock_manager,product.model_product_pricelist,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_psmgr,product.pricelist stock_manager,product.model_product_pricelist,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_pism,product.pricelist.item stock_manager,product.model_product_pricelist_item,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_pism,product.pricelist.item stock_manager,product.model_product_pricelist_item,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_psm,product.product stock_manager,product.model_product_product,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_psm,product.product stock_manager,product.model_product_product,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_spsm,product.supplierinfo stock_manager,product.model_product_supplierinfo,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_spsm,product.supplierinfo stock_manager,product.model_product_supplierinfo,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_usm,product.uom stock_manager,product.model_product_uom,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_usm,product.uom stock_manager,product.model_product_uom,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_smg,product.uom.categ stock_manager,product.model_product_uom_categ,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_smg,product.uom.categ stock_manager,product.model_product_uom_categ,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_aacsm,access.stock.manager,pti_additional_models.model_product_brand,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_aacsm,access.stock.manager,pti_additional_models.model_product_brand,pti_validate_adjustment,1,0,0,0
+access_pti_retur_reason_stock_adjustment,retur.reason.account.adjustment,pti_additional_models.model_retur_reason,pti_stock_adjustment,1,0,0,0
+access_pti_retur_reason_validate_adjustment,retur.reason.validate.adjustment,pti_additional_models.model_retur_reason,pti_validate_adjustment,1,0,0,0
+access_pti_retur_reason_prodev,retur.reason.prodev,pti_additional_models.model_retur_reason,pti_prodev,1,0,0,0
+acess_stock_adj_sub_distibution_channel,acess.stock.adj.sub.distribution.channel,pti_additional_models.model_sub_distribution_channel,pti_stock_adjustment,1,1,1,1
+acess_validate_adj_sub_distibution_channel,acess.validate.adj.sub.distribution.channel,pti_additional_models.model_sub_distribution_channel,pti_validate_adjustment,1,1,1,1
+acess_prodev_sub_distribution_channel,acess.prodev.sub.distribution.channel,pti_additional_models.model_sub_distribution_channel,pti_prodev,1,1,1,1
+access_pti_sa_adj_lm,stock.location.manager,pti_branch.model_stock_location,pti_stock_adjustment,1,1,1,0
+access_pti_fs_adj_lsm,stock.location stock manager,pti_branch.model_stock_location,pti_validate_adjustment,1,1,1,0
+access_pti_sa_adj_tpm,stock.picking.type manager,pti_branch.model_stock_picking_type,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_tpm,stock.picking.type manager,pti_branch.model_stock_picking_type,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_wm,stock.warehouse.manager,pti_branch.model_stock_warehouse,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_wm,stock.warehouse.manager,pti_branch.model_stock_warehouse,pti_validate_adjustment,1,1,1,0
+access_pti_sa_adj_pm,stock.picking manager,pti_customer_order.model_stock_picking,pti_stock_adjustment,1,1,1,0
+access_pti_fs_adj_pm,stock.picking manager,pti_customer_order.model_stock_picking,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_mm,stock.move manager,pti_off_auto_merge.model_stock_move,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_mm,stock.move manager,pti_off_auto_merge.model_stock_move,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_slrt,stock.location.route,sale_stock.model_stock_location_route,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_slrt,stock.location.route,sale_stock.model_stock_location_route,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_histman,stock.history stock manager,stock_account.model_stock_history,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_histman,stock.history stock manager,stock_account.model_stock_history,pti_validate_adjustment,1,0,0,0
+access_pti_sa_adj_ppam,product.putaway all managers,stock.model_product_putaway,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_ppam,product.putaway all managers,stock.model_product_putaway,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_rsfman,report.stock.forecast.manager,stock.model_report_stock_forecast,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_rsfman,report.stock.forecast.manager,stock.model_report_stock_forecast,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_dmg,report.stock.lines.date manager,stock.model_report_stock_lines_date,pti_stock_adjustment,1,0,1,0
+access_pti_fs_adj_dmg,report.stock.lines.date manager,stock.model_report_stock_lines_date,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_sfpst,stock_fixed_putaway_strat managers,stock.model_stock_fixed_putaway_strat,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_sfpst,stock_fixed_putaway_strat managers,stock.model_stock_fixed_putaway_strat,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_im,stock.incoterms manager,stock.model_stock_incoterms,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_im,stock.incoterms manager,stock.model_stock_incoterms,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_im,stock.inventory manager,stock.model_stock_inventory,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_im,stock.inventory manager,stock.model_stock_inventory,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_lnm,stock.inventory.line manager,stock.model_stock_inventory_line,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_lnm,stock.inventory.line manager,stock.model_stock_inventory_line,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_smolm,stock.move.operation.link manager,stock.model_stock_move_operation_link,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_smolm,stock.move.operation.link manager,stock.model_stock_move_operation_link,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_spom,stock.pack.operation manager,stock.model_stock_pack_operation,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_spom,stock.pack.operation manager,stock.model_stock_pack_operation,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_spolm,stock.pack.operation.lot manager,stock.model_stock_pack_operation_lot,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_spolm,stock.pack.operation.lot manager,stock.model_stock_pack_operation_lot,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_ltm,stock.production.lot manager,stock.model_stock_production_lot,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_ltm,stock.production.lot manager,stock.model_stock_production_lot,pti_validate_adjustment,1,0,0,0
+access_pti_sa_adj_qm,stock.quant manager,stock.model_stock_quant,pti_stock_adjustment,1,0,0,0
+access_pti_fs_adj_qm,stock.quant manager,stock.model_stock_quant,pti_validate_adjustment,1,0,0,0
+access_pti_sa_adj_psmger,stock.quant.package stock manager,stock.model_stock_quant_package,pti_stock_adjustment,1,1,1,0
+access_pti_fs_adj_psmger,stock.quant.package stock manager,stock.model_stock_quant_package,pti_validate_adjustment,1,1,1,1
+access_pti_sa_adj_wos,stock.warehouse.orderpoint system,stock.model_stock_warehouse_orderpoint,pti_stock_adjustment,1,1,1,1
+access_pti_fs_adj_wos,stock.warehouse.orderpoint system,stock.model_stock_warehouse_orderpoint,pti_validate_adjustment,1,1,1,1
+tags_access_pti_sa_adj_aacsm,access.stock.manager,pti_additional_models.model_product_tags,pti_stock_adjustment,1,0,0,0
+tags_access_pti_fs_adj_aacsm,access.stock.manager,pti_additional_models.model_product_tags,pti_validate_adjustment,1,0,0,0

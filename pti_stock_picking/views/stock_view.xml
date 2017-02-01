@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>    	
+	<record id="stock_picking_add_finish_update" model="ir.ui.view">
+    		<field name="name">stock.picking.add.finish.update</field>
+    		<field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+<!--    This button attributes for rename button assign to booking and change call function from action_assign to action_assign_warning        -->
+            	<button name="action_assign" position = "attributes" > 
+			        <attribute name ="string">Booking</attribute>
+			    </button>
+            	<xpath expr="//form/header/button[6]" position="replace">
+
+            		<button name="%(stock.act_stock_return_picking)d" string="Send Back" type="action" attrs="{'invisible': [('state','!=','done')]}"/>
+					<button name="generate_CN" string="Generate Credit Note" type="object" 
+							attrs="{'invisible': ['|','|',('state','!=','done'),('is_retur','=',False),('is_have_cn','=',True)]}"/>
+		
+		</xpath>
+				<field name="partner_id" position="attributes">
+                	<attribute name="attrs"></attribute>
+                	<attribute name="attrs">{'required':[('is_retur','=',True)]}</attribute>
+				</field>
+                <field name="location_id" position="attributes">
+                	<attribute name="attrs"></attribute>
+                </field>
+                <field name="location_dest_id" position="attributes">
+                	<attribute name="attrs"></attribute>
+                </field>
+                <field name="location_dest_id" position="after">
+                	<field name="is_send_back" invisible="1"/>
+                	<field name="is_retur" invisible="1"/>
+                	<field name="is_have_cn" invisible="1"/>
+                </field>
+				<field name="pack_operation_product_ids" position="before">
+                    <button name="action_finish_update" states="assigned,confirmed,partially_available,waiting" 
+                    string="Set all done" class="oe_highlight" type="object" groups="stock.group_stock_user"/>
+                </field>
+            </field>    
+    	</record>
+    	
+		<record id="view_custom_do_notif_report_form" model="ir.ui.view">
+            <field name="name">view.custom.do.notif.report.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="pti_do_report.view_custom_do_form"/>
+            <field name="arch" type="xml">
+                <data>
+				    <field name="notif_report_printed" position="after">
+<!--				    	<field name="flag_cust" invisible="1" /-->
+						<field name="is_retur_type" invisible="1" />	
+				    	<field name="retur_reason" attrs="{'invisible':[('is_retur_type','=',False)]}"/>
+				    </field>
+                </data>
+
+            </field>
+        </record>
+            	
+    	<!-- show priority on tree view stock picking   -->
+    	<record id="view_custom_stock_picking_tree_priority" model="ir.ui.view">
+            <field name="name">custom.stock.picking.tree.priority</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr='//tree/field[@name="priority"]' position="replace">
+					<field name="priority" invisible="0"/>
+				</xpath>
+            </field>
+        </record>
+                    	
+    </data>
+</openerp>

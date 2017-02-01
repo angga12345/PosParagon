@@ -1,0 +1,2 @@
+import invoice_line_m2m_wizard
+import purchase_line_m2m_wizard

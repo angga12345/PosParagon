@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+		<record id="base.menu_sale_report" model="ir.ui.menu">
+			<field name="groups_id" eval="[(3,ref('pti_branch.group_pti_branch_customer_order'))]"/>
+    		<field name="groups_id" eval="[(4,ref('base.group_sale_manager')),
+    									   (4,ref('pti_branch.group_pti_branch_finance_admin')),
+    									   (4,ref('pti_branch.pti_audit_group')),
+    									   (4,ref('pti_branch.group_pti_branch_kdc'))]"/>
+		</record>
+		<record id="sale.menu_report_product_all" model="ir.ui.menu">
+			<field name="groups_id" eval="[(3,ref('pti_branch.group_pti_branch_customer_order'))]"/>
+    		<field name="groups_id" eval="[(4,ref('base.group_sale_manager')),
+    									   (4,ref('pti_branch.group_pti_branch_finance_admin')),
+    									   (4,ref('pti_branch.pti_audit_group')),
+    									   (4,ref('pti_branch.group_pti_branch_kdc'))]"/>
+		</record>
+    </data>
+</openerp>

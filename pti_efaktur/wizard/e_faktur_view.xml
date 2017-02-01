@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<openerp>
+    <data>
+
+        <!-- Register payment from several invoices -->
+
+        <record id="view_e_faktur_from_invoices" model="ir.ui.view">
+            <field name="name">account.e.faktur.wizard</field>
+            <field name="model">account.e.faktur</field>
+            <field name="arch" type="xml">
+                <form string="E-Faktur" version="7">
+                	<field invisible="1" name="state_x"/>
+                	<group>
+	                	<button class="oe_stat_button"
+	                            icon="fa-pencil-square-o"
+	                            attrs="{'invisible': [('tax_count', '=', 0)]}">
+	                            <field name="tax_count" widget="statinfo" string="Free tax code"/>
+	                    </button>
+                    </group>
+                  
+                	Choose Delimiter:
+                	<field name="delimiter"/>
+                    <newline/>
+                    <group col="4" fill="0" attrs="{'invisible':[('state_x','!=','get')]}">
+                        <separator colspan="4" string="Generate to Excel done. Download by click link below" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="name" invisible="1" width="100" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                        <field name="data_x" nolabel="1" readonly="0" width="100" filename="name" attrs="{'invisible':[('state_x','=','choose')]}"/>
+                              	
+                    </group>
+                    <group>
+                    	<field name="npwp_o" string="SET NPWP 000000000000000"/>
+                    </group>
+                    <footer>
+                        <button icon="gtk-print" string='Generate automatically' name="create_efaktur" type="object" attrs="{'invisible':[('state_x','=','get')]}"/>
+                        <button class="btn-default" name="choose" string="Choose manually" type="object"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>       
+        
+        <act_window
+            id="action_e_faktur_from_invoices"
+            name="E-Faktur"
+            res_model="account.e.faktur"
+            src_model="account.invoice"
+            view_mode="form"
+            multi="True"
+            target="new"
+            key2="client_action_multi"
+        />
+
+    </data>
+</openerp>

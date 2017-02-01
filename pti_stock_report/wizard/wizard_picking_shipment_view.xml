@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (C) 2016 by PT Paragon Technology And Innovation
+
+ This file is part of PTI Odoo Addons.
+
+ PTI Odoo Addons is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ PTI Odoo Addons is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with PTI Odoo Addons.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<openerp>
+    <data>
+
+		<!-- add picking to shipment  -->
+        <record model="ir.ui.view" id="picking_to_shipment_form">
+            <field name="name">stock.picking.to.shipment.form</field>
+            <field name="model">picking.to.shipment</field>
+            <field name="arch" type="xml">
+                <form string="Add pickings to Shipment">
+                    <separator string="Select a Shipment"/>
+                    <field name="tracking_id" class="oe_inline" domain="[('state', '=', 'draft')]"/>
+                    <footer>
+                        <button name="picking_shipment" type="object" string="Add to Shipment" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--  add picking to shipment action menu-->
+        <record model="ir.actions.act_window" id="picking_to_shipment_act">
+            <field name="name">Add to Shipment</field>
+            <field name="res_model">picking.to.shipment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="picking_to_shipment_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--  add picking to shipment action -->
+        <act_window id="action_picking_to_shipment" multi="True" key2="client_action_multi" name="Add to Shipment" res_model="picking.to.shipment" src_model="stock.picking" view_mode="form" target="new" view_type="form"/>
+            	
+    </data>
+</openerp>
